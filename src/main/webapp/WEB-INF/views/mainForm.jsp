@@ -7,10 +7,9 @@
 
 <body>
 <a href="/"><h1> 메인 페이지 </h1></a>
-<a href="/ex/selectForm"><h2> SELECT 예제 알아보기 </h2></a>
-<a href="/ex/createForm"><h2> CREATE 예제 알아보기 </h2></a>
-<a href="/ex/updateForm"><h2> UPDATE 예제 알아보기 </h2></a>
-<a href="/ex/deleteForm"><h2> DELETE 예제 알아보기 </h2></a>
+<a href="/ex/exMainForm"><h1> CRUD 예제 </h1></a>
+<a href="/user/joinForm"><h2> 회원가입 기능 </h2></a>
+
 </body>
 
 </html>

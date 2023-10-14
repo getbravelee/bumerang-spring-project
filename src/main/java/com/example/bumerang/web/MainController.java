@@ -13,7 +13,7 @@ public class MainController {
 	private final UserDao userDao;
 
 	@GetMapping("/")
-	public String hello() {
+	public String mainForm() {
 		return "mainForm";
 	}
 }

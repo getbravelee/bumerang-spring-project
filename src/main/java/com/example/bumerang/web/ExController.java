@@ -19,19 +19,19 @@ public class ExController {
 	private final UserDao userDao;
 
 	@GetMapping("/ex/selectForm")
-	public String select(Model model) {
+	public String selectForm(Model model) {
 		List<User> users = userDao.findAll();
 		model.addAttribute("userList", users);
-		return "ex/select";
+		return "ex/selectForm";
 	}
 
 	@GetMapping("/ex/createForm")
-	public String create() {
-		return "ex/create";
+	public String createForm() {
+		return "ex/createForm";
 	}
 
 	@PostMapping("/ex/create")
-	public String insert(JoinDto joinDto, Model model) {
+	public String create(JoinDto joinDto, Model model) {
 		System.out.println("디버그 getUserLoginId:"+joinDto.getUserLoginId());
 		System.out.println("디버그 getUserPassword:"+joinDto.getUserPassword());
 		System.out.println("디버그 getUserEmail:"+joinDto.getUserEmail());
@@ -39,18 +39,18 @@ public class ExController {
 		userDao.join(joinDto);
 		User user = userDao.findByLoginId(joinDto.getUserLoginId());
 		model.addAttribute("user", user);
-		return "ex/createResult";
+		return "ex/createResultForm";
 	}
 
 	@GetMapping("/ex/updateForm")
-	public String update()
+	public String updateForm()
 	{
-		return "ex/update";
+		return "ex/updateForm";
 	}
 
 
 	@PostMapping ("/ex/update")
-	public String updateUser(JoinDto joinDto, Model model) {
+	public String update(JoinDto joinDto, Model model) {
 		System.out.println("디버그 getUserLoginId:"+joinDto.getUserLoginId());
 		System.out.println("디버그 getUserPassword:"+joinDto.getUserPassword());
 		System.out.println("디버그 getUserEmail:"+joinDto.getUserEmail());
@@ -69,24 +69,31 @@ public class ExController {
 		System.out.println("디버그 afterUser getUserNickname:"+afterUser.getUserNickname());
 		model.addAttribute("beforeUser", beforeUser);
 		model.addAttribute("afterUser", afterUser);
-		return "ex/updateResult";
+		return "ex/updateResultForm";
 	}
 
 	@GetMapping("/ex/deleteForm")
-	public String delete()
+	public String deleteForm()
 	{
-		return "ex/delete";
+		return "ex/deleteForm";
 	}
 
 
 	@PostMapping ("/ex/delete")
-	public String deleteUser(Integer userId) {
+	public String delete(Integer userId) {
 		User deleteBeforeUser = userDao.findById(userId);
 		System.out.println("디버그 deleteBeforeUser getUserLoginId:"+deleteBeforeUser.getUserLoginId());
 		System.out.println("디버그 deleteBeforeUser getUserPassword:"+deleteBeforeUser.getUserPassword());
 		System.out.println("디버그 deleteBeforeUser getUserEmail:"+deleteBeforeUser.getUserEmail());
 		System.out.println("디버그 deleteBeforeUser getUserNickname:"+deleteBeforeUser.getUserNickname());
 		userDao.delete(userId);
-		return "ex/select";
+		return "ex/selectForm";
+	}
+
+	@GetMapping("/ex/exMainForm")
+	public String exMainForm(Model model) {
+		List<User> users = userDao.findAll();
+		model.addAttribute("userList", users);
+		return "ex/exMainForm";
 	}
 }
