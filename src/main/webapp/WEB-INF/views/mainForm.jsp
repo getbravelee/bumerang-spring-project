@@ -9,6 +9,7 @@
 <a href="/"><h1> 메인 페이지 </h1></a>
 <a href="/ex/exMainForm"><h1> CRUD 예제 </h1></a>
 <a href="/user/joinForm"><h2> 회원가입 기능 </h2></a>
+<a href="/user/loginForm"><h2> 로그인 기능 </h2></a>
 
 </body>
 

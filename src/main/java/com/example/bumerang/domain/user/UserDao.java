@@ -1,6 +1,8 @@
 package com.example.bumerang.domain.user;
 
+import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.ex.request.JoinDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +23,6 @@ public interface  UserDao {
     public User findByLoginId(String userLoginId); // 예제
 
     public void updateUser(JoinDto joinDto); // 예제
+
+    public SessionUserDto findByUser(@Param("userLoginId")String userLoginId, @Param("userPassword")String userPassword);
 }
