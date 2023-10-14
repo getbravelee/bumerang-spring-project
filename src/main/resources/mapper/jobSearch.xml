@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.jobSearch.JobSearchDao">
+
+    <select id="findById"
+            resultType="com.example.bumerang.domain.jobSearch.JobSearch">
+        SELECT * FROM job_search
+        WHERE job_search_id=#{jobSearchId}
+    </select>
+
+    <select id="findAll"
+            resultType="com.example.bumerang.domain.jobSearch.JobSearch">
+        SELECT *
+        FROM job_search
+        WHERE user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO
+        job_search (job_content_title, job_content, job_genre, job_art_title, job_start_date, job_production_date, job_to, job_field, job_gender, job_contact, job_view, user_id, job_deadlineuser_id, created_at)
+        VALUES
+        (#{jobContentTitle}, #{jobContent}, #{jobGenre}, #{jobArtTitle}, #{jobStartDate}, #{jobProductionDate}, #{jobTo}, #{jobField}, #{jobGender}, #{jobContact}, #{jobView}, #{userId}, #{jobDeadline} ,NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE job_search
+        SET
+        job_content_title = #{jobContentTitle},
+        job_content = #{jobContent},
+        job_genre = #{jobGenre},
+        job_art_title = #{jobArtTitle},
+        job_start_date = #{jobStartDate},
+        job_production_date = #{jobProductionDate},
+        job_to = #{jobTo},
+        job_field = #{jobField},
+        job_gender = #{jobGender},
+        job_contact = #{jobContact},
+        job_view = #{jobView},
+        created_at = NOW()
+        WHERE
+        job_content_title = #{jobContentTitle}
+        AND user_id = #{userId};
+    </update>
+
+    <delete id="delete">
+        DELETE FROM job_search WHERE job_search_id = #{jobSearchId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.likey.LikeyDao">
+
+    <select id="findById"
+            resultType="com.example.bumerang.domain.likey.Likey">
+        SELECT * FROM likey WHERE likey_id=#{likeyId}
+    </select>
+
+    <select id="findAll"
+            resultType="com.example.bumerang.domain.likey.Likey">
+        SELECT *
+        FROM likey
+        WHERE user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO likey (job_id, pf_id, user_id)
+        VALUES
+        (#{jobId}, #{pfId}, #{userId})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM likey WHERE likey_id = #{likeyId}
+    </delete>
+
+</mapper>

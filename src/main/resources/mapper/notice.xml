@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.notice.NoticeDao">
+
+    <select id="findById"
+            resultType="com.example.bumerang.domain.notice.Notice">
+        SELECT * FROM notice WHERE notice_id=#{noticeId}
+    </select>
+
+    <select id="findAll"
+            resultType="com.example.bumerang.domain.notice.Notice">
+        SELECT *
+        FROM notice
+        WHERE user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO notice
+        (notice_title, notice_content, notice_type, user_id, created_at)
+        VALUES
+        (#{noticeTitle}, #{noticeContent}, #{noticeType}, #{userId}, NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE notice
+        SET
+        notice_title = #{newNoticeTitle},
+        notice_content = #{newNoticeContent},
+        notice_type = #{newNoticeType}
+        WHERE
+        notice_title = #{noticeTitle}
+        AND user_id = #{userId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM notice WHERE notice_id = #{noticeId}
+    </delete>
+
+</mapper>

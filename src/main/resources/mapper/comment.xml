@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.comment.CommentDao">
+
+    <select id="findById"
+            resultType="com.example.bumerang.domain.comment.Comment">
+        SELECT * FROM comment WHERE comment_id=#{commentId}
+    </select>
+
+    <select id="findAll"
+            resultType="com.example.bumerang.domain.comment.Comment">
+        SELECT *
+        FROM comment
+        WHERE user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT
+        INTO comment(comment_content, job_id, pf_id, user_id, created_at)
+        VALUES(#{commentContent},  #{jobId}, #{pfId}, #{userId}, now())
+    </insert>
+
+    <update id="update">
+        UPDATE comment
+        SET
+        comment_content = #{commentContent},
+        updated_at = now()
+    </update>
+
+    <delete id="delete">
+        DELETE FROM comment WHERE comment_id = #{commentId}
+    </delete>
+
+</mapper>
