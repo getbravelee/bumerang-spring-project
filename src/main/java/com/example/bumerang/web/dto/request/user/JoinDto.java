@@ -13,7 +13,12 @@ public class JoinDto {
     private String userEmail;
 
     public User toEntity() {
-        User user = new User(this.userLoginId, this.userPassword, this.userNickname, this.userEmail);
-        return user;
+        return User.builder()
+                .userLoginId(this.userLoginId)
+                .userPassword(this.userPassword)
+                .userEmail(this.userEmail)
+                .userNickname(this.userNickname)
+                .build();
     }
 }
+

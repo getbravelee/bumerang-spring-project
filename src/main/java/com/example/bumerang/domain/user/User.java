@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,11 +23,11 @@ public class User {
     private String userProfileImg;
     private String userRole;
 
-    public User(String userLoginId, String userPassword, String userNickname, String userEmail) {
-        System.err.println("디버그 User(String userLoginId, String userPassword, String userNickname, String userEmail)");
+    @Builder
+    public User(String userLoginId, String userPassword, String userEmail, String userNickname) {
         this.userLoginId = userLoginId;
         this.userPassword = userPassword;
-        this.userNickname = userNickname;
         this.userEmail = userEmail;
+        this.userNickname = userNickname;
     }
 }
