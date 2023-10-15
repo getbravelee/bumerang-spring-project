@@ -1,5 +1,6 @@
 package com.example.bumerang.service;
 
+import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -28,5 +30,10 @@ public class UserService {
 
 	public void login(SessionUserDto userPS) {
 		session.setAttribute("principal", userPS);
+	}
+
+	public List<User> findAll() {
+		List<User> userList = userDao.findAll();
+		return userList;
 	}
 }

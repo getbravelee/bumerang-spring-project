@@ -22,7 +22,9 @@
 </style>
 </head>
 <body>
-<a href="/"><h1> 메인 페이지 </h1></a>
+            <header style="background-color: #333;color: #fff;padding: 20px 0;text-align: center;">
+                <a href="/" style="text-decoration: none; outline: none "><h1>메인 페이지</h1></a>
+            </header>
     <h1>구인글 목록</h1>
     <table>
                 <thead>

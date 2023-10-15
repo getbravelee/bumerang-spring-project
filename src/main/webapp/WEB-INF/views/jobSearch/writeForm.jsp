@@ -21,10 +21,11 @@
         }
 
         /* "작성 완료" 버튼 가로로 너비 맞춤 스타일 */
-        input[type="submit"] {
+        input[type="button"] {
             width: 100%;
-            padding: 10px;
+            padding: 5px;
         }
+
     </style>
 </head>
 <body>

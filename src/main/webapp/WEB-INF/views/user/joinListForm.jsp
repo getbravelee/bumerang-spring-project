@@ -23,12 +23,10 @@
 </head>
 
 <body>
-<a href="/"><h1>메인 페이지</h1></a>
-<a href="/ex/selectForm"><h2>SELECT 예제 알아보기</h2></a>
-<a href="/ex/createForm"><h2>CREATE 예제 알아보기</h2></a>
-<a href="/ex/updateForm"><h2>UPDATE 예제 알아보기</h2></a>
-<a href="/ex/deleteForm"><h2>DELETE 예제 알아보기</h2></a>
-
+            <header style="background-color: #333;color: #fff;padding: 20px 0;text-align: center;">
+                <a href="/" style="text-decoration: none; outline: none "><h1>메인 페이지</h1></a>
+            </header>
+   <h1>사용자 정보 목록</h1>
 <table>
             <thead>
             <tr>

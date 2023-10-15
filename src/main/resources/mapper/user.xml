@@ -50,21 +50,6 @@
         (#{userLoginId}, #{userPassword}, #{userEmail}, #{userNickname})
     </insert>
 
-    <select id="findByLoginId"
-            resultType="com.example.bumerang.domain.user.User">
-        SELECT * FROM user WHERE user_login_id=#{userLoginId}
-    </select>
-
-    <update id="updateUser">
-        UPDATE user
-        SET
-        user_password = #{userPassword},
-        user_email = #{userEmail},
-        user_nickname = #{userNickname}
-        WHERE
-        user_login_id = #{userLoginId}
-    </update>
-
     <delete id="deleteLoginId">
         DELETE FROM user WHERE user_login_id = #{userLoginId}
     </delete>
