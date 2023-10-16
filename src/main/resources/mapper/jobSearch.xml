@@ -37,14 +37,23 @@
         job_gender = #{jobGender},
         job_contact = #{jobContact},
         job_view = #{jobView},
-        created_at = NOW()
+        job_deadline = #{jobDeadline}
         WHERE
-        job_content_title = #{jobContentTitle}
-        AND user_id = #{userId};
+        job_id = #{jobId}
+        AND user_id = #{userId}
     </update>
 
     <delete id="delete">
         DELETE FROM job_search WHERE job_search_id = #{jobSearchId}
     </delete>
+
+    <select id="findByJobSearchDetail"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobSearchDetailDto">
+        SELECT j.job_id, j.job_content_title, j.job_content, j.job_genre, j.job_art_title, j.job_start_date, j.job_production_date, j.job_to, j.job_field, j.job_gender, j.job_contact, j.job_view, j.job_deadline, j.created_at, u.user_id, u.user_nickname, u.user_profile_img
+        FROM job_search j
+        LEFT JOIN user u
+        ON j.user_id = u.user_id
+        WHERE j.job_id=#{jobSearchId}
+    </select>
 
 </mapper>
