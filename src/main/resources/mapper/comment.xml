@@ -13,7 +13,6 @@
             resultType="com.example.bumerang.domain.comment.Comment">
         SELECT *
         FROM comment
-        WHERE user_id=#{userId}
     </select>
 
     <insert id="insert">
@@ -33,4 +32,12 @@
         DELETE FROM comment WHERE comment_id = #{commentId}
     </delete>
 
+    <select id="findAllJob"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobCommentDto">
+        SELECT c.comment_id, c.comment_content, u.user_nickname, u.user_profile_img, c.created_at
+        FROM user u
+        LEFT JOIN comment c
+        ON u.user_id = c.user_id
+        WHERE job_id = #{jobId}
+    </select>
 </mapper>

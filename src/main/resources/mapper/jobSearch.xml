@@ -47,8 +47,8 @@
         DELETE FROM job_search WHERE job_id = #{jobId}
     </delete>
 
-    <select id="findByJobSearchDetail"
-            resultType="com.example.bumerang.web.dto.response.jobSearch.JobSearchDetailDto">
+    <select id="findByJobDetail"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobDetailDto">
         SELECT j.job_id, j.job_content_title, j.job_content, j.job_genre, j.job_art_title, j.job_start_date, j.job_production_date, j.job_to, j.job_field, j.job_gender, j.job_contact, j.job_view, j.job_deadline, j.created_at, u.user_id, u.user_nickname, u.user_profile_img
         FROM job_search j
         LEFT JOIN user u
@@ -56,4 +56,23 @@
         WHERE j.job_id=#{jobId}
     </select>
 
+    <delete id="deleteJob">
+        DELETE FROM comment WHERE job_id = #{jobId};
+        DELETE FROM likey WHERE job_id = #{jobId};
+        DELETE FROM job_search WHERE job_id = #{jobId};
+    </delete>
+
+    <select id="findAllJob"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobDetailDto">
+        SELECT j.job_id, j.job_content_title, j.job_genre,j.job_view, j.job_deadline
+        FROM job_search j
+    </select>
+
+    <select id="findAllBestJob"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.BestJobDto">
+        SELECT ROW_NUMBER() OVER (ORDER BY j.job_view DESC) AS job_rank, j.job_id, j.job_content_title,j.job_genre,
+        j.job_view, j.job_deadline
+        FROM job_search j
+        ORDER BY j.job_view DESC;
+    </select>
 </mapper>

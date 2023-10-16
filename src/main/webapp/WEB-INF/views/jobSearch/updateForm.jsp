@@ -39,31 +39,31 @@
             <h1>구인 수정</h1>
             <div>
                 <label for="jobContentTitle">모집 제목</label>
-                <input type="text" id="jobContentTitle" name="jobContentTitle" value="${jobSearch.jobContentTitle}"
+                <input type="text" id="jobContentTitle" name="jobContentTitle" value="${job.jobContentTitle}"
                     required>
 
                 <label for="jobContent">모집 내용</label>
-                <textarea id="jobContent" name="jobContent" rows="4" value="${jobSearch.jobContent}"
-                    required>${jobSearch.jobContent}</textarea>
+                <textarea id="jobContent" name="jobContent" rows="4" value="${job.jobContent}"
+                    required>${job.jobContent}</textarea>
 
                 <label for="jobGenre">모집 장르</label>
-                <input type="text" id="jobGenre" name "jobGenre" value="${jobSearch.jobGenre}">
+                <input type="text" id="jobGenre" name "jobGenre" value="${job.jobGenre}">
 
                 <label for="jobArtTitle">작품 제목</label>
-                <input type="text" id="jobArtTitle" name="jobArtTitle" value="${jobSearch.jobArtTitle}">
+                <input type="text" id="jobArtTitle" name="jobArtTitle" value="${job.jobArtTitle}">
 
                 <label for="jobStartDate">모집 시작일</label>
-                <input type="date" id="jobStartDate" name="jobStartDate" value="${jobSearch.jobStartDate}">
+                <input type="date" id="jobStartDate" name="jobStartDate" value="${job.jobStartDate}">
 
                 <label for="jobProductionDate">제작일</label>
                 <input type="date" id="jobProductionDate" name="jobProductionDate"
-                    value="${jobSearch.jobProductionDate}">
+                    value="${job.jobProductionDate}">
 
                 <label for="jobTo">모집 인원</label>
-                <input type="number" id="jobTo" name="jobTo" min="1" value="${jobSearch.jobTo}">
+                <input type="number" id="jobTo" name="jobTo" min="1" value="${job.jobTo}">
 
                 <label for="jobField">모집 분야</label>
-                <select id="jobField" name="jobField" value="${jobSearch.jobField}">
+                <select id="jobField" name="jobField" value="${job.jobField}">
                     <option value="스텝">스텝</option>
                     <option value="감독">감독</option>
                     <option value="배우">배우</option>
@@ -72,12 +72,12 @@
                 <div style="width: 800px; display: flex; justify-content: space-between;">
                     <div style="">모집 성별</div>
                     <div style="display: flex;">
-                        <div><input type="radio" id="jobGender" name="jobGender" value="true" ${jobSearch.jobGender
+                        <div><input type="radio" id="jobGender" name="jobGender" value="true" ${job.jobGender
                                 ? 'checked' : '' }></div>
                         <div>남성</div>
                     </div>
                     <div style="display: flex;">
-                        <div><input type="radio" id="jobGender" name="jobGender" value="false" ${!jobSearch.jobGender
+                        <div><input type="radio" id="jobGender" name="jobGender" value="false" ${!job.jobGender
                                 ? 'checked' : '' }></div>
                         <div>여성</div>
                     </div>
@@ -86,13 +86,13 @@
 
 
                 <label for="jobContact">연락방법</label>
-                <input type="text" id="jobContact" name="jobContact" value="${jobSearch.jobContact}" required>
+                <input type="text" id="jobContact" name="jobContact" value="${job.jobContact}" required>
 
                 <label for="jobDeadline">마감일</label>
-                <input type="date" id="jobDeadline" name="jobDeadline" value="${jobSearch.jobDeadline}" required>
+                <input type="date" id="jobDeadline" name="jobDeadline" value="${job.jobDeadline}" required>
 
                 <input type="hidden" id="userId" name="userId" value="${principal.userId}" required>
-                <input type="hidden" id="jobId" name="jobId" value="${jobSearch.jobId}" required>
+                <input type="hidden" id="jobId" name="jobId" value="${job.jobId}" required>
 
                 <!-- "작성 완료" 버튼 -->
                 <input type="button" id="updateBtn" value="작성 완료">

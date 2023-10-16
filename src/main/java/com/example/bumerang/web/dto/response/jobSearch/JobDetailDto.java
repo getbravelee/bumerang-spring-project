@@ -7,7 +7,8 @@ import java.sql.Timestamp;
 
 @Setter
 @Getter
-public class JobSearchDetailDto {
+public class JobDetailDto {
+    // 구인글 정보
     private Integer jobId;
     private String jobContentTitle;
     private String jobContent;
@@ -22,6 +23,7 @@ public class JobSearchDetailDto {
     private Integer jobView;
     private String jobDeadline;
     private Timestamp createdAt;
+    // 구인글 작성자 정보
     private Integer userId;
     private String userNickname;
     private String userProfileImg;

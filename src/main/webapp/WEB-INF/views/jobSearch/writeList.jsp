@@ -37,26 +37,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="jobSearch" items="${jobSearchList}">
+                    <c:forEach var="job" items="${jobList}">
                         <tr>
-                            <td><a href="/jobSearch/detailForm/${jobSearch.jobId}">${jobSearch.jobId}이동하기</a></td>
-                            <td>${jobSearch.jobContentTitle}</td>
-                            <td>${jobSearch.jobContent}</td>
-                            <td>${jobSearch.jobGenre}</td>
-                            <td>${jobSearch.jobArtTitle}</td>
-                            <td>${jobSearch.jobStartDate}</td>
-                            <td>${jobSearch.jobProductionDate}</td>
-                            <td>${jobSearch.jobTo}</td>
-                            <td>${jobSearch.jobField}</td>
-                            <td>${jobSearch.jobGender}</td>
-                            <td>${jobSearch.jobContact}</td>
-                            <td>${jobSearch.jobDeadline}</td>
-                            <td>${jobSearch.userId}</td>
+                            <td><a href="/jobSearch/detailForm/${job.jobId}">${job.jobId}이동하기</a></td>
+                            <td>${job.jobContentTitle}</td>
+                            <td>${job.jobContent}</td>
+                            <td>${job.jobGenre}</td>
+                            <td>${job.jobArtTitle}</td>
+                            <td>${job.jobStartDate}</td>
+                            <td>${job.jobProductionDate}</td>
+                            <td>${job.jobTo}</td>
+                            <td>${job.jobField}</td>
+                            <td>${job.jobGender}</td>
+                            <td>${job.jobContact}</td>
+                            <td>${job.jobDeadline}</td>
+                            <td>${job.userId}</td>
                             <td>
-                                <a href="/jobSearch/updateForm/${jobSearch.jobId}" class="btn btn-warning">수정</a>
+                                <a href="/jobSearch/updateForm/${job.jobId}" class="btn btn-warning">수정</a>
                             </td>
                             <td>
-                                <form action="/jobSearch/delete/${jobSearch.jobId}" method="post"
+                                <form action="/jobSearch/delete/${job.jobId}" method="post"
                                     onsubmit="return confirmDelete()">
                                     <button type="submit" class="btn btn-danger">
                                         삭제

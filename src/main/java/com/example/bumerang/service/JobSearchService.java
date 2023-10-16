@@ -1,10 +1,14 @@
 package com.example.bumerang.service;
 
+import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.domain.jobSearch.JobSearch;
 import com.example.bumerang.domain.jobSearch.JobSearchDao;
+import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
-import com.example.bumerang.web.dto.response.jobSearch.JobSearchDetailDto;
+import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobCommentDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,8 @@ public class JobSearchService {
 
 	private final HttpSession session;
 	private final JobSearchDao jobSearchDao;
+	private final CommentDao commentDao;
+	private final LikeyDao likeyDao;
 
 
 	public void write(WriteDto writeDto) {
@@ -28,8 +34,8 @@ public class JobSearchService {
 		return jobSearchDao.findAll();
 	}
 
-	public JobSearchDetailDto findByJobSearch(Integer jobId) {
-        return jobSearchDao.findByJobSearchDetail(jobId);
+	public JobDetailDto findByJob(Integer jobId) {
+		return jobSearchDao.findByJobDetail(jobId);
 	}
 
 	public void update(UpdateDto updateDto) {
@@ -42,7 +48,23 @@ public class JobSearchService {
 		System.err.println("디버그 getJobContent: "+updateDto.toEntity().getJobContent());
 	}
 
-	public void delete(Integer jobSearchId) {
-		jobSearchDao.delete(jobSearchId);
+	public void delete(Integer jobId) {
+		jobSearchDao.deleteJob(jobId);
+	}
+
+	public  List<JobCommentDto> jobFindAll(Integer jobId) {
+		return commentDao.findAllJob(jobId);
+	}
+
+	public Integer likeyCount(Integer jobId) {
+		return likeyDao.likeyCount(jobId);
+	}
+
+	public List<JobDetailDto> findAllJob() {
+		return jobSearchDao.findAllJob();
+	}
+
+	public List<BestJobDto> findAllBeestJob() {
+		return jobSearchDao.findAllBestJob();
 	}
 }

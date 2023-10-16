@@ -95,6 +95,7 @@
                         <h3>화면 모음</h3>
                         <p><a href="/jobSearch/writeList">구인글 목록</a></p>
                         <p><a href="/user/joinListForm">사용자 목록</a></p>
+                        <p><a href="/jobSearch/mainForm">구인정보글 메인화면</a></p>
                     </div>
                     <div>
                         <h3>기능 모음</h3>

@@ -10,4 +10,6 @@ public interface LikeyDao {
     public void insert(Likey likey);
 
     public void delete(Integer likeyId);
+
+    public Integer likeyCount(Integer jobId);
 }

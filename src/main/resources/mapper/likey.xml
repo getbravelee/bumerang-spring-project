@@ -26,4 +26,10 @@
         DELETE FROM likey WHERE likey_id = #{likeyId}
     </delete>
 
+    <select id="likeyCount"
+            resultType="Integer">
+        SELECT COUNT(likey_id)
+        FROM likey
+        WHERE job_id=#{jobId}
+    </select>
 </mapper>
