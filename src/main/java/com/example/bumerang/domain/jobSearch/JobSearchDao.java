@@ -5,7 +5,7 @@ import com.example.bumerang.web.dto.response.jobSearch.JobSearchDetailDto;
 import java.util.List;
 
 public interface JobSearchDao {
-    public JobSearch findById(Integer jobSearchId);
+    public JobSearch findById(Integer jobId);
 
     public List<JobSearch> findAll();
 
@@ -13,7 +13,7 @@ public interface JobSearchDao {
 
     public void update(JobSearch jobSearch);
 
-    public void delete(Integer jobSearchId);
+    public void delete(Integer jobId);
 
-    JobSearchDetailDto findByJobSearchDetail(Integer jobSearchId);
+    JobSearchDetailDto findByJobSearchDetail(Integer jobId);
 }

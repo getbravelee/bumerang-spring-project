@@ -44,7 +44,7 @@
     </update>
 
     <delete id="delete">
-        DELETE FROM job_search WHERE job_search_id = #{jobSearchId}
+        DELETE FROM job_search WHERE job_id = #{jobId}
     </delete>
 
     <select id="findByJobSearchDetail"
@@ -53,7 +53,7 @@
         FROM job_search j
         LEFT JOIN user u
         ON j.user_id = u.user_id
-        WHERE j.job_id=#{jobSearchId}
+        WHERE j.job_id=#{jobId}
     </select>
 
 </mapper>

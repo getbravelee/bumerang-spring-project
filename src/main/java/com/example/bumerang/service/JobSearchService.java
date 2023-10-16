@@ -28,9 +28,8 @@ public class JobSearchService {
 		return jobSearchDao.findAll();
 	}
 
-	public JobSearchDetailDto findByJobSearch(Integer jobSearchId) {
-		JobSearchDetailDto jobSearchDetail = jobSearchDao.findByJobSearchDetail(jobSearchId);
-		return jobSearchDetail;
+	public JobSearchDetailDto findByJobSearch(Integer jobId) {
+        return jobSearchDao.findByJobSearchDetail(jobId);
 	}
 
 	public void update(UpdateDto updateDto) {
@@ -41,5 +40,9 @@ public class JobSearchService {
 		System.err.println("디버그 getUserId: "+updateDto.toEntity().getUserId());
 		System.err.println("디버그 getJobContentTitle: "+updateDto.toEntity().getJobContentTitle());
 		System.err.println("디버그 getJobContent: "+updateDto.toEntity().getJobContent());
+	}
+
+	public void delete(Integer jobSearchId) {
+		jobSearchDao.delete(jobSearchId);
 	}
 }

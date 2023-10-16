@@ -134,7 +134,7 @@
                     }
 
                     $.ajax("/jobSearch/update", {
-                        type: "POST",
+                        type: "PUT",
                         dataType: "json",
                         data: JSON.stringify(data),
                         headers: {

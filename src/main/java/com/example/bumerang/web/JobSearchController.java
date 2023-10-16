@@ -43,25 +43,32 @@ public class JobSearchController {
     }
 
     // 구인정보 상세보기 화면
-    @GetMapping("/jobSearch/detailForm/{jobSearchId}")
-    public String detailForm(@PathVariable Integer jobSearchId, Model model) {
-        JobSearchDetailDto jobSearchDetail = jobSearchService.findByJobSearch(jobSearchId);
+    @GetMapping("/jobSearch/detailForm/{jobId}")
+    public String detailForm(@PathVariable Integer jobId, Model model) {
+        JobSearchDetailDto jobSearchDetail = jobSearchService.findByJobSearch(jobId);
         model.addAttribute("jobSearch", jobSearchDetail);
         return "jobSearch/detailForm";
     }
 
     // 구인정보 수정하기 화면
-    @GetMapping("/jobSearch/updateForm/{jobSearchId}")
-    public String updateForm(@PathVariable Integer jobSearchId, Model model) {
-        JobSearchDetailDto jobSearchDetail = jobSearchService.findByJobSearch(jobSearchId);
+    @GetMapping("/jobSearch/updateForm/{jobId}")
+    public String updateForm(@PathVariable Integer jobId, Model model) {
+        JobSearchDetailDto jobSearchDetail = jobSearchService.findByJobSearch(jobId);
         model.addAttribute("jobSearch", jobSearchDetail);
         return "jobSearch/updateForm";
     }
 
     // 구인정보 수정하기 기능
-    @PostMapping("/jobSearch/update")
+    @PutMapping("/jobSearch/update")
     public @ResponseBody CMRespDto<?> update(@RequestBody UpdateDto updateDto) {
         jobSearchService.update(updateDto);
         return new CMRespDto<>(1, "구인정보 수정하기 성공.", null);
+    }
+
+    // 구인정보 삭제하기 기능
+    @PostMapping("/jobSearch/delete/{jobId}")
+    public String delete(@PathVariable Integer jobId) {
+        jobSearchService.delete(jobId);
+        return "redirect:/jobSearch/writeList";
     }
 }

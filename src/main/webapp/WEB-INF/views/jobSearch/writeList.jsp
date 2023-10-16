@@ -19,7 +19,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                    <th>상세보기</th>
+                        <th>상세보기</th>
                         <th>모집 제목</th>
                         <th>모집 내용</th>
                         <th>모집 장르</th>
@@ -33,6 +33,7 @@
                         <th>마감일</th>
                         <th>작성자 userId</th>
                         <th>수정</th>
+                        <th>삭제</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,11 +55,23 @@
                             <td>
                                 <a href="/jobSearch/updateForm/${jobSearch.jobId}" class="btn btn-warning">수정</a>
                             </td>
+                            <td>
+                                <form action="/jobSearch/delete/${jobSearch.jobId}" method="post"
+                                    onsubmit="return confirmDelete()">
+                                    <button type="submit" class="btn btn-danger">
+                                        삭제
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-
+            <script>
+                function confirmDelete() {
+                    return confirm("정말 삭제하시겠습니까?");
+                }
+            </script>
 
         </body>
 

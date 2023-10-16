@@ -6,14 +6,13 @@
 
     <select id="findById"
             resultType="com.example.bumerang.domain.performance.Performance">
-        SELECT * FROM performance WHERE performance_id=#{performanceId}
+        SELECT * FROM performance WHERE pf_id=#{pfId}
     </select>
 
     <select id="findAll"
             resultType="com.example.bumerang.domain.performance.Performance">
         SELECT *
         FROM performance
-        WHERE user_id=#{userId}
     </select>
 
     <insert id="insert">
@@ -37,12 +36,12 @@
         pf_thumbnail = #{pfThumbnail},
         pf_view = #{pfView}
         WHERE
-        pf_title = #{pfTitle}
+        pf_id = #{pfId}
         AND user_id = #{userId}
     </update>
 
     <delete id="delete">
-        DELETE FROM performance WHERE performance_id = #{performanceId}
+        DELETE FROM performance WHERE pf_id = #{pfId}
     </delete>
 
 </mapper>

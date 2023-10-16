@@ -3,7 +3,7 @@ package com.example.bumerang.domain.performance;
 import java.util.List;
 
 public interface PerformanceDao {
-    public Performance findById(Integer performanceId);
+    public Performance findById(Integer pfId);
 
     public List<Performance> findAll();
 
@@ -11,5 +11,5 @@ public interface PerformanceDao {
 
     public void update(Performance performance);
 
-    public void delete(Integer performanceId);
+    public void delete(Integer pfId);
 }
