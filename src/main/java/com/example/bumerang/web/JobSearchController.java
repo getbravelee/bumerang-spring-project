@@ -36,7 +36,7 @@ public class JobSearchController {
         return new CMRespDto<>(1, "구인정보 작성하기 성공.", null);
     }
 
-    // 구인정보 작성글 모음(테스트)
+    // 구인정보 목록 화면
     @GetMapping("/jobSearch/writeList")
     public String writeList(Model model) {
         List<JobSearch> jobSearchList = jobSearchService.findAll();

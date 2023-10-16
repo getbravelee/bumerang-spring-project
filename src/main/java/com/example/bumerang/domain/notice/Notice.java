@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.notice;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +15,12 @@ public class Notice {
     private String noticeType;
     private Integer userId;
     private Timestamp createdAt;
+
+    @Builder
+    public Notice(String noticeTitle, String noticeContent, String noticeType, Integer userId) {
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+        this.noticeType = noticeType;
+        this.userId = userId;
+    }
 }

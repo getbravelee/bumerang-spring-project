@@ -1,5 +1,6 @@
 package com.example.bumerang.service;
 
+import com.example.bumerang.domain.notice.Notice;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
@@ -36,4 +37,5 @@ public class UserService {
 		List<User> userList = userDao.findAll();
 		return userList;
 	}
+
 }
