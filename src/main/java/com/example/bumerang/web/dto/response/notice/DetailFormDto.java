@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Setter
 @Getter
-public class NoticeDetailDto {
+public class DetailFormDto {
     // 공지사항 정보
     private Integer noticeId;
     private String noticeTitle;

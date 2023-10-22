@@ -17,27 +17,28 @@
 
     <insert id="insert">
         INSERT
-        INTO comment(comment_content, job_id, pf_id, user_id, created_at)
-        VALUES(#{commentContent},  #{jobId}, #{pfId}, #{userId}, now())
+        INTO comment(comment_content, job_id, pf_id, user_id, comment_status)
+        VALUES(#{commentContent},  #{jobId}, #{pfId}, #{userId}, #{commentStatus})
     </insert>
 
     <update id="update">
         UPDATE comment
         SET
-        comment_content = #{commentContent},
-        updated_at = now()
+        comment_content = #{commentContent}
     </update>
 
     <delete id="delete">
-        DELETE FROM comment WHERE comment_id = #{commentId}
+        UPDATE comment
+        SET
+        comment_status = 'deleted'
+        WHERE comment_id = #{commentId}
     </delete>
 
-    <select id="findAllJob"
-            resultType="com.example.bumerang.web.dto.response.jobSearch.JobCommentDto">
-        SELECT c.comment_id, c.comment_content, u.user_nickname, u.user_profile_img, c.created_at
+    <select id="findByCommentList" resultType="com.example.bumerang.web.dto.response.jobSearch.JobCommentDto">
+        SELECT *
         FROM user u
         LEFT JOIN comment c
         ON u.user_id = c.user_id
-        WHERE job_id = #{jobId}
+        WHERE c.job_id = #{jobId}
     </select>
 </mapper>

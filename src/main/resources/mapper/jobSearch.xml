@@ -7,7 +7,7 @@
     <select id="findById"
             resultType="com.example.bumerang.domain.jobSearch.JobSearch">
         SELECT * FROM job_search
-        WHERE job_search_id=#{jobSearchId}
+        WHERE job_id=#{jobId}
     </select>
 
     <select id="findAll"
@@ -18,9 +18,9 @@
 
     <insert id="insert">
         INSERT INTO
-        job_search (job_content_title, job_content, job_genre, job_art_title, job_start_date, job_production_date, job_to, job_field, job_gender, job_contact, job_view, job_deadline, user_id, created_at)
+        job_search (job_content_title, job_content, job_genre, job_art_title, job_start_date, job_production_date, job_to, job_pay, job_gender, job_contact, job_deadline, user_id)
         VALUES
-        (#{jobContentTitle}, #{jobContent}, #{jobGenre}, #{jobArtTitle}, #{jobStartDate}, #{jobProductionDate}, #{jobTo}, #{jobField}, #{jobGender}, #{jobContact}, #{jobView}, #{jobDeadline}, #{userId}, NOW())
+        (#{jobContentTitle}, #{jobContent}, #{jobGenre}, #{jobArtTitle}, #{jobStartDate}, #{jobProductionDate}, #{jobTo}, #{jobPay}, #{jobGender}, #{jobContact}, #{jobDeadline}, #{userId})
     </insert>
 
     <update id="update">
@@ -33,10 +33,8 @@
         job_start_date = #{jobStartDate},
         job_production_date = #{jobProductionDate},
         job_to = #{jobTo},
-        job_field = #{jobField},
         job_gender = #{jobGender},
         job_contact = #{jobContact},
-        job_view = #{jobView},
         job_deadline = #{jobDeadline}
         WHERE
         job_id = #{jobId}
@@ -44,35 +42,44 @@
     </update>
 
     <delete id="delete">
-        DELETE FROM job_search WHERE job_id = #{jobId}
+        UPDATE job_search
+        SET
+        job_status = 'deleted'
+        WHERE job_id = #{jobId}
     </delete>
 
-    <select id="findByJobDetail"
-            resultType="com.example.bumerang.web.dto.response.jobSearch.JobDetailDto">
-        SELECT j.job_id, j.job_content_title, j.job_content, j.job_genre, j.job_art_title, j.job_start_date, j.job_production_date, j.job_to, j.job_field, j.job_gender, j.job_contact, j.job_view, j.job_deadline, j.created_at, u.user_id, u.user_nickname, u.user_profile_img
+    <select id="writeResult"
+            resultType="com.example.bumerang.domain.jobSearch.JobSearch">
+        SELECT *
+        FROM job_search
+        WHERE user_id = #{userId}
+        ORDER BY job_id desc
+        FETCH NEXT 1 ROWS ONLY
+    </select>
+
+    <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
+        SELECT *,
+        (SELECT COUNT(*) FROM likey WHERE job_id = #{jobId}) as likeyCount,
+        (SELECT COUNT(*) FROM view WHERE job_id = #{jobId}) as viewCount
         FROM job_search j
         LEFT JOIN user u
         ON j.user_id = u.user_id
-        WHERE j.job_id=#{jobId}
+        WHERE j.job_id = #{jobId}
     </select>
 
-    <delete id="deleteJob">
-        DELETE FROM comment WHERE job_id = #{jobId};
-        DELETE FROM likey WHERE job_id = #{jobId};
-        DELETE FROM job_search WHERE job_id = #{jobId};
-    </delete>
-
-    <select id="findAllJob"
-            resultType="com.example.bumerang.web.dto.response.jobSearch.JobDetailDto">
-        SELECT j.job_id, j.job_content_title, j.job_genre,j.job_view, j.job_deadline
+    <select id="findAllJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
+        SELECT *
         FROM job_search j
+        LEFT JOIN comment c
+        ON j.job_id = c.job_id
+        WHERE j.job_id = #{jobId}
     </select>
 
-    <select id="findAllBestJob"
-            resultType="com.example.bumerang.web.dto.response.jobSearch.BestJobDto">
-        SELECT ROW_NUMBER() OVER (ORDER BY j.job_view DESC) AS job_rank, j.job_id, j.job_content_title,j.job_genre,
-        j.job_view, j.job_deadline
+    <select id="findAllBeestJob" resultType="com.example.bumerang.web.dto.response.jobSearch.BestJobDto">
+        SELECT *
         FROM job_search j
-        ORDER BY j.job_view DESC;
+        LEFT JOIN comment c
+        ON j.job_id = c.job_id
+        WHERE j.job_id = #{jobId}
     </select>
 </mapper>

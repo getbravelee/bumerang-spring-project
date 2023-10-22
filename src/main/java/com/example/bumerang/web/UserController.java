@@ -1,6 +1,5 @@
 package com.example.bumerang.web;
 
-import com.example.bumerang.domain.user.User;
 import com.example.bumerang.service.UserService;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
@@ -8,14 +7,12 @@ import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -26,54 +23,47 @@ public class UserController {
 
     // 회원가입 화면
     @GetMapping("/user/joinForm")
-    public String joinForm() {
-        return "user/joinForm";
+    public @ResponseBody CMRespDto<?> joinForm() {
+        return new CMRespDto<>(1, "회원가입 화면 불러오기 성공.", null);
     }
-
 
     // 회원가입 기능
     @PostMapping("/user/join")
-    public String join(JoinDto joinDto) {
-        userService.join(joinDto);
-        return "redirect:/user/joinListForm";
-    }
-
-    // 로그인한 세션 화면
-    @GetMapping("/user/loginResultForm")
-    public String loginResultForm() {
-        return "user/loginResultForm";
+    public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
+        SessionUserDto findByUser = userService.findByUser(joinDto.toLoginDto());
+        System.err.println("디버그=============");
+        if (findByUser != null) {
+            return new CMRespDto<>(-1, "이미 가입되어 있는 회원입니다.", null);
+        }
+        SessionUserDto joinResult = userService.join(joinDto);
+        return new CMRespDto<>(1, "회원가입 성공.", joinResult);
     }
 
     // 로그인 화면
     @GetMapping("/user/loginForm")
-    public String loginForm() {
-        return "user/loginForm";
+    public @ResponseBody CMRespDto<?> loginForm() {
+        return new CMRespDto<>(1, "로그인 화면 불러오기 성공.", null);
     }
 
     // 로그인 기능
     @PostMapping("/user/login")
     public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto) {
-        SessionUserDto userPS = userService.findByUser(loginDto.getUserLoginId(), loginDto.getUserPassword());
-        if (userPS == null) {
+        SessionUserDto loginResult = userService.findByUser(loginDto);
+        if (loginResult == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
-        userService.login(userPS);
-        return new CMRespDto<>(1, "로그인 성공.", null);
-    }
-
-    // 회원가입된 사용자 목록
-    @GetMapping("/user/joinListForm")
-    public String selectForm(Model model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("userList", users);
-        return "user/joinListForm";
+        userService.login(loginResult);
+        return new CMRespDto<>(1, "로그인 성공.", loginResult);
     }
 
     // 로그아웃
-    @GetMapping("/user/logout")
-    public String logout() {
+    @PostMapping("/user/logout")
+    public @ResponseBody CMRespDto<?> logout() {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if(principal==null){
+            return new CMRespDto<>(-1, "로그인 상태가 아닙니다.", null);
+        }
         session.invalidate();
-        return "redirect:/";
+        return new CMRespDto<>(1, "로그아웃 성공.", principal);
     }
-
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.view.ViewDao">
+
+    <select id="findById"
+            resultType="com.example.bumerang.domain.view.View">
+        SELECT * FROM view WHERE view_id=#{viewId}
+    </select>
+
+    <select id="findAll"
+            resultType="com.example.bumerang.domain.view.View">
+        SELECT *
+        FROM view
+    </select>
+
+    <insert id="insert">
+        INSERT INTO view (job_id, pf_id, user_id)
+        VALUES
+        (#{job_id}, #{pfId}, #{userId})
+    </insert>
+
+</mapper>

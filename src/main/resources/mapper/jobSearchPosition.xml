@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao">
+
+    <select id="findById"
+            resultType="com.example.bumerang.domain.jobSearchPosition.JobSearchPosition">
+        SELECT * FROM job_search_position WHERE jobPosition_id=#{jobPositionId}
+    </select>
+
+    <select id="findAll"
+            resultType="com.example.bumerang.domain.jobSearchPosition.JobSearchPosition">
+        SELECT *
+        FROM job_search_position
+    </select>
+
+    <insert id="insert">
+        INSERT INTO job_search_position (job_position_title, job_id)
+        VALUES
+        (#{jobPositionTitle}, #{jobId})
+    </insert>
+
+</mapper>

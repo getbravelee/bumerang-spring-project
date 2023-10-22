@@ -4,11 +4,12 @@ import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.domain.jobSearch.JobSearch;
 import com.example.bumerang.domain.jobSearch.JobSearchDao;
 import com.example.bumerang.domain.likey.LikeyDao;
+import com.example.bumerang.domain.view.ViewDao;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
 import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
+import com.example.bumerang.web.dto.response.jobSearch.DetailFormDto;
 import com.example.bumerang.web.dto.response.jobSearch.JobCommentDto;
-import com.example.bumerang.web.dto.response.jobSearch.JobDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,47 +25,48 @@ public class JobSearchService {
 	private final JobSearchDao jobSearchDao;
 	private final CommentDao commentDao;
 	private final LikeyDao likeyDao;
+	private final ViewDao viewDao;
 
 
-	public void write(WriteDto writeDto) {
+	public JobSearch write(WriteDto writeDto) {
 		jobSearchDao.insert(writeDto.toEntity());
+		return jobSearchDao.writeResult(writeDto.getUserId());
 	}
 
 	public List<JobSearch> findAll() {
 		return jobSearchDao.findAll();
 	}
 
-	public JobDetailDto findByJob(Integer jobId) {
-		return jobSearchDao.findByJobDetail(jobId);
+	public DetailFormDto findByJob(Integer jobId) {
+		return jobSearchDao.findByJob(jobId);
 	}
 
-	public void update(UpdateDto updateDto) {
-
-		System.err.println("디버그 서비스 진입");
+	public JobSearch update(UpdateDto updateDto) {
 		jobSearchDao.update(updateDto.toEntity());
-		System.err.println("디버그 getJobId: "+updateDto.toEntity().getJobId());
-		System.err.println("디버그 getUserId: "+updateDto.toEntity().getUserId());
-		System.err.println("디버그 getJobContentTitle: "+updateDto.toEntity().getJobContentTitle());
-		System.err.println("디버그 getJobContent: "+updateDto.toEntity().getJobContent());
+		return jobSearchDao.findById(updateDto.getJobId());
 	}
 
-	public void delete(Integer jobId) {
-		jobSearchDao.deleteJob(jobId);
+	public JobSearch delete(Integer jobId) {
+		jobSearchDao.delete(jobId);
+		JobSearch deleteResult = jobSearchDao.findById(jobId);
+		return deleteResult;
 	}
 
-	public  List<JobCommentDto> jobFindAll(Integer jobId) {
-		return commentDao.findAllJob(jobId);
+	public  List<JobCommentDto> findByCommentList(Integer jobId) {
+		List<JobCommentDto> findByCommentList = commentDao.findByCommentList(jobId);
+		return findByCommentList;
 	}
 
-	public Integer likeyCount(Integer jobId) {
-		return likeyDao.likeyCount(jobId);
-	}
-
-	public List<JobDetailDto> findAllJob() {
+	public List<DetailFormDto> findAllJob() {
 		return jobSearchDao.findAllJob();
 	}
 
 	public List<BestJobDto> findAllBeestJob() {
 		return jobSearchDao.findAllBestJob();
 	}
+
+	public JobSearch findById(Integer jobId) {
+		return jobSearchDao.findById(jobId);
+	}
+
 }

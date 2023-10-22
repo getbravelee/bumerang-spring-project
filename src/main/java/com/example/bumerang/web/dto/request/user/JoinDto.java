@@ -20,5 +20,12 @@ public class JoinDto {
                 .userNickname(this.userNickname)
                 .build();
     }
+
+    public LoginDto toLoginDto() {
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUserLoginId(this.userLoginId);
+        loginDto.setUserPassword(this.userPassword);
+        return loginDto;
+    }
 }
 

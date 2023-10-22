@@ -15,5 +15,5 @@ public interface CommentDao {
 
     public void delete(Integer commentId);
 
-    public  List<JobCommentDto> findAllJob(Integer jobId);
+    public  List<JobCommentDto> findByCommentList(Integer jobId);
 }

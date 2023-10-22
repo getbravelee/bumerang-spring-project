@@ -11,5 +11,4 @@ public interface LikeyDao {
 
     public void delete(Integer likeyId);
 
-    public Integer likeyCount(Integer jobId);
 }

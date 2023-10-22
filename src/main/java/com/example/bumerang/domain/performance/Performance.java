@@ -16,10 +16,12 @@ public class Performance {
     private String pfBookingmethod;
     private String pfProduction;
     private String pfLocation;
-    private Integer pfRunningtime;
+    private String pfRunningtime;
     private Integer pfPrice;
     private String pfGenre;
     private String pfThumbnail;
     private Integer userId;
+    private String pfStatus;
     private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

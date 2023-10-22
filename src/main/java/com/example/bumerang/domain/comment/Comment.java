@@ -10,8 +10,9 @@ import java.sql.Timestamp;
 public class Comment {
     private Integer commentId;
     private String commentContent;
-    private String jobId;
-    private String pfId;
-    private String userId;
+    private Integer jobId;
+    private Integer pfId;
+    private Integer userId;
+    private String commentStatus;
     private Timestamp createdAt;
 }

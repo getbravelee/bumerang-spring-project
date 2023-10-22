@@ -34,15 +34,18 @@
     </update>
 
     <delete id="delete">
-        DELETE FROM notice WHERE notice_id = #{noticeId}
+        UPDATE notice
+        SET
+        notice_status = 'deleted'
+        WHERE notice_id = #{noticeId}
     </delete>
 
-    <select id="findByNoticeDetail"
-            resultType="com.example.bumerang.web.dto.response.notice.NoticeDetailDto">
-        SELECT n.notice_id, n.notice_title, n.notice_content, n.notice_type, n.created_at, u.user_id, u.user_nickname, u.user_profile_img
-        FROM notice n
-        LEFT JOIN user u
-        ON n.user_id = u.user_id
+    <select id="findByNotice"
+            resultType="com.example.bumerang.web.dto.response.notice.DetailFormDto">
+        SELECT *
+        FROM user u
+        LEFT JOIN notice n
+        ON u.user_id = n.user_id
         WHERE n.notice_id = #{noticeId}
     </select>
 </mapper>

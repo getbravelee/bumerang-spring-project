@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 public class JobCommentDto {
     private Integer commentId;
     private String commentContent;
+    private Integer userId;
     private String userNickname;
     private String userProfileImg;
     private Timestamp createdAt;

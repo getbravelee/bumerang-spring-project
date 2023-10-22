@@ -17,19 +17,13 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO likey (job_id, pf_id, user_id)
+        INSERT INTO likey (job_id, pf_id, comment_id, user_id)
         VALUES
-        (#{jobId}, #{pfId}, #{userId})
+        (#{jobId}, #{pfId}, #{commentId}, #{userId})
     </insert>
 
     <delete id="delete">
         DELETE FROM likey WHERE likey_id = #{likeyId}
     </delete>
 
-    <select id="likeyCount"
-            resultType="Integer">
-        SELECT COUNT(likey_id)
-        FROM likey
-        WHERE job_id=#{jobId}
-    </select>
 </mapper>

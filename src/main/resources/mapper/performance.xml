@@ -16,14 +16,15 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO performance (pf_title, pf_content, pf_agerating, pf_date, pf_bookingmethod, pf_production, pf_location, pf_runningtime, pf_price, pf_genre, pf_thumbnail, pf_view, user_id, created_at)
+        INSERT INTO performance (pf_title, pf_content, pf_agerating, pf_date, pf_bookingmethod, pf_production, pf_location, pf_runningtime, pf_price, pf_genre, pf_thumbnail, user_id)
         VALUES
-        (#{pfTitle}, #{pfContent}, #{pfAgerating}, #{pfDate}, #{pfBookingmethod}, #{pfProduction}, #{pfLocation}, #{pfRunningtime}, #{pfPrice}, #{pfGenre}, #{pfThumbnail}, #{pfView}, #{userId}, NOW())
+        (#{pfTitle}, #{pfContent}, #{pfAgerating}, #{pfDate}, #{pfBookingmethod}, #{pfProduction}, #{pfLocation}, #{pfRunningtime}, #{pfPrice}, #{pfGenre}, #{pfThumbnail}, #{userId},)
     </insert>
 
     <update id="update">
         UPDATE performance
         SET
+        pf_title = #{pfTitle},
         pf_content = #{pfContent},
         pf_agerating = #{pfAgerating},
         pf_date = #{pfDate},
@@ -33,15 +34,17 @@
         pf_runningtime = #{pfRunningtime},
         pf_price = #{pfPrice},
         pf_genre = #{pfGenre},
-        pf_thumbnail = #{pfThumbnail},
-        pf_view = #{pfView}
+        pf_thumbnail = #{pfThumbnail}
         WHERE
         pf_id = #{pfId}
         AND user_id = #{userId}
     </update>
 
     <delete id="delete">
-        DELETE FROM performance WHERE pf_id = #{pfId}
+        UPDATE performance
+        SET
+        pf_status = 'deleted'
+        WHERE performance_id = #{performanceId}
     </delete>
 
 </mapper>

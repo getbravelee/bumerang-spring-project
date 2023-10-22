@@ -1,4 +1,4 @@
-package com.example.bumerang.domain.likey;
+package com.example.bumerang.domain.view;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,11 +7,10 @@ import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Getter
-public class Likey {
-    private Integer likeyId;
+public class View {
+    private Integer viewId;
     private Integer jobId;
     private Integer pfId;
-    private Integer commentId;
     private Integer userId;
     private Timestamp createdAt;
 }

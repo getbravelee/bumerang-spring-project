@@ -40,23 +40,14 @@
     </update>
 
     <delete id="delete">
-        DELETE FROM user WHERE user_id = #{userId}
-    </delete>
-
-    <insert id="join">
-        INSERT
-        INTO user (user_login_id, user_password, user_email, user_nickname)
-        VALUES
-        (#{userLoginId}, #{userPassword}, #{userEmail}, #{userNickname})
-    </insert>
-
-    <delete id="deleteLoginId">
-        DELETE FROM user WHERE user_login_id = #{userLoginId}
+        UPDATE user
+        SET
+        user_status = 'deleted'
+        WHERE user_id = #{userId}
     </delete>
 
     <select id="findByUser"
             resultType="com.example.bumerang.web.dto.SessionUserDto">
         SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_password=#{userPassword}
     </select>
-
 </mapper>

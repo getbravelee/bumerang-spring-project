@@ -14,7 +14,9 @@ public class Notice {
     private String noticeContent;
     private String noticeType;
     private Integer userId;
+    private String noticeStatus;
     private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     @Builder
     public Notice(String noticeTitle, String noticeContent, String noticeType, Integer userId) {

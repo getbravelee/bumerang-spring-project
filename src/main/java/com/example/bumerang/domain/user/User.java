@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 
 @NoArgsConstructor
 @Getter
@@ -13,15 +15,18 @@ public class User {
     private String userPassword;
     private String userEmail;
     private String userNickname;
-    private Boolean userGender;
-    private Integer userAge;
+    private String userAge;
     private String userPosition;
-    private Integer userCareer;
+    private String userGender;
+    private String userCareer;
     private String userIntro;
     private String userPortfolioLink;
     private String userContactLink;
     private String userProfileImg;
     private String userRole;
+    private String userStatus;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     @Builder
     public User(String userLoginId, String userPassword, String userEmail, String userNickname) {

@@ -14,8 +14,7 @@ public class UpdateDto {
     private String jobStartDate;
     private String jobProductionDate;
     private Integer jobTo;
-    private String jobField;
-    private Boolean jobGender;
+    private String jobGender;
     private String jobContact;
     private String jobDeadline;
     private Integer userId;
@@ -30,7 +29,6 @@ public class UpdateDto {
                 .jobStartDate(this.jobStartDate)
                 .jobProductionDate(this.jobProductionDate)
                 .jobTo(this.jobTo)
-                .jobField(this.jobField)
                 .jobGender(this.jobGender)
                 .jobContact(this.jobContact)
                 .jobDeadline(this.jobDeadline)
