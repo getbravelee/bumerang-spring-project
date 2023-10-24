@@ -5,6 +5,8 @@ import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
+import com.example.bumerang.web.dto.request.user.UpdateDto;
+import com.example.bumerang.web.dto.response.user.DetailFormDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,16 @@ public class UserService {
 		List<User> userList = userDao.findAll();
 		return userList;
 	}
+	public User findById(Integer userId){
+		return userDao.findById(userId);
+	}
+
+	public User update(UpdateDto updateDto){
+		userDao.update(updateDto.toEntity());
+		System.err.println("디버그 updateDto.getUserId()"+updateDto.getUserId());
+		User userPS = userDao.findById(updateDto.getUserId());
+		return userPS;
+	}
+
 
 }

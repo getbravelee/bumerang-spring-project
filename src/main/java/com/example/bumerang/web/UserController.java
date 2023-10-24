@@ -1,16 +1,16 @@
 package com.example.bumerang.web;
 
+import com.example.bumerang.domain.user.User;
 import com.example.bumerang.service.UserService;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
+import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
+import com.example.bumerang.web.dto.response.user.DetailFormDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,7 +38,6 @@ public class UserController {
         SessionUserDto joinResult = userService.join(joinDto);
         return new CMRespDto<>(1, "회원가입 성공.", joinResult);
     }
-
     // 로그인 화면
     @GetMapping("/user/loginForm")
     public @ResponseBody CMRespDto<?> loginForm() {
@@ -66,4 +65,11 @@ public class UserController {
         session.invalidate();
         return new CMRespDto<>(1, "로그아웃 성공.", principal);
     }
+    // 회원수정기능
+    @PutMapping("/user/update")
+    public @ResponseBody CMRespDto<?> update(@RequestBody UpdateDto updateDto) {
+        User userUpdateResult = userService.update(updateDto);
+        return new CMRespDto<>(1, "회원수정 성공.", userUpdateResult );
+    }
+
 }

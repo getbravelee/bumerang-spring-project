@@ -23,6 +23,8 @@ public class MainController {
 		return new CMRespDto<>(1, "사이트 메인페이지 불러오기 성공.",null );
 	}
 
+
+
 	// 구인정보글 메인 화면
 	@GetMapping("/jobSearch/mainForm")
 	public String mainForm(Model model) {
