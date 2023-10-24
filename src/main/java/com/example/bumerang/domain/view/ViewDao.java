@@ -1,5 +1,7 @@
 package com.example.bumerang.domain.view;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface ViewDao {
@@ -9,4 +11,5 @@ public interface ViewDao {
 
     public void insert(View view);
 
+    public void count(@Param("jobId") Integer jobId, @Param("userId")Integer userId);
 }

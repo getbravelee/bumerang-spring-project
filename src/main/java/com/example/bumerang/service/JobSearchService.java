@@ -6,6 +6,7 @@ import com.example.bumerang.domain.jobSearch.JobSearchDao;
 import com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao;
 import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.view.ViewDao;
+import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
 import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
@@ -47,10 +48,19 @@ public class JobSearchService {
 		return jobSearchDao.findAll();
 	}
 
-	public DetailFormDto findByJob(Integer jobId) {
+	public DetailFormDto findByJob(SessionUserDto userPS, Integer jobId) {
+		System.err.println("디버그1");
+		Integer userId = userPS.getUserId();
+		System.err.println("디버그2");
 		List<String> jobPositionList = jobSearchPositionDao.findPositionList(jobId);
+		System.err.println("디버그3");
+		List<JobCommentDto> findByCommentList = commentDao.findByCommentList(jobId);
+		System.err.println("디버그4");
 		DetailFormDto findByJob = jobSearchDao.findByJob(jobId);
+		System.err.println("디버그5");
 		findByJob.setJobPositionTitle(jobPositionList);
+		findByJob.setCommentList(findByCommentList);
+		viewDao.count(jobId, userId);
 		return findByJob;
 	}
 
@@ -74,10 +84,6 @@ public class JobSearchService {
 		return deleteResult;
 	}
 
-	public  List<JobCommentDto> findByCommentList(Integer jobId) {
-		List<JobCommentDto> findByCommentList = commentDao.findByCommentList(jobId);
-		return findByCommentList;
-	}
 
 	public List<DetailFormDto> findAllJob() {
 		return jobSearchDao.findAllJob();
