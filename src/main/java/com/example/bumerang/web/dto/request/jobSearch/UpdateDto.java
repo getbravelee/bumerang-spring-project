@@ -4,6 +4,8 @@ import com.example.bumerang.domain.jobSearch.JobSearch;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class UpdateDto {
@@ -17,10 +19,11 @@ public class UpdateDto {
     private String jobGender;
     private String jobContact;
     private String jobDeadline;
+    private List<String> jobPositionList;
     private Integer userId;
     private Integer jobId;
 
-    public JobSearch toEntity() {
+    public JobSearch toJobSearch() {
         return JobSearch.builder()
                 .jobContentTitle(this.jobContentTitle)
                 .jobContent(this.jobContent)

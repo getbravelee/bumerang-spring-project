@@ -2,6 +2,7 @@ package com.example.bumerang.domain.jobSearch;
 
 import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
 import com.example.bumerang.web.dto.response.jobSearch.DetailFormDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
 
 import java.util.List;
 
@@ -22,5 +23,11 @@ public interface JobSearchDao {
 
     public List<BestJobDto> findAllBestJob();
 
-    JobSearch writeResult(Integer userId);
+    public JobRespDto writeResult(Integer userId);
+
+    public JobRespDto findByRecent();
+
+    public JobRespDto findByUpdate(Integer jobId);
+
+    public JobRespDto findByDelete(Integer jobId);
 }

@@ -21,4 +21,24 @@
         (#{jobPositionTitle}, #{jobId})
     </insert>
 
+    <insert id="insertPosition">
+        INSERT INTO job_search_position (job_position_title, job_id)
+        VALUES
+        (#{jobPositionTitle}, #{jobId})
+    </insert>
+
+    <update id="updatePosition">
+        UPDATE job_search_position
+        SET
+        job_position_title = #{jobPositionTitle}
+        WHERE
+        job_id = #{jobId}
+    </update>
+
+    <select id="findPositionList"
+            resultType="String">
+        SELECT job_position_title
+        FROM job_search_position jsp
+        WHERE jsp.job_id = #{jobId}
+    </select>
 </mapper>

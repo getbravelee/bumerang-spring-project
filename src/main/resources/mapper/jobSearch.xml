@@ -17,11 +17,10 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO
-        job_search (job_content_title, job_content, job_genre, job_art_title, job_start_date, job_production_date, job_to, job_pay, job_gender, job_contact, job_deadline, user_id)
-        VALUES
-        (#{jobContentTitle}, #{jobContent}, #{jobGenre}, #{jobArtTitle}, #{jobStartDate}, #{jobProductionDate}, #{jobTo}, #{jobPay}, #{jobGender}, #{jobContact}, #{jobDeadline}, #{userId})
+        INSERT INTO job_search (job_content_title, job_content, job_genre, job_art_title, job_start_date, job_production_date, job_to, job_pay, job_gender, job_contact, job_deadline, user_id)
+        VALUES (#{jobContentTitle}, #{jobContent}, #{jobGenre}, #{jobArtTitle}, #{jobStartDate}, #{jobProductionDate}, #{jobTo}, #{jobPay}, #{jobGender}, #{jobContact}, #{jobDeadline}, #{userId})
     </insert>
+
 
     <update id="update">
         UPDATE job_search
@@ -49,12 +48,11 @@
     </delete>
 
     <select id="writeResult"
-            resultType="com.example.bumerang.domain.jobSearch.JobSearch">
-        SELECT *
-        FROM job_search
-        WHERE user_id = #{userId}
-        ORDER BY job_id desc
-        FETCH NEXT 1 ROWS ONLY
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
+        SELECT j.*, jp.*
+        FROM (SELECT * FROM job_search WHERE user_id = #{userId} ORDER BY job_id DESC FETCH NEXT 1 ROWS ONLY) j
+        INNER JOIN job_search_position jp
+        ON j.job_id = jp.job_id
     </select>
 
     <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
@@ -81,5 +79,24 @@
         LEFT JOIN comment c
         ON j.job_id = c.job_id
         WHERE j.job_id = #{jobId}
+    </select>
+
+    <select id="findByRecent" resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
+        SELECT *
+        FROM job_search j
+        WHERE j.job_id=LAST_INSERT_ID()
+    </select>
+
+    <select id="findByUpdate"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
+        SELECT * FROM job_search
+        WHERE job_id=#{jobId}
+    </select>
+
+    <select id="findByDelete"
+            resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
+        SELECT *
+        FROM job_search j
+        WHERE j.job_id=#{jobId} AND job_status='deleted'
     </select>
 </mapper>
