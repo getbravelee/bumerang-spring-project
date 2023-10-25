@@ -47,4 +47,13 @@
         WHERE performance_id = #{performanceId}
     </delete>
 
+    <update id="dead">
+        UPDATE performance
+        SET
+        pf_status = 'dead'
+        WHERE
+        pf_id = #{pfId}
+        AND user_id = #{userId}
+    </update>
+
 </mapper>

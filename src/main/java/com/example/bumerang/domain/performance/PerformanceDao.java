@@ -1,5 +1,7 @@
 package com.example.bumerang.domain.performance;
 
+import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
+
 import java.util.List;
 
 public interface PerformanceDao {
@@ -12,4 +14,6 @@ public interface PerformanceDao {
     public void update(Performance performance);
 
     public void delete(Integer pfId);
+
+    public void dead(DeadlineDto deadlineDto);
 }

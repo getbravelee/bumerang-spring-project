@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.jobSearch;
 
+import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
 import com.example.bumerang.web.dto.response.jobSearch.DetailFormDto;
 import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
@@ -30,4 +31,6 @@ public interface JobSearchDao {
     public JobRespDto findByUpdate(Integer jobId);
 
     public JobRespDto findByDelete(Integer jobId);
+
+    public void dead(DeadlineDto deadlineDto);
 }

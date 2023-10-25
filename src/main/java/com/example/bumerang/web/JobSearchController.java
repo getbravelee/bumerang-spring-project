@@ -70,4 +70,5 @@ public class JobSearchController {
         JobRespDto deleteResult = jobSearchService.delete(jobId);
         return new CMRespDto<>(1, "구인정보 삭제하기 성공.", deleteResult);
     }
+
 }

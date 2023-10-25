@@ -7,6 +7,7 @@ import com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao;
 import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.view.ViewDao;
 import com.example.bumerang.web.dto.SessionUserDto;
+import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
 import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
@@ -97,4 +98,9 @@ public class JobSearchService {
 		return jobSearchDao.findById(jobId);
 	}
 
+	public JobSearch deadline(DeadlineDto deadlineDto) {
+		jobSearchDao.dead(deadlineDto);
+		JobSearch deadlineResult = jobSearchDao.findById(deadlineDto.getJobId());
+		return deadlineResult;
+	}
 }

@@ -99,4 +99,13 @@
         FROM job_search j
         WHERE j.job_id=#{jobId} AND job_status='deleted'
     </select>
+
+    <update id="dead">
+        UPDATE job_search
+        SET
+        job_status = 'dead'
+        WHERE
+        job_id = #{jobId}
+        AND user_id = #{userId}
+    </update>
 </mapper>
