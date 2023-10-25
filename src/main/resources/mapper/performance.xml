@@ -16,9 +16,9 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO performance (pf_title, pf_content, pf_agerating, pf_date, pf_bookingmethod, pf_production, pf_location, pf_runningtime, pf_price, pf_genre, pf_thumbnail, user_id)
+        INSERT INTO performance (pf_title, pf_content, pf_agerating, pf_start_date, pf_deadline, pf_bookingmethod, pf_production, pf_location, pf_runningtime, pf_price, pf_genre, pf_thumbnail, user_id)
         VALUES
-        (#{pfTitle}, #{pfContent}, #{pfAgerating}, #{pfDate}, #{pfBookingmethod}, #{pfProduction}, #{pfLocation}, #{pfRunningtime}, #{pfPrice}, #{pfGenre}, #{pfThumbnail}, #{userId},)
+        (#{pfTitle}, #{pfContent}, #{pfAgerating}, #{pfStartDate}, #{pfDeadline}, #{pfBookingmethod}, #{pfProduction}, #{pfLocation}, #{pfRunningtime}, #{pfPrice}, #{pfGenre}, #{pfThumbnail}, #{userId},)
     </insert>
 
     <update id="update">
@@ -27,7 +27,8 @@
         pf_title = #{pfTitle},
         pf_content = #{pfContent},
         pf_agerating = #{pfAgerating},
-        pf_date = #{pfDate},
+        pf_start_date = #{pfStartDate},
+        pf_deadline = #{pfDeadline},
         pf_bookingmethod = #{pfBookingmethod},
         pf_production = #{pfProduction},
         pf_location = #{pfLocation},
@@ -61,7 +62,7 @@
         SELECT  p.pf_title, p.pf_location,
         CASE WHEN p.pf_price = 0 THEN FALSE
         ELSE TRUE END AS isPrice,
-        p.pf_date, p.pf_thumbnail,
+        p.pf_start_date, p.pf_deadline, p.pf_thumbnail,
         COALESCE(v.view_count, 0) AS view_count
         FROM performance p
         LEFT JOIN
@@ -78,7 +79,7 @@
         SELECT p.pf_title, p.pf_location,
         CASE WHEN p.pf_price = 0 THEN FALSE
         ELSE TRUE END AS isPrice,
-        p.pf_date, p.pf_thumbnail,
+        p.pf_start_date, p.pf_deadline, p.pf_thumbnail,
         COALESCE(v.view_count, 0) AS viewCount
         FROM performance p
         LEFT JOIN (

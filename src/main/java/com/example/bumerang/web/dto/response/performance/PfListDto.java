@@ -8,7 +8,8 @@ import lombok.Setter;
 public class PfListDto {
     private String pfTitle;
     private String pfLocation;
-    private String pfDate;
+    private String pfStartDate;
+    private String pfDeadline;
     private String pfThumbnail;
     private Integer viewCount;
     // DB 칼럼 아님

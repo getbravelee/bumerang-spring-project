@@ -12,7 +12,8 @@ public class Performance {
     private String pfTitle;
     private String pfContent;
     private String pfAgerating;
-    private String pfDate;
+    private String pfStartDate;
+    private String pfDeadline;
     private String pfBookingmethod;
     private String pfProduction;
     private String pfLocation;
