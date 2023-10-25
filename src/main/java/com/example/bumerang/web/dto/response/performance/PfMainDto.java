@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PfRespDto {
+public class PfMainDto {
     private List<PfListDto> pfList;
     private List<PfListDto> bestPfList;
 }

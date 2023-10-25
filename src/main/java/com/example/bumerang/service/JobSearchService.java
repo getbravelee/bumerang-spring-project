@@ -10,10 +10,7 @@ import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
-import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
-import com.example.bumerang.web.dto.response.jobSearch.DetailFormDto;
-import com.example.bumerang.web.dto.response.jobSearch.JobCommentDto;
-import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
+import com.example.bumerang.web.dto.response.jobSearch.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -86,11 +83,11 @@ public class JobSearchService {
 	}
 
 
-	public List<DetailFormDto> findAllJob() {
+	public List<JobListDto> findAllJob() {
 		return jobSearchDao.findAllJob();
 	}
 
-	public List<BestJobDto> findAllBeestJob() {
+	public List<JobListDto> findAllBeestJob() {
 		return jobSearchDao.findAllBestJob();
 	}
 

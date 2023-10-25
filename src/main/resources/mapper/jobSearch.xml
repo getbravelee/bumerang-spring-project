@@ -21,7 +21,6 @@
         VALUES (#{jobContentTitle}, #{jobContent}, #{jobGenre}, #{jobArtTitle}, #{jobStartDate}, #{jobProductionDate}, #{jobTo}, #{jobPay}, #{jobGender}, #{jobContact}, #{jobDeadline}, #{userId})
     </insert>
 
-
     <update id="update">
         UPDATE job_search
         SET
@@ -47,15 +46,7 @@
         WHERE job_id = #{jobId}
     </delete>
 
-    <select id="writeResult"
-            resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
-        SELECT j.*, jp.*
-        FROM (SELECT * FROM job_search WHERE user_id = #{userId} ORDER BY job_id DESC FETCH NEXT 1 ROWS ONLY) j
-        INNER JOIN job_search_position jp
-        ON j.job_id = jp.job_id
-    </select>
-
-    <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
+    <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
         SELECT *,
         (SELECT COUNT(*) FROM likey WHERE job_id = #{jobId}) as likeyCount,
         (SELECT COUNT(*) FROM view WHERE job_id = #{jobId}) as viewCount
@@ -65,20 +56,58 @@
         WHERE j.job_id = #{jobId}
     </select>
 
-    <select id="findAllJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
-        SELECT *
+    <select id="findAllJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
+        SELECT
+        j.job_id,
+        j.job_genre,
+        j.job_deadline,
+        j.job_content_title,
+        u.user_profile_img,
+        u.user_nickname,
+        j.user_id,
+        COALESCE(view_count, 0) AS view_count,
+        COALESCE(comment_count, 0) AS comment_count
         FROM job_search j
-        LEFT JOIN comment c
-        ON j.job_id = c.job_id
-        WHERE j.job_id = #{jobId}
+        INNER JOIN user u ON j.user_id = u.user_id
+        LEFT JOIN (
+        SELECT job_id, COUNT(comment_id) AS comment_count
+        FROM comment
+        GROUP BY job_id
+        ) c ON j.job_id = c.job_id
+        LEFT JOIN (
+        SELECT job_id, COUNT(view_id) AS view_count
+        FROM view
+        WHERE job_id IS NOT NULL
+        GROUP BY job_id
+        ) v ON j.job_id = v.job_id
+        ORDER BY j.created_at DESC
     </select>
 
-    <select id="findAllBeestJob" resultType="com.example.bumerang.web.dto.response.jobSearch.BestJobDto">
-        SELECT *
+    <select id="findAllBestJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
+        SELECT
+        j.job_id,
+        j.job_genre,
+        j.job_deadline,
+        j.job_content_title,
+        u.user_profile_img,
+        u.user_nickname,
+        j.user_id,
+        COALESCE(view_count, 0) AS view_count,
+        COALESCE(comment_count, 0) AS comment_count
         FROM job_search j
-        LEFT JOIN comment c
-        ON j.job_id = c.job_id
-        WHERE j.job_id = #{jobId}
+        INNER JOIN user u ON j.user_id = u.user_id
+        LEFT JOIN (
+        SELECT job_id, COUNT(comment_id) AS comment_count
+        FROM comment
+        GROUP BY job_id
+        ) c ON j.job_id = c.job_id
+        LEFT JOIN (
+        SELECT job_id, COUNT(view_id) AS view_count
+        FROM view
+        WHERE job_id IS NOT NULL
+        GROUP BY job_id
+        ) v ON j.job_id = v.job_id
+        ORDER BY view_count DESC
     </select>
 
     <select id="findByRecent" resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
