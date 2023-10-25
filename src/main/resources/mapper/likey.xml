@@ -26,4 +26,28 @@
         DELETE FROM likey WHERE likey_id = #{likeyId}
     </delete>
 
+    <select id="findByJobId"
+            resultType="Integer">
+        SELECT * FROM likey
+        WHERE job_id=#{jobId} AND user_id = #{userId}
+    </select>
+
+    <select id="findByPfId"
+            resultType="Integer">
+        SELECT * FROM likey
+        WHERE pf_id=#{pfId} AND user_id = #{userId}
+    </select>
+
+    <select id="findByCommentId"
+            resultType="Integer">
+        SELECT * FROM likey
+        WHERE comment_id=#{commentId} AND user_id = #{userId}
+    </select>
+
+
+    <select id="findByRecent" resultType="com.example.bumerang.domain.likey.Likey">
+        SELECT *
+        FROM likey l
+        WHERE l.likey_id=LAST_INSERT_ID()
+    </select>
 </mapper>

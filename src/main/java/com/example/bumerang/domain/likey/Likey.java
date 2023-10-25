@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.likey;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +15,12 @@ public class Likey {
     private Integer commentId;
     private Integer userId;
     private Timestamp createdAt;
+
+    @Builder
+    public Likey(Integer jobId, Integer pfId, Integer commentId, Integer userId) {
+        this.jobId = jobId;
+        this.pfId = pfId;
+        this.commentId = commentId;
+        this.userId = userId;
+    }
 }
