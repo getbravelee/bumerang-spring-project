@@ -9,6 +9,8 @@ import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
 import com.example.bumerang.web.dto.response.jobSearch.BestJobDto;
 import com.example.bumerang.web.dto.response.jobSearch.DetailFormDto;
+import com.example.bumerang.web.dto.response.performance.PfListDto;
+import com.example.bumerang.web.dto.response.performance.PfRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,5 +70,16 @@ public class MainController {
 			return new CMRespDto<>(1, "공연글 마감하기 성공.", deadlineResult);
 		}
 		return new CMRespDto<>(-1, "데이터 요청을 다시 해주세요.", null);
+	}
+
+	// 공연글 메인 화면
+	@GetMapping("/performance/mainForm")
+	public @ResponseBody CMRespDto<?> pfMainForm() {
+		PfRespDto pfRespDto = new PfRespDto();
+		List<PfListDto> pfList = performanceService.findAllPf();
+		List<PfListDto> bestPfList = performanceService.findAllBeestPf();
+		pfRespDto.setPfList(pfList);
+		pfRespDto.setBestPfList(bestPfList);
+		return new CMRespDto<>(1, "공연글 메인 화면 불러오기 성공", pfRespDto);
 	}
 }
