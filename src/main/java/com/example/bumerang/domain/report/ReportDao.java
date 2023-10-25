@@ -11,4 +11,5 @@ public interface ReportDao {
 
     public void delete(Integer reportId);
 
+    public Report findByRecent();
 }

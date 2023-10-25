@@ -16,13 +16,13 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO Report (report_type, report_content, job_id, pf_id, comment_id, user_id)
+        INSERT INTO report (report_type, report_content, job_id, pf_id, comment_id, user_id)
         VALUES
         (#{reportType}, #{reportContent}, #{jobId}, #{pfId}, #{commentId}, #{userId})
     </insert>
 
     <update id="update">
-        UPDATE Report
+        UPDATE report
         SET
         report_type = #{pfContent},
         report_content = #{pfAgerating},
@@ -41,5 +41,11 @@
         report_status = 'deleted'
         WHERE report_id = #{reportId}
     </delete>
+
+    <select id="findByRecent" resultType="com.example.bumerang.domain.report.Report">
+        SELECT *
+        FROM report r
+        WHERE r.report_id=LAST_INSERT_ID()
+    </select>
 
 </mapper>

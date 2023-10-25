@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.report;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,14 @@ public class Report {
     private Integer userId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+
+    @Builder
+    public Report(String reportType, String reportContent, Integer jobId, Integer pfId, Integer commentId, Integer userId) {
+        this.reportType = reportType;
+        this.reportContent = reportContent;
+        this.jobId = jobId;
+        this.pfId = pfId;
+        this.commentId = commentId;
+        this.userId = userId;
+    }
 }
