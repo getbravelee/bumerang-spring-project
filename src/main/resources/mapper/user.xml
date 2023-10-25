@@ -50,4 +50,9 @@
             resultType="com.example.bumerang.web.dto.SessionUserDto">
         SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_password=#{userPassword}
     </select>
+
+    <select id="findByDetail"
+            resultType="com.example.bumerang.web.dto.response.user.UserRespDto">
+        SELECT * FROM user WHERE user_id=#{userId}
+    </select>
 </mapper>

@@ -5,10 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DetailFormDto {
+public class UserRespDto {
     private Integer userId;
-    private String userLoginId;
-    private String userPassword;
     private String userEmail;
     private String userNickname;
     private String userAge;
@@ -19,5 +17,4 @@ public class DetailFormDto {
     private String userPortfolioLink;
     private String userContactLink;
     private String userProfileImg;
-
 }

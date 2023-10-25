@@ -7,6 +7,7 @@ import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
+import com.example.bumerang.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -71,4 +72,10 @@ public class UserController {
         return new CMRespDto<>(1, "회원수정 성공.", userUpdateResult );
     }
 
+    // 계정 상세 화면
+    @GetMapping("/user/detailForm/{userId}")
+    public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer userId) {
+        UserRespDto userDetail = userService.findByDetail(userId);
+        return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
+    }
 }
