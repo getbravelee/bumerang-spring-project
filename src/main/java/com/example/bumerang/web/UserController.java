@@ -7,12 +7,17 @@ import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
+import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
+import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
+import com.example.bumerang.web.dto.response.Likey.LikeyRespDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobMainDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -77,5 +82,15 @@ public class UserController {
     public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer userId) {
         UserRespDto userDetail = userService.findByDetail(userId);
         return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
+    }
+    // 관심목록 화면
+    @GetMapping("user/likeyList")
+    public @ResponseBody CMRespDto<?> liketyJSListForm(){
+        LikeyRespDto LikeyResp = new LikeyRespDto();
+        List<LikeyJSListDto> LikeyJSDetail = userService.likeyfindAllJSList();
+        List<LikeyPFListDto> LikeyPFDetail = userService.likeyfindAllPFList();
+        LikeyResp.setLJSList(LikeyJSDetail);
+        LikeyResp.setLPFList(LikeyPFDetail);
+        return new CMRespDto<>(1, "관심목록 불러오기 성공.", LikeyResp);
     }
 }

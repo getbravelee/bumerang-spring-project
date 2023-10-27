@@ -1,10 +1,13 @@
 package com.example.bumerang.domain.likey;
 
+import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
+import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface LikeyDao {
+
     public Likey findById(Integer likeyId);
 
     public List<Likey> findAll();
@@ -20,4 +23,8 @@ public interface LikeyDao {
     public Integer findByCommentId(@Param("userId") Integer userId, @Param("commentId") Integer commentId);
 
     public Likey findByRecent();
+
+    List<LikeyJSListDto> likeyFindSJList();
+
+    List<LikeyPFListDto> likeyFindPFList();
 }

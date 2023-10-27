@@ -1,11 +1,14 @@
 package com.example.bumerang.service;
 
+import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
+import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
+import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ public class UserService {
 
 	private final HttpSession session;
 	private final UserDao userDao;
+	private final LikeyDao likeyDao;
 
 	public SessionUserDto join(JoinDto joinDto) {
 		userDao.insert(joinDto.toEntity());
@@ -50,10 +54,17 @@ public class UserService {
 		User userPS = userDao.findById(updateDto.getUserId());
 		return userPS;
 	}
-
-
 	public UserRespDto findByDetail(Integer userId) {
 		UserRespDto userDetail = userDao.findByDetail(userId);
 		return userDetail;
 	}
+
+	public List<LikeyJSListDto> likeyfindAllJSList() {
+
+		return likeyDao.likeyFindSJList();
+	}
+
+    public List<LikeyPFListDto> likeyfindAllPFList() {
+		return likeyDao.likeyFindPFList();
+    }
 }

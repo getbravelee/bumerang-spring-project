@@ -43,11 +43,77 @@
         SELECT * FROM likey
         WHERE comment_id=#{commentId} AND user_id = #{userId}
     </select>
-
-
     <select id="findByRecent" resultType="com.example.bumerang.domain.likey.Likey">
         SELECT *
         FROM likey l
         WHERE l.likey_id=LAST_INSERT_ID()
+    </select>
+    <select id="likeyFindSJList" resultType="com.example.bumerang.web.dto.response.Likey.LikeyJSListDto">
+        SELECT
+        u.user_id AS userId,
+        u.user_nickname AS userNickname,
+        u.user_profile_img AS userProfileImg,
+        u.user_position AS userPosition,
+        u.user_career AS userCareer,
+        l.likey_id AS LikeyId,
+        j.job_id AS jobId,
+        j.job_content_title AS jobTitle,
+        j.job_start_date AS jobStartDate,
+        j.job_deadline AS jobDeadline,
+        COALESCE(c.comment_count, 0) AS commentCount,
+        COALESCE(v.view_count, 0) AS viewCount
+        FROM user u
+        INNER JOIN likey l ON u.user_id = l.user_id
+        INNER JOIN job_search j ON l.job_id = j.job_id
+        LEFT JOIN (
+        SELECT job_id, COUNT(comment_id) AS comment_count
+        FROM comment
+        GROUP BY job_id
+        ) c ON j.job_id = c.job_id
+        LEFT JOIN (
+        SELECT job_id, COUNT(view_id) AS view_count
+        FROM view
+        GROUP BY job_id
+        ) v ON j.job_id = v.job_id
+        WHERE u.user_id=1;
+    </select>
+    <select id="likeyFindPFList" resultType="com.example.bumerang.web.dto.response.Likey.LikeyPFListDto">
+        SELECT
+        u.user_id AS userId,
+        u.user_nickname AS userNickname,
+        u.user_profile_img AS userProfileImg,
+        p.pf_id AS pfId,
+        p.pf_title AS pfTitle,
+        p.pf_start_date AS StartDate,
+        p.pf_deadline AS Deadline,
+        p.pf_genre AS Genre,
+        p.pf_runningTime AS runningTime,
+        p.pf_location AS location,
+        p.pf_thumbnail AS thumbnail,
+        COALESCE(c.comment_count, 0) AS commentCount,
+        COALESCE(v.view_count, 0) AS viewCount
+
+        FROM performance p
+        INNER JOIN user u ON p.user_id = u.user_id
+
+
+        LEFT JOIN (
+        SELECT pf_id, COUNT(*) AS comment_count
+        FROM comment
+        GROUP BY pf_id
+        ) c ON p.pf_id = c.pf_id
+
+        LEFT JOIN (
+        SELECT pf_id, COUNT(*) AS view_count
+        FROM view
+        GROUP BY pf_id
+        )
+
+        v ON p.pf_id = v.pf_id
+        INNER JOIN (
+        SELECT * FROM likey l WHERE l.user_id = 1
+        )
+
+        l ON p.pf_id = l.pf_id;
     </select>
 </mapper>
