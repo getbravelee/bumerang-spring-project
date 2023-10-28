@@ -6,6 +6,7 @@ import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
+import com.example.bumerang.web.dto.request.user.SearchDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
 import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
@@ -54,17 +55,23 @@ public class UserService {
 		User userPS = userDao.findById(updateDto.getUserId());
 		return userPS;
 	}
+
 	public UserRespDto findByDetail(Integer userId) {
 		UserRespDto userDetail = userDao.findByDetail(userId);
 		return userDetail;
 	}
 
+	public SearchDto findAccount(SearchDto searchDto) {
+		SearchDto searchId = userDao.findByEmail(searchDto.getUserEmail());
+		return searchId;
+	}
+  
 	public List<LikeyJSListDto> likeyfindAllJSList() {
 
 		return likeyDao.likeyFindSJList();
 	}
 
-    public List<LikeyPFListDto> likeyfindAllPFList() {
+  public List<LikeyPFListDto> likeyfindAllPFList() {
 		return likeyDao.likeyFindPFList();
     }
 }

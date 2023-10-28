@@ -55,4 +55,8 @@
             resultType="com.example.bumerang.web.dto.response.user.UserRespDto">
         SELECT * FROM user WHERE user_id=#{userId}
     </select>
+
+    <select id="findByEmail" resultType="com.example.bumerang.web.dto.request.user.SearchDto">
+        select * from user where user_email = #{userEmail}
+    </select>
 </mapper>

@@ -35,7 +35,8 @@ dependencies {
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	/* mail */
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-	implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.65'
+	implementation 'com.sun.mail:javax.mail:1.6.2'
+//	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+//	implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.65'
 
 }
