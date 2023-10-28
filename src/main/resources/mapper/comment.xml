@@ -15,16 +15,17 @@
         FROM comment
     </select>
 
-    <insert id="insert">
+    <insert id="create">
         INSERT
-        INTO comment(comment_content, job_id, pf_id, user_id, comment_status)
-        VALUES(#{commentContent},  #{jobId}, #{pfId}, #{userId}, #{commentStatus})
+        INTO comment(comment_content, job_id, pf_id, user_id)
+        VALUES(#{commentContent},  #{jobId}, #{pfId}, #{userId})
     </insert>
 
     <update id="update">
         UPDATE comment
         SET
         comment_content = #{commentContent}
+        WHERE comment_id = #{commentId}
     </update>
 
     <delete id="delete">
