@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 public class PerformanceService {
 
-	private final HttpSession session;
 	private final PerformanceDao performanceDao;
+	private final HttpSession session;
+
+	public List<Performance> findAll() {
+		return performanceDao.findAll();
+	}
 
 	public Performance deadline(DeadlineDto deadlineDto) {
 		performanceDao.dead(deadlineDto);

@@ -4,7 +4,7 @@ import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.domain.jobSearch.JobSearch;
 import com.example.bumerang.domain.jobSearch.JobSearchDao;
 import com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao;
-import com.example.bumerang.domain.likey.LikeyDao;
+import com.example.bumerang.domain.Likey.LikeyDao;
 import com.example.bumerang.domain.view.ViewDao;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;

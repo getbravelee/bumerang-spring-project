@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bumerang.domain.admin.AdminDao">
+
+    <select id="findUserList" resultType="com.example.bumerang.web.dto.response.admin.UserListDto">
+        SELECT *
+        FROM user
+    </select>
+
+    <select id="findJobList" resultType="com.example.bumerang.web.dto.response.admin.JobListDto">
+        SELECT j.*, COUNT(v.view_id) AS job_view
+        FROM job_search j
+        LEFT JOIN VIEW v
+        ON j.job_id = v.job_id
+        GROUP BY j.job_id
+    </select>
+
+    <select id="findPfList" resultType="com.example.bumerang.web.dto.response.admin.PfListDto">
+        SELECT p.*, COUNT(v.view_id) AS pf_view
+        FROM performance p
+        LEFT JOIN VIEW v
+        ON p.pf_id = v.pf_id
+        GROUP BY p.pf_id
+    </select>
+
+
+    <select id="findNoticeList" resultType="com.example.bumerang.web.dto.response.admin.NoticeListDto">
+        SELECT *
+        FROM notice
+    </select>
+
+    <select id="findByUserId" resultType="com.example.bumerang.web.dto.response.admin.UserDetailDto">
+        SELECT *
+        FROM user u
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <update id="updateUser">
+        UPDATE user
+        SET
+        user_email = #{userEmail},
+        user_nickname = #{userNickname},
+        user_age = #{userAge},
+        user_position = #{userPosition},
+        user_gender = #{userGender},
+        user_career = #{userCareer},
+        user_intro = #{userIntro},
+        user_portfolio_link = #{userPortfolioLink},
+        user_contact_link = #{userContactLink},
+        user_profile_img = #{userProfileImg},
+        user_role = #{userRole},
+        user_status = #{userStatus}
+        WHERE
+        user_id = #{userId}
+    </update>
+
+    <update id="deleteUser">
+        UPDATE user
+        SET
+        user_status = 'deleted'
+        WHERE
+        user_id = #{userId}
+    </update>
+
+    <select id="findByJobId" resultType="com.example.bumerang.web.dto.response.admin.JobDetailDto">
+        SELECT j.*,
+        (SELECT GROUP_CONCAT(jp.job_position_title) FROM job_search_position jp WHERE jp.job_id = j.job_id) as jobPositionTitles
+        FROM job_search j
+        WHERE j.job_id = ${jobId}
+    </select>
+
+    <update id="updateJob">
+        UPDATE job_search
+        SET
+        job_content_title = #{jobContentTitle},
+        job_content = #{jobContent},
+        job_genre = #{jobGenre},
+        job_art_title = #{jobArtTitle},
+        job_start_date = #{jobStartDate},
+        job_production_date = #{jobProductionDate},
+        job_to = #{jobTo},
+        job_pay = #{jobPay},
+        job_gender = #{jobGender},
+        job_contact = #{jobContact},
+        job_deadline = #{jobDeadline},
+        job_status = #{jobStatus}
+        WHERE
+        job_id = #{jobId}
+    </update>
+
+    <insert id="insertJobPosition">
+        INSERT INTO job_search_position (job_position_title, job_id)
+        VALUES (#{jobPositionTitle}, #{jobId})
+    </insert>
+
+    <select id="findByJobPosition" resultType="String">
+        SELECT jsp.job_position_title
+        FROM job_search_position jsp
+        WHERE jsp.job_id = #{jobId}
+    </select>
+
+    <delete id="deleteJobPosition">
+        DELETE FROM job_search_position
+        WHERE job_id = #{jobId}
+    </delete>
+
+    <update id="deleteJob">
+        UPDATE job_search
+        SET
+        job_status = 'deleted'
+        WHERE
+        job_id = #{jobId}
+    </update>
+
+    <select id="findByPfId" resultType="com.example.bumerang.web.dto.response.admin.PfDetailDto">
+        SELECT *
+        FROM performance p
+        WHERE p.pf_id = #{pfId}
+    </select>
+
+    <update id="updatePf">
+        UPDATE performance
+        SET
+        pf_title = #{pfTitle},
+        pf_content = #{pfContent},
+        pf_agerating = #{pfAgerating},
+        pf_start_date = #{pfStartDate},
+        pf_deadline = #{pfDeadline},
+        pf_bookingmethod = #{pfBookingmethod},
+        pf_production = #{pfProduction},
+        pf_location = #{pfLocation},
+        pf_runningtime = #{pfRunningtime},
+        pf_price = #{pfPrice},
+        pf_genre = #{pfGenre},
+        pf_thumbnail = #{pfThumbnail},
+        pf_status = #{pfStatus}
+        WHERE
+        pf_id = #{pfId}
+    </update>
+
+    <update id="deletePf">
+        UPDATE performance
+        SET
+        pf_status = 'deleted'
+        WHERE
+        pf_id = #{pfId}
+    </update>
+
+    <select id="findByNoticeId" resultType="com.example.bumerang.web.dto.response.admin.NoticeDetailDto">
+        SELECT *
+        FROM notice n
+        WHERE n.notice_id = #{noticeId}
+    </select>
+
+    <update id="updateNotice">
+        UPDATE notice
+        SET
+        notice_title = #{noticeTitle},
+        notice_content = #{noticeContent},
+        notice_type = #{noticeType},
+        notice_status = #{noticeStatus}
+        WHERE
+        notice_id = #{noticeId}
+    </update>
+
+    <update id="deleteNotice">
+        UPDATE notice
+        SET
+        notice_status = 'deleted'
+        WHERE
+        notice_id = #{noticeId}
+    </update>
+
+    <select id="findReportJobList" resultType="com.example.bumerang.web.dto.response.admin.JobListDto">
+        SELECT j.*, r.*, r.created_at AS reportCreatedAt
+        FROM (SELECT * FROM report r WHERE r.job_id IS NOT NULL) r
+        LEFT JOIN (SELECT j.*, COUNT(v.view_id) AS job_view
+        FROM job_search j
+        LEFT JOIN VIEW v
+        ON j.job_id = v.job_id
+        GROUP BY j.job_id) j ON r.job_id = j.job_id
+        ORDER BY j.created_at DESC 
+    </select>
+
+    <select id="findReportPfList" resultType="com.example.bumerang.web.dto.response.admin.PfListDto">
+        SELECT p.*, r.*, r.created_at AS reportCreatedAt
+        FROM (SELECT * FROM report r WHERE r.pf_id IS NOT NULL) r
+        LEFT JOIN (
+        SELECT p.*, COUNT(v.view_id) AS pf_view
+        FROM performance p
+        LEFT JOIN VIEW v
+        ON p.pf_id = v.pf_id
+        GROUP BY p.pf_id) p
+        ON r.pf_id = p.pf_id
+        ORDER BY r.created_at DESC
+    </select>
+
+    <select id="findReportCommentList" resultType="com.example.bumerang.web.dto.response.admin.CommentListDto">
+        SELECT r.*, c.*, r.created_at AS reportCreatedAt
+        FROM (SELECT * FROM report r WHERE r.comment_id IS NOT NULL) r
+        LEFT JOIN comment c
+        ON r.comment_id = c.comment_id
+        ORDER BY r.created_at DESC
+    </select>
+
+    <update id="deleteComment">
+        UPDATE comment
+        SET
+        comment_status = 'deleted'
+        WHERE
+        comment_id = #{commentId}
+    </update>
+
+    <select id="findByCommentId" resultType="com.example.bumerang.web.dto.response.admin.CommentDetailDto">
+        SELECT *
+        FROM comment c
+        WHERE c.comment_id = #{commentId}
+    </select>
+
+    <select id="findByGenreJob" resultType="com.example.bumerang.web.dto.response.admin.GenreDto">
+        SELECT job_genre, COUNT(*) AS genre_count
+        FROM job_search
+        GROUP BY job_genre
+    </select>
+
+    <select id="findByGenrePf" resultType="com.example.bumerang.web.dto.response.admin.GenreDto">
+        SELECT pf_genre, COUNT(*) AS genre_count
+        FROM performance
+        GROUP BY pf_genre
+    </select>
+
+    <select id="findAllPost" resultType="com.example.bumerang.web.dto.response.admin.PostListDto">
+        SELECT
+        job_id AS content_id,
+        job_content_title AS title,
+        (
+        SELECT COUNT(*)
+        FROM view
+        WHERE job_id = job_search.job_id
+        ) AS view_count,
+        job_genre AS genre,
+        job_status AS status,
+        created_at,
+        'job' AS type
+        FROM job_search
+        UNION
+        SELECT
+        pf_id AS content_id,
+        pf_title AS title,
+        (
+        SELECT COUNT(*)
+        FROM view
+        WHERE pf_id = performance.pf_id
+        ) AS view_count,
+        pf_genre AS genre,
+        pf_status AS status,
+        created_at,
+        'performance' AS type
+        FROM performance
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="findByView" resultType="com.example.bumerang.web.dto.response.admin.ViewListDto">
+        SELECT
+        (
+        SELECT COUNT(*)
+        FROM view
+        WHERE DATE(created_at) = CURDATE()
+        ) AS dailyView,
+        (
+        SELECT COUNT(*)
+        FROM view
+        WHERE YEARWEEK(created_at, 1) = YEARWEEK(NOW(), 1)
+        ) AS weeklyView
+    </select>
+
+    <select id="findByExit" resultType="com.example.bumerang.web.dto.response.admin.ExitListDto">
+        SELECT
+        (SELECT
+        COUNT(*)
+        FROM user
+        WHERE DATE(updated_at) = CURDATE() AND user_status = 'deleted'
+        GROUP BY DATE(updated_at)) AS dailyExitCount,
+        (SELECT
+        COUNT(*)
+        FROM user
+        WHERE YEARWEEK(updated_at, 1) = YEARWEEK(NOW(), 1) AND user_status = 'deleted'
+        GROUP BY YEARWEEK(updated_at, 1)) AS weeklyExitCount
+    </select>
+</mapper>

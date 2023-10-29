@@ -8,10 +8,9 @@ import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.SearchDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
-import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
-import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
-import com.example.bumerang.web.dto.response.Likey.LikeyRespDto;
-import com.example.bumerang.web.dto.response.jobSearch.JobMainDto;
+import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
+import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;
+import com.example.bumerang.web.dto.response.likey.LikeyRespDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,13 +109,6 @@ public class UserController {
         return new CMRespDto<>(1, "아이디 찾기 화면 불러오기 성공.", null);
     }
 
-    @PostMapping("/user/help/searchId")
-    public @ResponseBody CMRespDto<?> searchId(@RequestBody SearchDto searchDto) {
-        SearchDto userId = userService.findAccount(searchDto);
-        return new CMRespDto<>(1, "아이디 찾기 성공.", null);
-    }
-
-  
     // 아이디 찾기
     @PostMapping("/user/help/searchId")
     public @ResponseBody CMRespDto<?> searchId(@RequestBody SearchDto searchDto) {
@@ -135,7 +127,8 @@ public class UserController {
         message.setText("비밀번호는 " + userPassword.getUserPassword() + "입니다.");
         emailSender.send(message);
         return new CMRespDto<>(1, "비밀번호 찾기 성공.", message);
-      
+    }
+
     // 관심목록 화면
     @GetMapping("user/likeyList")
     public @ResponseBody CMRespDto<?> liketyJSListForm(){

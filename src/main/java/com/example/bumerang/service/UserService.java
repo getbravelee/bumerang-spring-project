@@ -1,6 +1,6 @@
 package com.example.bumerang.service;
 
-import com.example.bumerang.domain.likey.LikeyDao;
+import com.example.bumerang.domain.Likey.LikeyDao;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
@@ -8,8 +8,8 @@ import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.SearchDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
-import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
-import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
+import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
+import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.example.bumerang.domain.likey;
+package com.example.bumerang.domain.Likey;
 
-import com.example.bumerang.web.dto.response.Likey.LikeyJSListDto;
-import com.example.bumerang.web.dto.response.Likey.LikeyPFListDto;
+import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
+import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -16,6 +16,7 @@ public class Comment {
     private Integer userId;
     private String commentStatus;
     private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     @Builder
     public Comment(String commentContent, Integer commentId, Integer jobId, Integer pfId, Integer userId) {

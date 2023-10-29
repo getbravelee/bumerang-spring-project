@@ -1,5 +1,4 @@
-package com.example.bumerang.web.dto.response.Likey;
-
+package com.example.bumerang.web.dto.response.likey;
 import lombok.Getter;
 import lombok.Setter;
 

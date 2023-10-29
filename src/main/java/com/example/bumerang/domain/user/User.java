@@ -3,7 +3,6 @@ package com.example.bumerang.domain.user;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 

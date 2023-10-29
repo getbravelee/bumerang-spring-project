@@ -1,6 +1,6 @@
 package com.example.bumerang.web;
 
-import com.example.bumerang.domain.likey.Likey;
+import com.example.bumerang.domain.Likey.Likey;
 import com.example.bumerang.service.LikeyService;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.likey.LikeyDto;

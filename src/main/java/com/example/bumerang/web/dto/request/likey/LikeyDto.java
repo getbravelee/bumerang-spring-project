@@ -1,6 +1,6 @@
 package com.example.bumerang.web.dto.request.likey;
 
-import com.example.bumerang.domain.likey.Likey;
+import com.example.bumerang.domain.Likey.Likey;
 import lombok.Getter;
 import lombok.Setter;
 

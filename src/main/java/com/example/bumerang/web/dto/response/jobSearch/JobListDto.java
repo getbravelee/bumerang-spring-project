@@ -15,5 +15,4 @@ public class JobListDto {
     private Integer userId;
     private Integer viewCount;
     private Integer commentCount;
-
 }

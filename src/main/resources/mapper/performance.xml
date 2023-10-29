@@ -18,7 +18,7 @@
     <insert id="insert">
         INSERT INTO performance (pf_title, pf_content, pf_agerating, pf_start_date, pf_deadline, pf_bookingmethod, pf_production, pf_location, pf_runningtime, pf_price, pf_genre, pf_thumbnail, user_id)
         VALUES
-        (#{pfTitle}, #{pfContent}, #{pfAgerating}, #{pfStartDate}, #{pfDeadline}, #{pfBookingmethod}, #{pfProduction}, #{pfLocation}, #{pfRunningtime}, #{pfPrice}, #{pfGenre}, #{pfThumbnail}, #{userId},)
+        (#{pfTitle}, #{pfContent}, #{pfAgerating}, #{pfStartDate}, #{pfDeadline}, #{pfBookingmethod}, #{pfProduction}, #{pfLocation}, #{pfRunningtime}, #{pfPrice}, #{pfGenre}, #{pfThumbnail}, #{userId})
     </insert>
 
     <update id="update">
