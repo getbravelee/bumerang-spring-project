@@ -56,6 +56,50 @@
         SELECT * FROM user WHERE user_id=#{userId}
     </select>
 
+    <select id="myJSList"
+            resultType="com.example.bumerang.web.dto.response.user.UserJobSearchDto">
+        SELECT
+            js.job_id,
+            js.job_genre,
+            js.job_content_title,
+            js.job_deadline,
+            js.created_at,
+            js.user_id,
+            u.user_profile_img,
+            u.user_career,
+            u.user_nickname,
+            COALESCE(c.comment_count, 0) AS comment_count,
+            COALESCE(v.view_count, 0) AS view_count
+        FROM job_search js
+                 INNER JOIN user u ON js.user_id = u.user_id
+                 LEFT JOIN (
+            SELECT job_id, COUNT(comment_id) AS comment_count
+            FROM comment
+            WHERE comment_status != 'deleted'
+            GROUP BY job_id
+        ) c ON js.job_id = c.job_id
+                 LEFT JOIN (
+            SELECT job_id, COUNT(view_id) AS view_count
+            FROM view
+            GROUP BY job_id
+        ) v ON js.job_id = v.job_id
+        WHERE js.user_id = #{userId}
+    </select>
+
+    <select id="myPfList"
+            resultType="com.example.bumerang.web.dto.response.user.UserPerformanceDto">
+        SELECT user_id,
+               pf_id,
+               pf_price,
+               pf_thumbnail,
+               pf_title,
+               pf_location,
+               pf_start_date,
+               pf_deadline
+        FROM performance
+        WHERE user_id = #{userId};
+    </select>
+
     <select id="findByEmail" resultType="com.example.bumerang.web.dto.request.user.SearchDto">
         select * from user where user_email = #{userEmail}
     </select>

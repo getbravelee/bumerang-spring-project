@@ -8,10 +8,14 @@ import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.SearchDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
+import com.example.bumerang.web.dto.response.user.UserCreateRespoDto;
+import com.example.bumerang.web.dto.response.user.UserJobSearchDto;
+import com.example.bumerang.web.dto.response.user.UserPerformanceDto;
 import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
 import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;
 import com.example.bumerang.web.dto.response.likey.LikeyRespDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -94,6 +98,17 @@ public class UserController {
     public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer userId) {
         UserRespDto userDetail = userService.findByDetail(userId);
         return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
+    }
+
+    // 내가 작성한 구인글 화면
+    @GetMapping("/user/{userId}/posts")
+    public @ResponseBody CMRespDto<?> jobPostsForm(@PathVariable Integer userId) {
+        UserCreateRespoDto respoDto = new UserCreateRespoDto();
+        List<UserJobSearchDto> myJSList = userService.myJSList(userId);
+        List<UserPerformanceDto> myPfList = userService.myPfList(userId);
+        respoDto.setMyJSList(myJSList);
+        respoDto.setMyPfList(myPfList);
+        return new CMRespDto<>(1, "작성한 글 불러오기 성공.", respoDto);
     }
 
     // 아이디 찾기 화면
