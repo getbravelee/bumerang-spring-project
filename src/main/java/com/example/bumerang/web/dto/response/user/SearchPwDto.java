@@ -1,12 +1,11 @@
-package com.example.bumerang.web.dto.request.user;
+package com.example.bumerang.web.dto.response.user;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class SearchDto {
+public class SearchPwDto {
     private String userEmail;
-    private String userLoginId;
     private String userPassword;
 }

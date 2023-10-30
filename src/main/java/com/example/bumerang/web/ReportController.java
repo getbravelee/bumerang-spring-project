@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Controller
 public class ReportController {
+
     private final HttpSession session;
     private final ReportService reportService;
 
@@ -31,7 +32,6 @@ public class ReportController {
         Integer pfId = reportDto.getPfId();
         Integer commentId = reportDto.getCommentId();
         reportDto.setUserId(principal.getUserId());
-        Integer userId = reportDto.getUserId();
 
         // 구인글 신고
         if (jobId != null) {

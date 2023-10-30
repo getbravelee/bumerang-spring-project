@@ -30,6 +30,7 @@ public class JobSearchService {
 	private final ViewDao viewDao;
 
 
+	//구인글 작성
 	public JobRespDto write(WriteDto writeDto) {
 		JobSearch jobSearch = writeDto.toJobSearch();
 		jobSearchDao.insert(jobSearch);
@@ -42,10 +43,12 @@ public class JobSearchService {
 		return writeResult;
 	}
 
+	//구인글 목록
 	public List<JobSearch> findAll() {
 		return jobSearchDao.findAll();
 	}
 
+	//구인글 상세보기
 	public DetailFormDto findByJob(SessionUserDto userPS, Integer jobId) {
 		System.err.println("디버그1");
 		Integer userId = userPS.getUserId();
@@ -62,6 +65,7 @@ public class JobSearchService {
 		return findByJob;
 	}
 
+	//구인글 수정
 	public JobRespDto update(UpdateDto updateDto) {
 		JobSearch jobSearch = updateDto.toJobSearch();
 		jobSearchDao.update(jobSearch);
@@ -74,6 +78,7 @@ public class JobSearchService {
 		return updateResult;
 	}
 
+	//구인글 삭제
 	public JobRespDto delete(Integer jobId) {
 		jobSearchDao.delete(jobId);
 		JobRespDto deleteResult = jobSearchDao.findByDelete(jobId);

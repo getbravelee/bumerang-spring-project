@@ -24,7 +24,6 @@ public class UpdateDto {
 
     public User toEntity(){
         return User.builder()
-
                 .userLoginId(this.userLoginId)
                 .userPassword(this.userPassword)
                 .userEmail(this.userEmail)

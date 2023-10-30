@@ -30,6 +30,7 @@
         user_nickname = #{userNickname},
         user_age = #{userAge},
         user_position = #{userPosition},
+        user_gender = #{userGender},
         user_career = #{userCareer},
         user_intro = #{userIntro},
         user_portfolio_link = #{userPortfolioLink},
@@ -55,6 +56,12 @@
             resultType="com.example.bumerang.web.dto.response.user.UserRespDto">
         SELECT * FROM user WHERE user_id=#{userId}
     </select>
+
+    <select id="findToLoginId" resultType="com.example.bumerang.web.dto.response.user.SearchIdDto">
+        select * from user where user_email = #{userEmail}
+    </select>
+
+    <select id="findToPw" resultType="com.example.bumerang.web.dto.response.user.SearchPwDto">
 
     <select id="myJSList"
             resultType="com.example.bumerang.web.dto.response.user.UserJobSearchDto">
@@ -100,7 +107,4 @@
         WHERE user_id = #{userId};
     </select>
 
-    <select id="findByEmail" resultType="com.example.bumerang.web.dto.request.user.SearchDto">
-        select * from user where user_email = #{userEmail}
-    </select>
 </mapper>

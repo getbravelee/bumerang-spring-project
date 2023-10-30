@@ -17,15 +17,17 @@ public class NoticeService {
 	private final HttpSession session;
 	private final NoticeDao noticeDao;
 
-
+	//공지 작성
 	public void insert(Notice writeDto) {
 		noticeDao.insert(writeDto);
 	}
 
+	//공지 목록
 	public List<Notice> findAll() {
 		return noticeDao.findAll();
 	}
 
+	//공지 상세보기
 	public DetailFormDto findByNotice(Integer noticeId) {
 		return noticeDao.findByNotice(noticeId);
 	}
