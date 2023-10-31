@@ -18,9 +18,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -117,5 +122,28 @@ public class UserService {
         message.setText("비밀번호는 " + userPassword.getUserPassword() + "입니다.");
         emailSender.send(message);
         return message;
+    }
+
+    private final String imageUploadPath = "C:/project/Spring Project/load"; // 여기서 경로 수정
+
+    public String uploadProfileImage(MultipartFile profileImage) {
+        if (!profileImage.isEmpty()) {
+            try {
+                // 이미지 파일 이름을 랜덤으로 생성
+                String fileName = UUID.randomUUID() + "_" + profileImage.getOriginalFilename();
+                Path imagePath = Paths.get(imageUploadPath + fileName);
+
+                // 이미지 저장
+                profileImage.transferTo(imagePath.toFile());
+
+                // 이미지 파일 경로를 반환
+                return imageUploadPath + fileName;
+            } catch (IOException e) {
+                e.printStackTrace();
+                // 이미지 업로드 실패 처리
+                return null;
+            }
+        }
+        return null;
     }
     }

@@ -6,11 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.service.UserService;
@@ -30,6 +26,7 @@ import com.example.bumerang.web.dto.response.user.UserPerformanceDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RequiredArgsConstructor
@@ -84,13 +81,24 @@ public class UserController {
 
     // 회원수정기능
     @PutMapping("/s/api/user/update")
-    public @ResponseBody CMRespDto<?> update(@RequestBody UpdateDto updateDto) {
-        SessionUserDto principal = (SessionUserDto)session.getAttribute("principal");
+    public @ResponseBody CMRespDto<?> updateUser(@RequestPart("profileImage") MultipartFile profileImage, @RequestPart UpdateDto updateDto) {
+
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         Integer userId = updateDto.getUserId();
         Integer userPId = principal.getUserId();
-        if(userId.equals(userPId)){
-            User userUpdateResult = userService.update(updateDto);
-            return new CMRespDto<>(1, "회원정보 수정 성공.", userUpdateResult );
+
+        if (userId.equals(userPId)) {
+            try {
+                // 이미지 업로드 및 업데이트
+                String imagePath = userService.uploadProfileImage(profileImage);
+                // UpdateDto에 imagePath를 설정
+                updateDto.setUserProfileImg(imagePath);
+                // 사용자 정보 업데이트
+                User userUpdateResult = userService.update(updateDto);
+                return new CMRespDto<>(1, "회원 수정 성공.", userUpdateResult);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
     }
@@ -155,5 +163,6 @@ public class UserController {
         userLikeyList.setLPFList(LikeyPFDetail);
         return new CMRespDto<>(1, "관심목록 불러오기 성공.", userLikeyList);
     }
+
 }
 
