@@ -46,7 +46,7 @@
                                             <tr>
                                                 <td>${loop.index + 1}</td>
                                                 <td>
-                                                    <a href="/manage/jobDetailForm/${job.jobId}">
+                                                    <a href="/s/api/auth/manage/jobDetailForm/${job.jobId}">
                                                         ${job.jobContentTitle}
                                                     </a>
                                                 </td>
@@ -55,7 +55,7 @@
                                                 <td>${job.jobStatus}</td>
                                                 <td>${job.createdAt}</td>
                                                 <td>
-                                                    <a href="/manage/jobUpdateForm/${job.jobId}"
+                                                    <a href="/s/api/auth/manage/jobUpdateForm/${job.jobId}"
                                                         class="btn btn-warning">수정</a>
                                                 </td>
                                                 <td>
@@ -85,7 +85,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/jobListForm";
+                                location.href = "/s/api/auth/manage/jobListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

@@ -1,27 +1,35 @@
 package com.example.bumerang.web;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.service.UserService;
 import com.example.bumerang.web.dto.SessionUserDto;
-import com.example.bumerang.web.dto.request.user.*;
+import com.example.bumerang.web.dto.request.user.JoinDto;
+import com.example.bumerang.web.dto.request.user.LoginDto;
+import com.example.bumerang.web.dto.request.user.UpdateDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
-import com.example.bumerang.web.dto.response.user.UserCreateRespoDto;
-import com.example.bumerang.web.dto.response.user.UserJobSearchDto;
-import com.example.bumerang.web.dto.response.user.UserPerformanceDto;
 import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
 import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;
 import com.example.bumerang.web.dto.response.likey.LikeyRespDto;
 import com.example.bumerang.web.dto.response.user.SearchIdDto;
 import com.example.bumerang.web.dto.response.user.SearchPwDto;
+import com.example.bumerang.web.dto.response.user.UserCreateRespoDto;
+import com.example.bumerang.web.dto.response.user.UserJobSearchDto;
+import com.example.bumerang.web.dto.response.user.UserPerformanceDto;
 import com.example.bumerang.web.dto.response.user.UserRespDto;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
@@ -64,7 +72,7 @@ public class UserController {
     }
 
     // 로그아웃
-    @PostMapping("/user/logout")
+    @PostMapping("/s/api/user/logout")
     public @ResponseBody CMRespDto<?> logout() {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if(principal==null){
@@ -73,29 +81,40 @@ public class UserController {
         session.invalidate();
         return new CMRespDto<>(1, "로그아웃 성공.", principal);
     }
+
     // 회원수정기능
-    @PutMapping("/user/update")
+    @PutMapping("/s/api/user/update")
     public @ResponseBody CMRespDto<?> update(@RequestBody UpdateDto updateDto) {
-        User userUpdateResult = userService.update(updateDto);
-        return new CMRespDto<>(1, "회원수정 성공.", userUpdateResult );
+        SessionUserDto principal = (SessionUserDto)session.getAttribute("principal");
+        Integer userId = updateDto.getUserId();
+        Integer userPId = principal.getUserId();
+        if(userId.equals(userPId)){
+            User userUpdateResult = userService.update(updateDto);
+            return new CMRespDto<>(1, "회원정보 수정 성공.", userUpdateResult );
+        }
+        return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
     }
 
     // 계정 상세 화면
-    @GetMapping("/user/detailForm/{userId}")
-    public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer userId) {
+    @GetMapping("/s/api/user/detailForm")
+    public @ResponseBody CMRespDto<?> detailForm() {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        Integer userId = principal.getUserId();
         UserRespDto userDetail = userService.findByDetail(userId);
         return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
     }
 
     // 내가 작성한 구인글 화면
-    @GetMapping("/user/{userId}/posts")
-    public @ResponseBody CMRespDto<?> jobPostsForm(@PathVariable Integer userId) {
-        UserCreateRespoDto respoDto = new UserCreateRespoDto();
+    @GetMapping("/s/api/user/writeListForm")
+    public @ResponseBody CMRespDto<?> writeListForm() {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        Integer userId = principal.getUserId();
+        UserCreateRespoDto userWriteList = new UserCreateRespoDto();
         List<UserJobSearchDto> myJSList = userService.myJSList(userId);
         List<UserPerformanceDto> myPfList = userService.myPfList(userId);
-        respoDto.setMyJSList(myJSList);
-        respoDto.setMyPfList(myPfList);
-        return new CMRespDto<>(1, "작성한 글 불러오기 성공.", respoDto);
+        userWriteList.setMyJSList(myJSList);
+        userWriteList.setMyPfList(myPfList);
+        return new CMRespDto<>(1, "작성한 글 불러오기 성공.", userWriteList);
     }
 
     // 아이디 찾기 화면
@@ -114,8 +133,8 @@ public class UserController {
     // 아이디 찾기
     @PostMapping("/user/searchId")
     public @ResponseBody CMRespDto<?> searchId(@RequestBody SearchIdDto searchIdDto) {
-        SearchIdDto userPS = userService.findByLoginId(searchIdDto);
-        return new CMRespDto<>(1, "아이디 찾기 성공.", userPS);
+        SearchIdDto userLoginId = userService.findByLoginId(searchIdDto);
+        return new CMRespDto<>(1, "아이디 찾기 성공.", userLoginId);
     }
 
     // 비밀번호 찾기
@@ -127,14 +146,14 @@ public class UserController {
     }
 
     // 관심목록 화면
-    @GetMapping("/user/likeyList")
-    public @ResponseBody CMRespDto<?> liketyJSListForm(){
-        LikeyRespDto LikeyResp = new LikeyRespDto();
+    @GetMapping("/s/api/user/likeyListForm")
+    public @ResponseBody CMRespDto<?> likeyListForm(){
+        LikeyRespDto userLikeyList = new LikeyRespDto();
         List<LikeyJSListDto> LikeyJSDetail = userService.likeyfindAllJSList();
         List<LikeyPFListDto> LikeyPFDetail = userService.likeyfindAllPFList();
-        LikeyResp.setLJSList(LikeyJSDetail);
-        LikeyResp.setLPFList(LikeyPFDetail);
-        return new CMRespDto<>(1, "관심목록 불러오기 성공.", LikeyResp);
+        userLikeyList.setLJSList(LikeyJSDetail);
+        userLikeyList.setLPFList(LikeyPFDetail);
+        return new CMRespDto<>(1, "관심목록 불러오기 성공.", userLikeyList);
     }
 }
 

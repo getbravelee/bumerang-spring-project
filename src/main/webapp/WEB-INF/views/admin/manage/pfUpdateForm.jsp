@@ -130,7 +130,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/pfListForm";
+                                location.href = "/s/api/auth/manage/pfListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

@@ -46,7 +46,7 @@
         WHERE job_id = #{jobId}
     </delete>
 
-    <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
+    <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
         SELECT *,
         (SELECT COUNT(*) FROM likey WHERE job_id = #{jobId}) as likeyCount,
         (SELECT COUNT(*) FROM view WHERE job_id = #{jobId}) as viewCount

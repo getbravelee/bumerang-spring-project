@@ -13,17 +13,23 @@ public class CommentService {
 
 
     //댓글 작성
-    public void create(Comment comment) {
+    public Comment create(Comment comment) {
         commentDao.create(comment);
+        Comment commentPS = commentDao.findById(comment.getCommentId());
+        return commentPS;
     }
 
     //댓글 삭제
-    public void delete(Integer commentId) {
+    public Comment delete(Integer commentId) {
         commentDao.delete(commentId);
+        Comment commentPS = commentDao.findById(commentId);
+        return commentPS;
     }
 
     //댓글 수정
-    public void update(Integer commentId, String commentContent) {
+    public Comment update(Integer commentId, String commentContent) {
         commentDao.update(commentId, commentContent);
+        Comment commentPS = commentDao.findById(commentId);
+        return commentPS;
     }
 }

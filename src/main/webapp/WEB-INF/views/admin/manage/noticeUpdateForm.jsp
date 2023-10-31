@@ -68,7 +68,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/noticeListForm";
+                                location.href = "/s/api/auth/manage/noticeListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

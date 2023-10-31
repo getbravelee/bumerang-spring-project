@@ -52,7 +52,7 @@
                                             <tr>
                                                 <td>${loop.index + 1}</td>
                                                 <td>
-                                                    <a href="/manage/userDetailForm/${user.userId}">
+                                                    <a href="/s/api/auth/manage/userDetailForm/${user.userId}">
                                                         ${user.userNickname}
                                                     </a>
                                                 </td>
@@ -69,7 +69,7 @@
                                                 <td>${user.userStatus}</td>
                                                 <td>${user.userRole}</td>
                                                 <td>
-                                                    <a href="/manage/userUpdateForm/${user.userId}"
+                                                    <a href="/s/api/auth/manage/userUpdateForm/${user.userId}"
                                                         class="btn btn-warning">수정</a>
 
                                                 </td>
@@ -100,7 +100,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/userListForm";
+                                location.href = "/s/api/auth/manage/userListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

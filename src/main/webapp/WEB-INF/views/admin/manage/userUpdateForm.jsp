@@ -144,7 +144,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/userListForm";
+                                location.href = "/s/api/auth/manage/userListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

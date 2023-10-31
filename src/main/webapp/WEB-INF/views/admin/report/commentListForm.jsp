@@ -81,7 +81,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/report/commentListForm";
+                                location.href = "/s/api/auth/report/commentListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

@@ -44,13 +44,13 @@
                                             <tr>
                                                 <td>${loop.index + 1}</td>
                                                 <td> <a
-                                                        href="/manage/noticeDetailForm/${notice.noticeId}">${notice.noticeTitle}</a>
+                                                        href="/s/api/auth/manage/noticeDetailForm/${notice.noticeId}">${notice.noticeTitle}</a>
                                                 </td>
                                                 <td>${notice.noticeType}</td>
                                                 <td>${notice.noticeStatus}</td>
                                                 <td>${notice.createdAt}</td>
                                                 <td>
-                                                    <a href="/manage/noticeUpdateForm/${notice.noticeId}"
+                                                    <a href="/s/api/auth/manage/noticeUpdateForm/${notice.noticeId}"
                                                         class="btn btn-warning">수정</a>
                                                 </td>
                                                 <td>
@@ -80,7 +80,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/noticeListForm";
+                                location.href = "/s/api/auth/manage/noticeListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

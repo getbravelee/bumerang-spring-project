@@ -45,13 +45,13 @@
                                         <c:forEach var="pf" items="${pfList}" varStatus="loop">
                                             <tr>
                                                 <td>${loop.index + 1}</td>
-                                                <td><a href="/manage/pfDetailForm/${pf.pfId}">${pf.pfTitle}</a></td>
+                                                <td><a href="/s/api/auth/manage/pfDetailForm/${pf.pfId}">${pf.pfTitle}</a></td>
                                                 <td>${pf.pfGenre}</td>
                                                 <td>${pf.pfView}</td>
                                                 <td>${pf.pfStatus}</td>
                                                 <td>${pf.createdAt}</td>
                                                 <td>
-                                                    <a href="/manage/pfUpdateForm/${pf.pfId}"
+                                                    <a href="/s/api/auth/manage/pfUpdateForm/${pf.pfId}"
                                                         class="btn btn-warning">수정</a>
                                                 </td>
                                                 <td>
@@ -82,7 +82,7 @@
                     }).done((res) => {
                         if (res.code == 1) {
                             alert(res.msg);
-                            location.href = "/manage/pfListForm";
+                            location.href = "/s/api/auth/manage/pfListForm";
                         } else {
                             alert(res.msg);
                             location.reload();

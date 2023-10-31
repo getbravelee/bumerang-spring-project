@@ -49,16 +49,10 @@ public class JobSearchService {
 	}
 
 	//구인글 상세보기
-	public DetailFormDto findByJob(SessionUserDto userPS, Integer jobId) {
-		System.err.println("디버그1");
-		Integer userId = userPS.getUserId();
-		System.err.println("디버그2");
+	public DetailFormDto findByJob(Integer userId, Integer jobId) {
 		List<String> jobPositionList = jobSearchPositionDao.findPositionList(jobId);
-		System.err.println("디버그3");
 		List<JobCommentDto> findByCommentList = commentDao.findByCommentList(jobId);
-		System.err.println("디버그4");
 		DetailFormDto findByJob = jobSearchDao.findByJob(jobId);
-		System.err.println("디버그5");
 		findByJob.setJobPositionTitle(jobPositionList);
 		findByJob.setCommentList(findByCommentList);
 		viewDao.count(jobId, userId);

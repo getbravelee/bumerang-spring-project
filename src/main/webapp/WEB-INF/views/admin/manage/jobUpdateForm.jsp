@@ -144,7 +144,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/manage/jobListForm";
+                                location.href = "/s/api/auth/manage/jobListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

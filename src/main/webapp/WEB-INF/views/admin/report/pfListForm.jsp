@@ -48,7 +48,7 @@
                                             <tr>
                                                 <td>${loop.index + 1}</td>
                                                 <td>
-                                                    <a href="/report/pfDetailForm/${pf.pfId}">
+                                                    <a href="/s/api/auth/report/pfDetailForm/${pf.pfId}">
                                                         ${pf.pfTitle}
                                                     </a>
                                                 </td>
@@ -85,7 +85,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/report/pfListForm";
+                                location.href = "/s/api/auth/report/pfListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

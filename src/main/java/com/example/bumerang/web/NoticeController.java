@@ -32,4 +32,5 @@ public class NoticeController {
         DetailFormDto noticeDetail = noticeService.findByNotice(noticeId);
         return new CMRespDto<>(1, "공지사항 상세보기 화면 불러오기 성공.", noticeDetail);
     }
+    
 }

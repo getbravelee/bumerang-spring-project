@@ -48,7 +48,7 @@
                                             <tr>
                                                 <td>${loop.index + 1}</td>
                                                 <td>
-                                                    <a href="/report/jobDetailForm/${job.jobId}">
+                                                    <a href="/s/api/auth/report/jobDetailForm/${job.jobId}">
                                                         ${job.jobContentTitle}
                                                     </a>
                                                 </td>
@@ -85,7 +85,7 @@
                         }).done((res) => {
                             if (res.code == 1) {
                                 alert(res.msg);
-                                location.href = "/report/jobListForm";
+                                location.href = "/s/api/auth/report/jobListForm";
                             } else {
                                 alert(res.msg);
                                 location.reload();

@@ -35,7 +35,10 @@
                                     <div class="card-header">
                                         <i class="fas fa-chart-pie me-1"></i>
                                         장르별 통계
-                                        <input id="jobPS" type="hidden" value="${jobPS}">
+                                        <c:forEach items="${jobPS}" var="job">
+                                            <input type="hidden" class="jobGenre" value="${job.jobGenre}">
+                                            <input type="hidden" class="genreCount" value="${job.genreCount}">
+                                        </c:forEach>
                                         Pie Chart Example
                                     </div>
                                     <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas>

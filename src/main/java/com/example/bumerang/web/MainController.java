@@ -9,6 +9,7 @@ import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
 import com.example.bumerang.web.dto.response.jobSearch.JobListDto;
 import com.example.bumerang.web.dto.response.jobSearch.JobMainDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
 import com.example.bumerang.web.dto.response.performance.PfListDto;
 import com.example.bumerang.web.dto.response.performance.PfMainDto;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,6 @@ public class MainController {
 		return new CMRespDto<>(1, "사이트 메인페이지 불러오기 성공.",null );
 	}
 
-
-
 	// 구인정보글 메인 화면
 	@GetMapping("/jobSearch/mainForm")
 	public @ResponseBody CMRespDto<?> jobMainForm() {
@@ -48,27 +47,25 @@ public class MainController {
 	}
 
 	// 마감하기 기능
-	@PutMapping("/main/deadline")
+	@PutMapping("/s/api/main/deadline")
 	public @ResponseBody CMRespDto<?> deadline(@RequestBody DeadlineDto deadlineDto) {
 		SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-		if (principal == null) {
-			return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
-		}
 		Integer jobId = deadlineDto.getJobId();
-		Integer pfId = deadlineDto.getPfId();
-		deadlineDto.setUserId(principal.getUserId());
 		Integer userId = deadlineDto.getUserId();
-
-		if(jobId!=null){
+		Integer pfId = deadlineDto.getPfId();
+        Integer userPId = principal.getUserId();
+        if(userId.equals(userPId)){
+			deadlineDto.setUserId(principal.getUserId());
+			if(jobId!=null){
 			JobSearch deadlineResult = jobSearchService.deadline(deadlineDto);
 			return new CMRespDto<>(1, "구인글 마감하기 성공.", deadlineResult);
 		}
-
-		if(pfId!=null){
-			Performance deadlineResult = performanceService.deadline(deadlineDto);
-			return new CMRespDto<>(1, "공연글 마감하기 성공.", deadlineResult);
-		}
-		return new CMRespDto<>(-1, "데이터 요청을 다시 해주세요.", null);
+			if(pfId!=null){
+				Performance deadlineResult = performanceService.deadline(deadlineDto);
+				return new CMRespDto<>(1, "공연글 마감하기 성공.", deadlineResult);
+			}
+        }
+		return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
 	}
 
 	// 공연글 메인 화면

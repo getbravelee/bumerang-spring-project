@@ -1,17 +1,19 @@
 package com.example.bumerang.web;
 
-import com.example.bumerang.domain.Likey.Likey;
-import com.example.bumerang.service.LikeyService;
-import com.example.bumerang.web.dto.SessionUserDto;
-import com.example.bumerang.web.dto.request.likey.LikeyDto;
-import com.example.bumerang.web.dto.response.CMRespDto;
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
+import com.example.bumerang.domain.Likey.Likey;
+import com.example.bumerang.service.LikeyService;
+import com.example.bumerang.web.dto.SessionUserDto;
+import com.example.bumerang.web.dto.request.likey.LikeyDto;
+import com.example.bumerang.web.dto.response.CMRespDto;
+
+import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
@@ -22,20 +24,19 @@ public class LikeyController {
     private final LikeyService likeyService;
 
     // 추천 기능
-    @PostMapping("/likey")
+    @PostMapping("/s/api/likey")
     public @ResponseBody CMRespDto<?> likey(@RequestBody LikeyDto likeyDto) {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-        if (principal == null) {
-            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
-        }
-        Integer jobId = likeyDto.getJobId();
-        Integer pfId = likeyDto.getPfId();
-        Integer commentId = likeyDto.getCommentId();
-        likeyDto.setUserId(principal.getUserId());
         Integer userId = likeyDto.getUserId();
-        Integer jobLikeyId = likeyService.findByJobId(userId, jobId);
-        Integer pfLikeyId = likeyService.findByPfId(userId, pfId);
-        Integer commentLikeyId = likeyService.findByCommentId(userId, commentId);
+        Integer userPId = principal.getUserId();
+        if (userId.equals(userPId)) {
+            Integer jobId = likeyDto.getJobId();
+            Integer pfId = likeyDto.getPfId();
+            Integer commentId = likeyDto.getCommentId();
+            likeyDto.setUserId(principal.getUserId());
+            Integer jobLikeyId = likeyService.findByJobId(userId, jobId);
+            Integer pfLikeyId = likeyService.findByPfId(userId, pfId);
+            Integer commentLikeyId = likeyService.findByCommentId(userId, commentId);
 
         // 구인글 추천
         if (jobId != null) {
@@ -66,7 +67,7 @@ public class LikeyController {
             Likey commentLikey = likeyService.unLikeyComment(commentLikeyId);
             return new CMRespDto<>(1, "댓글 추천 취소 성공", commentLikey);
         }
-
-        return new CMRespDto<>(-1, "데이터 요청을 다시 해주세요.", null);
+        }
+        return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
     }
 }
