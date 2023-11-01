@@ -1,5 +1,6 @@
 package com.example.bumerang.web.dto.response.notice;
 
+import com.example.bumerang.domain.notice.Notice;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -3,6 +3,8 @@ import com.example.bumerang.domain.comment.Comment;
 import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.web.dto.request.comment.CommentDto;
 import java.util.List;
+
+import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class CommentService {
     //댓글 작성
     public Comment create(Comment comment) {
         commentDao.create(comment);
-        Comment commentPS = commentDao.findById(comment.getCommentId());
+        Comment commentPS = commentDao.findByRecent();
         return commentPS;
     }
 

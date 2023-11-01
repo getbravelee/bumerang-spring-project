@@ -42,4 +42,10 @@
         ON u.user_id = c.user_id
         WHERE c.job_id = #{jobId}
     </select>
+
+    <select id="findByRecent" resultType="com.example.bumerang.domain.comment.Comment">
+        SELECT *
+        FROM comment c
+        WHERE c.comment_id=LAST_INSERT_ID()
+    </select>
 </mapper>

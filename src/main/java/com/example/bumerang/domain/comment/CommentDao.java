@@ -17,4 +17,5 @@ public interface CommentDao {
 
     public  List<JobCommentDto> findByCommentList(Integer jobId);
 
+    Comment findByRecent();
 }

@@ -26,17 +26,11 @@ public class CommentController {
     private final HttpSession session;
     private final CommentService commentService;
 
-    // 댓글 생성
+    // 댓글 등록
     @PostMapping("/s/api/comment/write")
     public @ResponseBody CMRespDto<?> write(@RequestBody CommentDto commentDto) {
-        SessionUserDto principal = (SessionUserDto)session.getAttribute("principal");
-        Integer userId = commentDto.getUserId();
-        Integer userPId = principal.getUserId();
-        if(userId.equals(userPId)){
-            Comment commentPS = commentService.create(commentDto.toComment());
-            return new CMRespDto<>(1, "댓글 생성 성공.", commentPS);
-        }
-        return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
+        Comment commentPS = commentService.create(commentDto.toComment());
+        return new CMRespDto<>(1, "댓글 등록 성공.", commentPS);
     }
 
     // 댓글 삭제

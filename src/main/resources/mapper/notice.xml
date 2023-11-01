@@ -12,7 +12,8 @@
     <select id="findAll"
             resultType="com.example.bumerang.domain.notice.Notice">
         SELECT *
-        FROM notice
+        FROM notice n
+        WHERE n.notice_status = 'active'
     </select>
 
     <insert id="insert">
@@ -25,9 +26,9 @@
     <update id="update">
         UPDATE notice
         SET
-        notice_title = #{newNoticeTitle},
-        notice_content = #{newNoticeContent},
-        notice_type = #{newNoticeType}
+        notice_title = #{noticeTitle},
+        notice_content = #{noticeContent},
+        notice_type = #{noticeType}
         WHERE
         notice_title = #{noticeTitle}
         AND user_id = #{userId}
@@ -38,6 +39,7 @@
         SET
         notice_status = 'deleted'
         WHERE notice_id = #{noticeId}
+        AND notice_status = 'active'
     </delete>
 
     <select id="findByNotice"
@@ -47,5 +49,26 @@
         LEFT JOIN notice n
         ON u.user_id = n.user_id
         WHERE n.notice_id = #{noticeId}
+        AND n.notice_status = 'active'
+        AND u.user_status = 'active'
     </select>
+
+    <select id="findByRecent" resultType="com.example.bumerang.domain.notice.Notice">
+        SELECT *
+        FROM notice n
+        WHERE n.notice_id=LAST_INSERT_ID()
+    </select>
+
+    <update id="updatNotice">
+        UPDATE notice
+        SET
+        notice_title = #{noticeTitle},
+        notice_content = #{noticeContent},
+        notice_type = #{noticeType}
+        WHERE
+        notice_id = #{noticeId}
+        AND user_id = #{userId}
+        AND notice_status = 'active'
+    </update>
+
 </mapper>
