@@ -45,7 +45,7 @@
         UPDATE performance
         SET
         pf_status = 'deleted'
-        WHERE performance_id = #{performanceId}
+        WHERE pf_id = #{pfId}
     </delete>
 
     <update id="dead">
@@ -71,10 +71,10 @@
         WHERE pf_id IS NOT NULL
         GROUP BY pf_id) v
         ON p.pf_id = v.pf_id
-        WHERE pf_status = 'active'
+        WHERE pf_status != 'deleted'
     </select>
 
-    <select id="findAllBeestPf"
+    <select id="findAllBestPf"
             resultType="com.example.bumerang.web.dto.response.performance.PfListDto">
         SELECT p.pf_title, p.pf_location,
         CASE WHEN p.pf_price = 0 THEN FALSE
@@ -87,8 +87,27 @@
             FROM view
             GROUP BY pf_id
         ) v ON p.pf_id = v.pf_id
-        WHERE p.pf_status = 'active'
+        WHERE p.pf_status != 'deleted'
         ORDER BY COALESCE(viewCount, 0) DESC
         LIMIT 6
     </select>
+
+    <select id="findByRecent"
+            resultType="com.example.bumerang.web.dto.response.performance.PfRespDto">
+        SELECT *
+        FROM performance p
+        WHERE p.pf_id=LAST_INSERT_ID()
+    </select>
+
+    <select id="findByPf" resultType="com.example.bumerang.web.dto.response.performance.DetailFormDto">
+        SELECT *,
+        (SELECT COUNT(*) FROM likey WHERE pf_id = #{pfId}) as likeyCount,
+        (SELECT COUNT(*) FROM view WHERE pf_id = #{pfId}) as viewCount
+        FROM performance p
+        LEFT JOIN user u
+        ON p.user_id = u.user_id
+        WHERE p.pf_id = #{pfId}
+        AND p.pf_status != 'deleted'
+    </select>
+
 </mapper>

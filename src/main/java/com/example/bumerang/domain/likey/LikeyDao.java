@@ -1,4 +1,4 @@
-package com.example.bumerang.domain.Likey;
+package com.example.bumerang.domain.likey;
 
 import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
 import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;

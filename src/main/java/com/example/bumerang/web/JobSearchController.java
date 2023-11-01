@@ -2,6 +2,7 @@ package com.example.bumerang.web;
 
 import javax.servlet.http.HttpSession;
 
+import com.example.bumerang.domain.jobSearch.JobSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,10 +62,15 @@ public class JobSearchController {
     // 구인정보 수정하기 화면
     @GetMapping("/s/api/jobSearch/updateForm/{jobId}")
     public @ResponseBody CMRespDto<?> updateForm(@PathVariable Integer jobId) {
-        SessionUserDto userPS = (SessionUserDto)session.getAttribute("principal");
-        Integer userId = userPS.getUserId();
-        DetailFormDto jobDetail = jobSearchService.findByJob(userId, jobId);
-        return new CMRespDto<>(1, "구인정보 수정하기 화면 불러오기 성공.", jobDetail);
+        SessionUserDto principal = (SessionUserDto)session.getAttribute("principal");
+        JobSearch jobPS = jobSearchService.findById(jobId);
+        Integer userId = jobPS.getUserId();
+        Integer userPId = principal.getUserId();
+        if(userId.equals(userPId)){
+            DetailFormDto jobDetail = jobSearchService.findByJob(userId, jobId);
+            return new CMRespDto<>(1, "구인정보 수정하기 화면 불러오기 성공.", jobDetail);
+        }
+        return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
     }
 
     // 구인정보 수정하기 기능

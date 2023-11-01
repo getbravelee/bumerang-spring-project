@@ -4,9 +4,8 @@ import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.domain.jobSearch.JobSearch;
 import com.example.bumerang.domain.jobSearch.JobSearchDao;
 import com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao;
-import com.example.bumerang.domain.Likey.LikeyDao;
+import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.view.ViewDao;
-import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
@@ -51,11 +50,11 @@ public class JobSearchService {
 	//구인글 상세보기
 	public DetailFormDto findByJob(Integer userId, Integer jobId) {
 		List<String> jobPositionList = jobSearchPositionDao.findPositionList(jobId);
-		List<JobCommentDto> findByCommentList = commentDao.findByCommentList(jobId);
+		List<JobCommentDto> findByCommentList = commentDao.findByJobCommentList(jobId);
 		DetailFormDto findByJob = jobSearchDao.findByJob(jobId);
 		findByJob.setJobPositionTitle(jobPositionList);
 		findByJob.setCommentList(findByCommentList);
-		viewDao.count(jobId, userId);
+		viewDao.count(null,jobId, userId);
 		return findByJob;
 	}
 
@@ -67,7 +66,7 @@ public class JobSearchService {
 		for(String jobPositionTitle : jobPositionList){
 			jobSearchPositionDao.updatePosition(jobPositionTitle, updateDto.getJobId());
 		}
-		JobRespDto updateResult = jobSearchDao.findByUpdate(updateDto.getJobId());
+		JobRespDto updateResult = jobSearchDao.findByUpdateResult(updateDto.getJobId());
 		updateResult.setJobPositionTitle(jobPositionList);
 		return updateResult;
 	}

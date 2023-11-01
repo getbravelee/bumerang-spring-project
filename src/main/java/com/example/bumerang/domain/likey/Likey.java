@@ -1,4 +1,4 @@
-package com.example.bumerang.domain.Likey;
+package com.example.bumerang.domain.likey;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.example.bumerang.service;
 
-import com.example.bumerang.domain.Likey.Likey;
-import com.example.bumerang.domain.Likey.LikeyDao;
+import com.example.bumerang.domain.likey.Likey;
+import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.web.dto.request.likey.LikeyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.performance;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,23 @@ public class Performance {
     private String pfStatus;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+
+
+    @Builder
+    public Performance(Integer pfId, String pfTitle, String pfContent, String pfAgerating, String pfStartDate, String pfDeadline, String pfBookingmethod, String pfProduction, String pfLocation,  Integer pfRunningtime, Integer pfPrice, String pfGenre, String pfThumbnail, Integer userId) {
+        this.pfId = pfId;
+        this.pfTitle = pfTitle;
+        this.pfContent = pfContent;
+        this.pfAgerating = pfAgerating;
+        this.pfStartDate = pfStartDate;
+        this.pfDeadline = pfDeadline;
+        this.pfBookingmethod = pfBookingmethod;
+        this.pfProduction = pfProduction;
+        this.pfLocation = pfLocation;
+        this.pfRunningtime = pfRunningtime;
+        this.pfPrice = pfPrice;
+        this.pfGenre = pfGenre;
+        this.pfThumbnail = pfThumbnail;
+        this.userId = userId;
+    }
 }

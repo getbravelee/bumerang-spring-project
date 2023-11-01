@@ -1,6 +1,6 @@
 package com.example.bumerang.service;
 
-import com.example.bumerang.domain.Likey.LikeyDao;
+import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.SessionUserDto;
@@ -36,6 +36,7 @@ public class UserService {
     private final UserDao userDao;
     private final LikeyDao likeyDao;
     private final JavaMailSender emailSender;
+    private final String imageUploadPath = "C:/bumerang/img/"; // 여기서 경로 수정
 
     //회원가입
     public SessionUserDto join(JoinDto joinDto) {
@@ -123,8 +124,6 @@ public class UserService {
         emailSender.send(message);
         return message;
     }
-
-    private final String imageUploadPath = "C:/project/Spring Project/load"; // 여기서 경로 수정
 
     public String uploadProfileImage(MultipartFile profileImage) {
         if (!profileImage.isEmpty()) {

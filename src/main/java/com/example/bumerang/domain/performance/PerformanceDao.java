@@ -1,7 +1,9 @@
 package com.example.bumerang.domain.performance;
 
 import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
+import com.example.bumerang.web.dto.response.performance.DetailFormDto;
 import com.example.bumerang.web.dto.response.performance.PfListDto;
+import com.example.bumerang.web.dto.response.performance.PfRespDto;
 
 import java.util.List;
 
@@ -20,5 +22,10 @@ public interface PerformanceDao {
 
     List<PfListDto> findAllPf();
 
-    List<PfListDto> findAllBeestPf();
+    List<PfListDto> findAllBestPf();
+
+    PfRespDto findByRecent();
+
+    DetailFormDto findByPf(Integer pfId);
+
 }

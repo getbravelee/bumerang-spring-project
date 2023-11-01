@@ -22,8 +22,8 @@
     </insert>
 
     <insert id="count">
-        INSERT INTO view (job_id, user_id)
+        INSERT INTO view (pf_id, job_id, user_id)
         VALUES
-        (#{jobId}, #{userId})
+        (#{pfId}, #{jobId}, #{userId})
     </insert>
 </mapper>

@@ -34,8 +34,8 @@ public class NoticeService {
 		return noticeDao.findByNotice(noticeId);
 	}
 
-    public Notice write(Notice writeDto) {
-		noticeDao.insert(writeDto);
+    public Notice write(WriteDto writeDto) {
+		noticeDao.insert(writeDto.toEntity());
 		Notice noticePS = noticeDao.findByRecent();
 		return noticePS;
     }

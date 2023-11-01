@@ -11,5 +11,5 @@ public interface ViewDao {
 
     public void insert(View view);
 
-    public void count(@Param("jobId") Integer jobId, @Param("userId")Integer userId);
+    public void count(@Param("pfId") Integer pfId, @Param("jobId") Integer jobId, @Param("userId")Integer userId);
 }

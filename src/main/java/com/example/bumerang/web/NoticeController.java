@@ -39,7 +39,7 @@ public class NoticeController {
     // 공지사항 등록
     @PostMapping("/s/api/auth/notice/write")
     public @ResponseBody CMRespDto<?> write(@RequestBody WriteDto writeDto) {
-        Notice noticePS = noticeService.write(writeDto.toEntity());
+        Notice noticePS = noticeService.write(writeDto);
         return new CMRespDto<>(1, "공지사항 등록 성공.", noticePS);
     }
 

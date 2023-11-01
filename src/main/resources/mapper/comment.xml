@@ -35,7 +35,7 @@
         WHERE comment_id = #{commentId}
     </delete>
 
-    <select id="findByCommentList" resultType="com.example.bumerang.web.dto.response.jobSearch.JobCommentDto">
+    <select id="findByJobCommentList" resultType="com.example.bumerang.web.dto.response.jobSearch.JobCommentDto">
         SELECT *
         FROM user u
         LEFT JOIN comment c
@@ -47,5 +47,14 @@
         SELECT *
         FROM comment c
         WHERE c.comment_id=LAST_INSERT_ID()
+    </select>
+
+    <select id="findByPfCommentList" resultType="com.example.bumerang.web.dto.response.performance.PfCommentDto">
+        SELECT *
+        FROM user u
+        LEFT JOIN comment c
+        ON u.user_id = c.user_id
+        WHERE c.pf_id = #{pfId}
+        AND c.comment_status != 'deleted'
     </select>
 </mapper>
