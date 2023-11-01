@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class UserJobSearchDto {
     private Integer jobId;
-
     private String jobGenre;
     private String jobDeadline;
     private String jobContentTitle;

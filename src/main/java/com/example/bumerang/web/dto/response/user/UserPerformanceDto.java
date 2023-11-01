@@ -7,9 +7,7 @@ import lombok.Setter;
 @Setter
 public class UserPerformanceDto {
     private Integer userId;
-
     private Integer pfId;
-
     private Integer pfPrice;
     private String pfThumbnail;
     private String pfTitle;

@@ -79,6 +79,14 @@ public class UserController {
         return new CMRespDto<>(1, "로그아웃 성공.", principal);
     }
 
+    // 내 회원정보 수정 화면
+    @GetMapping("/s/api/user/updateForm")
+    public @ResponseBody CMRespDto<?> updateForm() {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        UserRespDto userDetail = userService.findByDetail(principal.getUserId());
+        return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
+    }
+
     // 회원수정기능
     @PutMapping("/s/api/user/update")
     public @ResponseBody CMRespDto<?> updateUser(@RequestPart("profileImage") MultipartFile profileImage, @RequestPart("updateDto") UpdateDto updateDto) {
@@ -86,7 +94,8 @@ public class UserController {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         Integer userId = updateDto.getUserId();
         Integer userPId = principal.getUserId();
-
+        System.err.println("디버그userId: "+userId);
+        System.err.println("디버그userPId: "+userPId);
         if (userId.equals(userPId)) {
             try {
                 // 이미지 업로드 및 업데이트
@@ -94,7 +103,7 @@ public class UserController {
                 // UpdateDto에 imagePath를 설정
                 updateDto.setUserProfileImg(imagePath);
                 // 사용자 정보 업데이트
-                User userUpdateResult = userService.update(updateDto);
+                UserRespDto userUpdateResult = userService.update(updateDto);
                 return new CMRespDto<>(1, "회원 수정 성공.", userUpdateResult);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -104,10 +113,8 @@ public class UserController {
     }
 
     // 계정 상세 화면
-    @GetMapping("/s/api/user/detailForm")
-    public @ResponseBody CMRespDto<?> detailForm() {
-        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-        Integer userId = principal.getUserId();
+    @GetMapping("/s/api/user/detailForm/{userId}")
+    public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer userId) {
         UserRespDto userDetail = userService.findByDetail(userId);
         return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
     }

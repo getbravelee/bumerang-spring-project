@@ -52,7 +52,6 @@
         u.user_id AS userId,
         u.user_nickname AS userNickname,
         u.user_profile_img AS userProfileImg,
-        u.user_position AS userPosition,
         u.user_career AS userCareer,
         l.likey_id AS LikeyId,
         j.job_id AS jobId,

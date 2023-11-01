@@ -27,13 +27,10 @@
         (#{jobPositionTitle}, #{jobId})
     </insert>
 
-    <update id="updatePosition">
-        UPDATE job_search_position
-        SET
-        job_position_title = #{jobPositionTitle}
-        WHERE
-        job_id = #{jobId}
-    </update>
+    <delete id="delete">
+        DELETE FROM job_search_position
+        WHERE job_id = #{jobId};
+    </delete>
 
     <select id="findPositionList"
             resultType="String">

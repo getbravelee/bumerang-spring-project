@@ -10,7 +10,6 @@ public class LikeyJSListDto {
     private Integer userId;
     private String userNickname;
     private String userProfileImg;
-    private String userPosition;
     private String userCareer;
 
     //  좋아요에서 가져올 정보

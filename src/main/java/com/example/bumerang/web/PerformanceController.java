@@ -1,6 +1,5 @@
 package com.example.bumerang.web;
 
-import com.example.bumerang.domain.jobSearch.JobSearch;
 import com.example.bumerang.domain.performance.Performance;
 import com.example.bumerang.service.PerformanceService;
 import com.example.bumerang.web.dto.SessionUserDto;

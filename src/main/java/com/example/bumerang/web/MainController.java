@@ -57,12 +57,18 @@ public class MainController {
         if(userId.equals(userPId)){
 			deadlineDto.setUserId(principal.getUserId());
 			if(jobId!=null){
-			JobSearch deadlineResult = jobSearchService.deadline(deadlineDto);
-			return new CMRespDto<>(1, "구인글 마감하기 성공.", deadlineResult);
+				JobSearch jobPS = jobSearchService.findById(jobId);
+				if(jobPS.getUserId().equals(userPId)){
+					JobSearch deadlineResult = jobSearchService.deadline(deadlineDto);
+					return new CMRespDto<>(1, "구인글 마감하기 성공.", deadlineResult);
+				}
 		}
 			if(pfId!=null){
-				Performance deadlineResult = performanceService.deadline(deadlineDto);
-				return new CMRespDto<>(1, "공연글 마감하기 성공.", deadlineResult);
+				Performance pfPS = performanceService.findById(pfId);
+				if(pfPS.getUserId().equals(userPId)){
+					Performance deadlineResult = performanceService.deadline(deadlineDto);
+					return new CMRespDto<>(1, "공연글 마감하기 성공.", deadlineResult);
+				}
 			}
         }
 		return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);

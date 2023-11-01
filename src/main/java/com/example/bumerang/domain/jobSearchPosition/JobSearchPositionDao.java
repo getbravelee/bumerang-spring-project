@@ -7,7 +7,7 @@ public interface JobSearchPositionDao {
 
     public List<JobSearchPosition> findAll();
 
-    public void insert(JobSearchPosition jobPosition);
+    void insert(String jobPositionTitle, Integer jobId);
 
     public void update(JobSearchPosition jobPosition);
 
@@ -15,7 +15,6 @@ public interface JobSearchPositionDao {
 
     public void insertPosition(String jobPositionTitle, Integer jobId);
 
-    public void updatePosition(String jobPositionTitle, Integer jobId);
-
     public List<String> findPositionList(Integer jobId);
+
 }
