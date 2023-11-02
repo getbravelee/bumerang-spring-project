@@ -1,5 +1,10 @@
 package com.example.bumerang.web;
 
+import com.example.bumerang.web.dto.response.admin.BoardCountOfWeekDto;
+import com.example.bumerang.web.dto.response.admin.JSGenreDto;
+import com.example.bumerang.web.dto.response.admin.PfGenreDto;
+import com.example.bumerang.web.dto.response.admin.SignupDto;
+import com.example.bumerang.web.dto.response.admin.ViewYAxisDto;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +24,6 @@ import com.example.bumerang.web.dto.response.CMRespDto;
 import com.example.bumerang.web.dto.response.admin.CommentDetailDto;
 import com.example.bumerang.web.dto.response.admin.CommentListDto;
 import com.example.bumerang.web.dto.response.admin.ExitListDto;
-import com.example.bumerang.web.dto.response.admin.GenreDto;
 import com.example.bumerang.web.dto.response.admin.JobDetailDto;
 import com.example.bumerang.web.dto.response.admin.JobListDto;
 import com.example.bumerang.web.dto.response.admin.NoticeDetailDto;
@@ -36,7 +40,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-public class AnminController {
+public class AdminController {
 
     private final HttpSession session;
     private final AdminService adminService;
@@ -47,9 +51,14 @@ public class AnminController {
         List<PostListDto> postPS = adminService.findAllPost();
         ViewListDto viewPS = adminService.findByView();
         ExitListDto exitPS = adminService.findByExit();
+        List<SignupDto> signupPS = adminService.findBySignup();
+        List<BoardCountOfWeekDto> postsPS = adminService.boardCountOfWeek();
         model.addAttribute("postPS", postPS);
         model.addAttribute("viewPS", viewPS);
         model.addAttribute("exitPS", exitPS);
+        model.addAttribute("signupPS", signupPS);
+        model.addAttribute("postsPS", postsPS);
+
         return "admin/indexForm";
     }
 
@@ -241,8 +250,25 @@ public class AnminController {
     // 구인글 통계 화면
     @GetMapping("/s/api/auth/statistics/jobChartForm")
     public String findJobChartForm(Model model) {
-        List<GenreDto> jobStatistics = adminService.findByGenreJob();
-        model.addAttribute("jobPS",jobStatistics);
+        List<JSGenreDto> jobStatistics = adminService.findByGenreJob();
+        model.addAttribute("jobPS", jobStatistics);
+        List<ViewYAxisDto> jsViewDaily = adminService.jsDailyOfWeekViews();
+        model.addAttribute("jsViewDaily", jsViewDaily);
+        List<ViewYAxisDto> jsViewMonthly = adminService.jsMonthlyOfViews();
+        model.addAttribute("jsViewMonthly", jsViewMonthly);
         return "admin/statistics/jobChartForm";
     }
+
+    // 공연글 통계 화면
+    @GetMapping("/statistics/pfChartForm")
+    public String findPfChartForm(Model model) {
+        List<PfGenreDto> pfStatistics = adminService.findByGenrePf();
+        model.addAttribute("pfPS", pfStatistics);
+        List<ViewYAxisDto> pfViewDaily = adminService.pfDailyOfWeekViews();
+        model.addAttribute("pfViewDaily", pfViewDaily);
+        List<ViewYAxisDto> pfViewMonthly = adminService.pfMonthlyOfViews();
+        model.addAttribute("pfViewMonthly", pfViewMonthly);
+        return "admin/statistics/pfChartForm";
+    }
 }
+

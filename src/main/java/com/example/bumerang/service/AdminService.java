@@ -14,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class AdminService {
+
+    private final HttpSession session;
     private final AdminDao adminDao;
 
     public List<UserListDto> findUserList() {
@@ -134,9 +136,19 @@ public class AdminService {
         return commentPS;
     }
 
-    public List<GenreDto> findByGenreJob() {
-        List<GenreDto> jobPS = adminDao.findByGenreJob();
+    public List<SignupDto> findBySignup() {
+        List<SignupDto> signupPS = adminDao.findBySignup();
+        return signupPS;
+    }
+
+    public List<JSGenreDto> findByGenreJob() {
+        List<JSGenreDto> jobPS = adminDao.findByGenreJob();
         return jobPS;
+    }
+
+    public List<PfGenreDto> findByGenrePf() {
+        List<PfGenreDto> pfPS = adminDao.findByGenrePf();
+        return pfPS;
     }
 
     public List<PostListDto> findAllPost() {
@@ -152,5 +164,30 @@ public class AdminService {
     public ExitListDto findByExit() {
         ExitListDto exitPS = adminDao.findByExit();
         return exitPS;
+    }
+
+    public List<ViewYAxisDto> jsDailyOfWeekViews() {
+        List<ViewYAxisDto> jsViewDaily = adminDao.jsDailyOfWeekViews();
+        return jsViewDaily;
+    }
+
+    public List<ViewYAxisDto> jsMonthlyOfViews() {
+        List<ViewYAxisDto> jsViewMonthly = adminDao.jsMonthlyOfViews();
+        return jsViewMonthly;
+    }
+
+    public List<ViewYAxisDto> pfDailyOfWeekViews() {
+        List<ViewYAxisDto> pfViewDaily = adminDao.pfDailyOfWeekViews();
+        return pfViewDaily;
+    }
+
+    public List<ViewYAxisDto> pfMonthlyOfViews() {
+        List<ViewYAxisDto> pfViewMonthly = adminDao.pfMonthlyOfViews();
+        return pfViewMonthly;
+    }
+
+    public List<BoardCountOfWeekDto> boardCountOfWeek() {
+        List<BoardCountOfWeekDto> boardCountOfWeek = adminDao.boardCountOfWeek();
+        return boardCountOfWeek;
     }
 }

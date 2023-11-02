@@ -226,13 +226,13 @@
         WHERE c.comment_id = #{commentId}
     </select>
 
-    <select id="findByGenreJob" resultType="com.example.bumerang.web.dto.response.admin.GenreDto">
+    <select id="findByGenreJob" resultType="com.example.bumerang.web.dto.response.admin.JSGenreDto">
         SELECT job_genre, COUNT(*) AS genre_count
         FROM job_search
         GROUP BY job_genre
     </select>
 
-    <select id="findByGenrePf" resultType="com.example.bumerang.web.dto.response.admin.GenreDto">
+    <select id="findByGenrePf" resultType="com.example.bumerang.web.dto.response.admin.PfGenreDto">
         SELECT pf_genre, COUNT(*) AS genre_count
         FROM performance
         GROUP BY pf_genre
@@ -270,30 +270,213 @@
     </select>
 
     <select id="findByView" resultType="com.example.bumerang.web.dto.response.admin.ViewListDto">
+        WITH Days AS (
+            SELECT CURDATE() - INTERVAL (n - 1) DAY AS day
+        FROM (
+            SELECT 1 AS n UNION ALL
+            SELECT 2 UNION ALL
+            SELECT 3 UNION ALL
+            SELECT 4 UNION ALL
+            SELECT 5 UNION ALL
+            SELECT 6 UNION ALL
+            SELECT 7
+            ) AS Numbers
+            )
+
         SELECT
-            (
-                SELECT COUNT(*)
-                FROM view
-                WHERE DATE(created_at) = CURDATE()
-                ) AS dailyView,
-             (
-        SELECT COUNT(*)
-        FROM view
-        WHERE YEARWEEK(created_at, 1) = YEARWEEK(NOW(), 1)
-            ) AS weeklyView
+            CURDATE() AS day,
+    (
+        SELECT COALESCE(COUNT(v1.view_id), 0)
+        FROM view v1
+        WHERE v1.job_id IS NOT NULL AND DATE(v1.created_at) = CURDATE()
+    ) + (
+        SELECT COALESCE(COUNT(v2.view_id), 0)
+        FROM view v2
+        WHERE v2.pf_id IS NOT NULL AND DATE(v2.created_at) = CURDATE()
+    ) AS dailyView,
+    SUM(
+        (
+            SELECT COALESCE(COUNT(v1.view_id), 0)
+            FROM view v1
+            WHERE v1.job_id IS NOT NULL AND DATE(v1.created_at) = d.day
+        ) + (
+            SELECT COALESCE(COUNT(v2.view_id), 0)
+            FROM view v2
+            WHERE v2.pf_id IS NOT NULL AND DATE(v2.created_at) = d.day
+        )
+    ) AS weeklyView
+        FROM Days d
+        WHERE d.day >= CURDATE() - INTERVAL 6 DAY;
     </select>
 
     <select id="findByExit" resultType="com.example.bumerang.web.dto.response.admin.ExitListDto">
         SELECT
-            (SELECT
-                 COUNT(*)
-             FROM user
-             WHERE DATE(updated_at) = CURDATE() AND user_status = 'deleted'
-        GROUP BY DATE(updated_at)) AS dailyExitCount,
-            (SELECT
-            COUNT(*)
-        FROM user
-        WHERE YEARWEEK(updated_at, 1) = YEARWEEK(NOW(), 1) AND user_status = 'deleted'
-        GROUP BY YEARWEEK(updated_at, 1)) AS weeklyExitCount
+            COALESCE(
+                    (SELECT COUNT(*)
+                     FROM user
+                     WHERE DATE(updated_at) = CURDATE() AND user_status = 'deleted'
+                    GROUP BY DATE(updated_at)
+                ),
+        0
+    ) AS dailyExitCount,
+            COALESCE(
+                    (SELECT COUNT(*)
+                     FROM user
+                     WHERE YEARWEEK(updated_at, 1) = YEARWEEK(NOW(), 1) AND user_status = 'deleted'
+                     GROUP BY YEARWEEK(updated_at, 1)
+                    ),
+                    0
+                ) AS weeklyExitCount;
+
+    </select>
+
+    <select id="jsDailyOfWeekViews" resultType="com.example.bumerang.web.dto.response.admin.ViewYAxisDto">
+        WITH Days AS (
+            SELECT CURDATE() - INTERVAL (n - 1) DAY AS day
+        FROM (
+            SELECT 1 AS n UNION ALL
+            SELECT 2 UNION ALL
+            SELECT 3 UNION ALL
+            SELECT 4 UNION ALL
+            SELECT 5 UNION ALL
+            SELECT 6 UNION ALL
+            SELECT 7
+            ) AS Numbers
+            )
+
+        SELECT
+            d.day,
+            COALESCE(COUNT(v.view_id), 0) AS dailyView
+        FROM Days d
+                 LEFT JOIN view v ON v.job_id IS NOT NULL AND DATE(v.created_at) = d.day
+        WHERE d.day >= CURDATE() - INTERVAL 6 DAY
+        GROUP BY d.day
+        ORDER BY d.day;
+    </select>
+
+    <select id="jsMonthlyOfViews" resultType="com.example.bumerang.web.dto.response.admin.ViewYAxisDto">
+        SELECT DATE_FORMAT(view.created_at, '%Y-%m') AS month,
+    COUNT(*) AS monthView
+        FROM
+            job_search
+            JOIN
+            view
+        ON job_search.job_id = view.job_id
+        WHERE
+            view.created_at >= DATE_SUB(CURDATE()
+            , INTERVAL 6 MONTH)
+        GROUP BY
+            DATE_FORMAT(view.created_at, '%Y-%m')
+        ORDER BY
+            month;
+    </select>
+
+    <select id="pfDailyOfWeekViews" resultType="com.example.bumerang.web.dto.response.admin.ViewYAxisDto">
+        WITH Days AS (
+            SELECT CURDATE() - INTERVAL (n - 1) DAY AS day
+        FROM (
+            SELECT 1 AS n UNION ALL
+            SELECT 2 UNION ALL
+            SELECT 3 UNION ALL
+            SELECT 4 UNION ALL
+            SELECT 5 UNION ALL
+            SELECT 6 UNION ALL
+            SELECT 7
+            ) AS Numbers
+            )
+
+        SELECT
+            d.day,
+            COALESCE(COUNT(v.view_id), 0) AS dailyView
+        FROM Days d
+                 LEFT JOIN view v ON v.pf_id IS NOT NULL AND DATE(v.created_at) = d.day
+        WHERE d.day >= CURDATE() - INTERVAL 6 DAY
+        GROUP BY d.day
+        ORDER BY d.day;
+    </select>
+
+    <select id="pfMonthlyOfViews" resultType="com.example.bumerang.web.dto.response.admin.ViewYAxisDto">
+        SELECT DATE_FORMAT(view.created_at, '%Y-%m') AS month,
+       COUNT(*)                              AS monthView
+        FROM performance
+            JOIN
+            view
+        ON performance.pf_id = view.pf_id
+        WHERE view.created_at >= DATE_SUB(CURDATE()
+            , INTERVAL 6 MONTH)
+        GROUP BY DATE_FORMAT(view.created_at, '%Y-%m')
+        ORDER BY month;
+    </select>
+
+    <select id="findBySignup" resultType="com.example.bumerang.web.dto.response.admin.SignupDto">
+        WITH months AS (
+            SELECT DATE_FORMAT(NOW(), '%Y-%m') AS month
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 6 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 7 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 8 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 9 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 10 MONTH), '%Y-%m')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 11 MONTH), '%Y-%m')
+            )
+
+-- 사용자 데이터와 결합
+        SELECT
+            m.month AS month,
+    COALESCE(COUNT(u.created_at), 0) AS monthSignupCount
+        FROM months m
+            LEFT JOIN user u ON DATE_FORMAT(u.created_at, '%Y-%m') = m.month
+        GROUP BY m.month
+        ORDER BY m.month;
+    </select>
+
+    <select id="boardCountOfWeek" resultType="com.example.bumerang.web.dto.response.admin.BoardCountOfWeekDto">
+        WITH days AS (
+            SELECT DATE_FORMAT(NOW(), '%Y-%m-%d') AS day
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 DAY), '%Y-%m-%d')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 DAY), '%Y-%m-%d')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 DAY), '%Y-%m-%d')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 DAY), '%Y-%m-%d')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 DAY), '%Y-%m-%d')
+        UNION ALL
+        SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 6 DAY), '%Y-%m-%d')
+            )
+
+        SELECT
+            d.day AS day,
+        COALESCE(SUM(num_of_posts), 0) AS numOfPosts
+        FROM days d
+            LEFT JOIN (
+            SELECT DATE(post_created_at) AS day, COUNT(*) AS num_of_posts
+            FROM (
+            SELECT job_id, created_at AS post_created_at FROM job_search
+            UNION ALL
+            SELECT pf_id, created_at AS post_created_at FROM performance
+            ) AS all_posts
+            WHERE DATE(post_created_at) >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+            GROUP BY day
+            ) AS posts ON d.day = posts.day
+        GROUP BY d.day
+        ORDER BY d.day;
     </select>
 </mapper>

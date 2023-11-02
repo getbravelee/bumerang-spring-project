@@ -54,13 +54,25 @@ public interface AdminDao {
 
     CommentDetailDto findByCommentId(Integer commentId);
 
-    List<GenreDto> findByGenreJob();
+    List<SignupDto> findBySignup();
 
-    List<GenreDto> findByGenrePf();
+    List<JSGenreDto> findByGenreJob();
+
+    List<PfGenreDto> findByGenrePf();
 
     List<PostListDto> findAllPost();
 
     ViewListDto findByView();
 
     ExitListDto findByExit();
+
+    List<ViewYAxisDto> jsDailyOfWeekViews();
+
+    List<ViewYAxisDto> jsMonthlyOfViews();
+
+    List<ViewYAxisDto> pfDailyOfWeekViews();
+
+    List<ViewYAxisDto> pfMonthlyOfViews();
+
+    List<BoardCountOfWeekDto> boardCountOfWeek();
 }

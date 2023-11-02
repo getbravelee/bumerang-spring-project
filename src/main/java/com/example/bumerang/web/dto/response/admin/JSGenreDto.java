@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class GenreDto {
+public class JSGenreDto {
     private String jobGenre;
     private String genreCount;
 }
