@@ -1,15 +1,18 @@
 package com.example.bumerang.web.dto.response.admin;
 
+import com.example.bumerang.domain.userPortfolio.UserPortfolio;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-@NoArgsConstructor
-@Setter
+import java.util.List;
+
 @Getter
-public class UserDetailDto {
+@Setter
+public class UserRespDto {
     private Integer userId;
+    private String userLoginId;
+    private String userPassword;
     private String userEmail;
     private String userNickname;
     private String userGender;
@@ -23,6 +26,8 @@ public class UserDetailDto {
     private String userContactLink;
     private String userStatus;
     private String userRole;
+    private String ufTitles;
+    private List<UserPortfolio> userPortfolio;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

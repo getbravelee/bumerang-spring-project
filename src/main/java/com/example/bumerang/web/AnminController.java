@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.example.bumerang.web.dto.response.admin.UserRespDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,18 +53,6 @@ public class AnminController {
         return "admin/indexForm";
     }
 
-    // 차트 화면
-    @GetMapping("/chartForm")
-    public String chartForm() {
-        return "admin/chartForm";
-    }
-
-    // 테이블 화면
-    @GetMapping("/tableForm")
-    public String tableForm() {
-        return "admin/tableForm";
-    }
-
     // 사용자 관리 목록 화면
     @GetMapping("/s/api/auth/manage/userListForm")
     public String findUserListForm(Model model) {
@@ -75,7 +64,7 @@ public class AnminController {
     // 사용자 상세보기 화면
     @GetMapping("/s/api/auth/manage/userDetailForm/{userId}")
     public String findUserDetailForm(@PathVariable Integer userId, Model model) {
-        UserDetailDto userPS = adminService.findByUserId(userId);
+        UserRespDto userPS = adminService.findByUserId(userId);
         model.addAttribute("userPS",userPS);
         return "admin/manage/userDetailForm";
     }
@@ -83,7 +72,7 @@ public class AnminController {
     // 사용자 수정하기 화면
     @GetMapping("/s/api/auth/manage/userUpdateForm/{userId}")
     public String findUserUpdateForm(@PathVariable Integer userId, Model model) {
-        UserDetailDto userPS = adminService.findByUserId(userId);
+        UserRespDto userPS = adminService.findByUserId(userId);
         model.addAttribute("userPS",userPS);
         return "admin/manage/userUpdateForm";
     }
@@ -91,14 +80,14 @@ public class AnminController {
     // 사용자 수정하기 기능
     @PutMapping("/s/api/auth/manage/userUpdate")
     public @ResponseBody CMRespDto<?> updateUser(@RequestBody UserDetailDto userDetailDto ) {
-        UserDetailDto userPS = adminService.updateUser(userDetailDto);
+        UserRespDto userPS = adminService.updateUser(userDetailDto);
         return new CMRespDto<>(1, "사용자 정보 수정 성공.", userPS);
     }
 
     // 사용자 삭제하기 기능
     @DeleteMapping("/s/api/auth/manage/userDelete/{userId}")
     public @ResponseBody CMRespDto<?> deleteUser(@PathVariable Integer userId) {
-        UserDetailDto userPS = adminService.deleteUser(userId);
+        UserRespDto userPS = adminService.deleteUser(userId);
         return new CMRespDto<>(1, "사용자 정보 삭제 성공.", userPS);
     }
 
@@ -165,7 +154,7 @@ public class AnminController {
         model.addAttribute("pfPS", pfPS);
         return "admin/manage/pfUpdateForm";
     }
-    
+
     // 공연글 수정하기 기능
     @PutMapping("/s/api/auth/manage/pfUpdate")
     public @ResponseBody CMRespDto<?> pfUpdate(@RequestBody PfDetailDto pfDetailDto) {
@@ -195,7 +184,7 @@ public class AnminController {
         model.addAttribute("noticePS", noticePS);
         return "admin/manage/noticeDetailForm";
     }
-    
+
     // 공지글 수정하기 화면
     @GetMapping("/s/api/auth/manage/noticeUpdateForm/{noticeId}")
     public String findNoticeUpdateForm(@PathVariable Integer noticeId, Model model) {
@@ -208,9 +197,9 @@ public class AnminController {
     @PutMapping("/s/api/auth/manage/noticeUpdate")
     public @ResponseBody CMRespDto<?> updateNotice(@RequestBody NoticeDetailDto noticeDetailDto) {
         NoticeDetailDto noticePS = adminService.updateNotice(noticeDetailDto);
-            return new CMRespDto<>(1, "공지글 정보 수정 성공.", noticePS);
+        return new CMRespDto<>(1, "공지글 정보 수정 성공.", noticePS);
     }
-    
+
     // 공지글 삭제하기 기능
     @DeleteMapping("/s/api/auth/manage/noticeDelete/{noticeId}")
     public @ResponseBody CMRespDto<?> deleteNotice(@PathVariable Integer noticeId) {

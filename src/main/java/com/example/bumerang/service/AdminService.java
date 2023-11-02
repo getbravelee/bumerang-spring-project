@@ -3,6 +3,7 @@ package com.example.bumerang.service;
 import com.example.bumerang.domain.admin.AdminDao;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.response.admin.*;
+import com.example.bumerang.web.dto.response.admin.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class AdminService {
-
-	private final HttpSession session;
     private final AdminDao adminDao;
-    private final UserDao userDao;
 
     public List<UserListDto> findUserList() {
         List<UserListDto> userList = adminDao.findUserList();
@@ -37,20 +35,20 @@ public class AdminService {
         return noticeList;
     }
 
-    public UserDetailDto findByUserId(Integer userId) {
-        UserDetailDto userPS = adminDao.findByUserId(userId);
+    public UserRespDto findByUserId(Integer userId) {
+        UserRespDto userPS = adminDao.findByUserId(userId);
         return userPS;
     }
 
-    public UserDetailDto updateUser(UserDetailDto userDetailDto) {
+    public UserRespDto updateUser(UserDetailDto userDetailDto) {
         adminDao.updateUser(userDetailDto);
-        UserDetailDto userPS = adminDao.findByUserId(userDetailDto.getUserId());
+        UserRespDto userPS = adminDao.findByUserId(userDetailDto.getUserId());
         return userPS;
     }
 
-    public UserDetailDto deleteUser(Integer userId) {
+    public UserRespDto deleteUser(Integer userId) {
         adminDao.deleteUser(userId);
-        UserDetailDto userPS = adminDao.findByUserId(userId);
+        UserRespDto userPS = adminDao.findByUserId(userId);
         return userPS;
     }
 
@@ -120,7 +118,7 @@ public class AdminService {
         return jobList;
     }
 
-        public List<PfListDto> findReportPfList() {
+    public List<PfListDto> findReportPfList() {
         List<PfListDto> pfList = adminDao.findReportPfList();
         return pfList;
     }
