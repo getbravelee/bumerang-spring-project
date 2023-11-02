@@ -31,7 +31,7 @@ public class PerformanceService {
 	private final CommentDao commentDao;
 	private final ViewDao viewDao;
 	private final HttpSession session;
-	private final String imageUploadPath = "C:/bumerang/img/"; // 여기서 경로 수정
+	private final String imageUploadPath = "C:/bumerang/img/thumbnail/"; // 여기서 경로 수정
 
 	//공연글 목록
 	public List<Performance> findAll() {
