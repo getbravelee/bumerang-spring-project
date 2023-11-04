@@ -1,5 +1,6 @@
 package com.example.bumerang.domain.admin;
 
+import com.example.bumerang.web.dto.request.notice.WriteDto;
 import com.example.bumerang.web.dto.response.admin.*;
 import com.example.bumerang.web.dto.response.admin.UserRespDto;
 
@@ -75,4 +76,8 @@ public interface AdminDao {
     List<ViewYAxisDto> pfMonthlyOfViews();
 
     List<BoardCountOfWeekDto> boardCountOfWeek();
+
+    void writeNotice(WriteDto writeDto);
+
+    NoticeDetailDto findByRecent();
 }

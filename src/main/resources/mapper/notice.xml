@@ -13,7 +13,7 @@
             resultType="com.example.bumerang.domain.notice.Notice">
         SELECT *
         FROM notice n
-        WHERE n.notice_status = 'active'
+        WHERE n.notice_status != 'deleted'
     </select>
 
     <insert id="insert">
@@ -39,7 +39,6 @@
         SET
         notice_status = 'deleted'
         WHERE notice_id = #{noticeId}
-        AND notice_status = 'active'
     </delete>
 
     <select id="findByNotice"
@@ -49,8 +48,7 @@
         LEFT JOIN notice n
         ON u.user_id = n.user_id
         WHERE n.notice_id = #{noticeId}
-        AND n.notice_status = 'active'
-        AND u.user_status = 'active'
+        AND n.notice_status != 'deleted'
     </select>
 
     <select id="findByRecent" resultType="com.example.bumerang.domain.notice.Notice">
@@ -68,7 +66,7 @@
         WHERE
         notice_id = #{noticeId}
         AND user_id = #{userId}
-        AND notice_status = 'active'
+        AND notice_status != 'deleted'
     </update>
 
 </mapper>

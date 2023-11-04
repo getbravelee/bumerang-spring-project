@@ -84,4 +84,9 @@ public class MainController {
 		pfMainResp.setBestPfList(bestPfList);
 		return new CMRespDto<>(1, "공연글 메인 화면 불러오기 성공", pfMainResp);
 	}
+
+	@GetMapping("/404")
+	public String errorForm(){
+		return "404";
+	}
 }

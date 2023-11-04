@@ -44,9 +44,20 @@ public class UserController {
     // 회원가입 기능
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
-        SessionUserDto findByUser = userService.findByUser(joinDto.toLoginDto());
-        if (findByUser != null) {
-            return new CMRespDto<>(-1, "이미 가입되어 있는 회원입니다.", null);
+        String userLoginId = joinDto.getUserLoginId();
+        String userNickname = joinDto.getUserNickname();
+        String userEmail = joinDto.getUserEmail();
+        User loginResult = userService.findByLogin(userLoginId);
+        User nicknameResult = userService.findByNickname(userNickname);
+        User emailResult = userService.findByEmail(userEmail);
+        if(loginResult!=null){
+            return new CMRespDto<>(-1, "중복되는 아이디입니다.", null);
+        }
+        if(nicknameResult!=null){
+            return new CMRespDto<>(-1, "중복되는 닉네임입니다.", null);
+        }
+        if(emailResult!=null){
+            return new CMRespDto<>(-1, "중복되는 이메일입니다.", null);
         }
         SessionUserDto joinResult = userService.join(joinDto);
         return new CMRespDto<>(1, "회원가입 성공.", joinResult);
@@ -149,6 +160,9 @@ public class UserController {
     @PostMapping("/user/searchId")
     public @ResponseBody CMRespDto<?> searchId(@RequestBody SearchIdDto searchIdDto) {
         SearchIdDto userLoginId = userService.findByLoginId(searchIdDto);
+        if(userLoginId==null){
+            return new CMRespDto<>(1, "존재하지 않는 계정입니다.", null);
+        }
         return new CMRespDto<>(1, "아이디 찾기 성공.", userLoginId);
     }
 
@@ -156,6 +170,9 @@ public class UserController {
     @PostMapping("/user/searchPw")
     public @ResponseBody CMRespDto<?> searchPw(@RequestBody SearchPwDto searchPwDto) {
         SearchPwDto userPassword = userService.findByPw(searchPwDto);
+        if(userPassword==null){
+            return new CMRespDto<>(1, "존재하지 않는 계정입니다.", null);
+        }
         SimpleMailMessage message = userService.sendMessage(userPassword, searchPwDto);
         return new CMRespDto<>(1, "비밀번호 찾기 성공.", message);
     }

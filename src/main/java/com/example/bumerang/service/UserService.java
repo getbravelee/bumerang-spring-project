@@ -46,7 +46,6 @@ public class UserService {
         return joinResult;
     }
 
-
     //로그인 정보와 맞는 사용자 찾기
     public SessionUserDto findByUser(LoginDto loginDto) {
         SessionUserDto userPS = userDao.findByUser(loginDto);
@@ -163,4 +162,19 @@ public class UserService {
         }
         return null;
     }
+
+    public User findByLogin(String userLoginId) {
+        User userPS = userDao.findByLoginId(userLoginId);
+        return userPS;
     }
+
+    public User findByNickname(String userNickname) {
+        User userPS = userDao.findByNickname(userNickname);
+        return userPS;
+    }
+
+    public User findByEmail(String userEmail) {
+        User userPS = userDao.findByEmail(userEmail);
+        return userPS;
+    }
+}

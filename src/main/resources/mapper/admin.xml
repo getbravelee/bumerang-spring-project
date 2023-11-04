@@ -161,6 +161,19 @@
         WHERE n.notice_id = #{noticeId}
     </select>
 
+    <insert id="writeNotice">
+        INSERT INTO notice
+        (notice_title, notice_content, notice_type, user_id)
+        VALUES
+        (#{noticeTitle}, #{noticeContent}, #{noticeType}, #{userId})
+    </insert>
+
+    <select id="findByRecent" resultType="com.example.bumerang.web.dto.response.admin.NoticeDetailDto">
+        SELECT *
+        FROM notice n
+        WHERE n.notice_id=LAST_INSERT_ID()
+    </select>
+
     <update id="updateNotice">
         UPDATE notice
         SET

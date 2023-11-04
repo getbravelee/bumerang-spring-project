@@ -6,13 +6,14 @@
 
     <select id="findById"
             resultType="com.example.bumerang.domain.user.User">
-        SELECT * FROM user WHERE user_id=#{userId}
+        SELECT * FROM user WHERE user_id=#{userId} AND user_status != 'deleted'
     </select>
 
     <select id="findAll"
             resultType="com.example.bumerang.domain.user.User">
         SELECT *
         FROM user
+        WHERE user_status != 'deleted'
     </select>
 
     <insert id="insert">
@@ -39,7 +40,7 @@
         user_contact_link = #{userContactLink},
         user_profile_img = #{userProfileImg}
         WHERE
-        user_id = #{userId}
+        user_id = #{userId} AND user_status != 'deleted'
     </update>
 
     <delete id="delete">
@@ -51,7 +52,7 @@
 
     <select id="findByUser"
             resultType="com.example.bumerang.web.dto.SessionUserDto">
-        SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_password=#{userPassword}
+        SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_password=#{userPassword} AND user_status != 'deleted'
     </select>
 
     <select id="findByDetail"
@@ -64,15 +65,15 @@
         WHERE user_id = #{userId}
         ) uf
         ON u.user_id = uf.user_id
-        WHERE u.user_id=#{userId}
+        WHERE u.user_id=#{userId} AND u.user_status != 'deleted'
     </select>
 
     <select id="findToLoginId" resultType="com.example.bumerang.web.dto.response.user.SearchIdDto">
-        select * from user where user_email = #{userEmail}
+        select * from user where user_email = #{userEmail} AND user_status != 'deleted'
     </select>
 
     <select id="findToPw" resultType="com.example.bumerang.web.dto.response.user.SearchPwDto">
-        select * from user where user_email = #{userEmail}
+        select * from user where user_email = #{userEmail} AND user_status != 'deleted'
     </select>
 
     <select id="myJSList"
@@ -103,6 +104,7 @@
             GROUP BY job_id
         ) v ON js.job_id = v.job_id
         WHERE js.user_id = #{userId}
+        AND js.job_status != 'deleted'
     </select>
 
     <select id="myPfList"
@@ -117,6 +119,7 @@
                pf_deadline
         FROM performance
         WHERE user_id = #{userId}
+        AND pf_status != 'deleted'
     </select>
 
     <select id="findByPortfolioList"
@@ -143,7 +146,7 @@
         user_contact_link = #{userContactLink},
         user_profile_img = #{userProfileImg}
         WHERE
-        user_id = #{userId}
+        user_id = #{userId} AND user_status != 'deleted'
     </update>
 
     <delete id="fieldDelete">
@@ -160,7 +163,7 @@
 
     <delete id="portfolioDelete">
         DELETE FROM user_portfolio
-        WHERE user_id = #{userId};
+        WHERE user_id = #{userId}
     </delete>
 
     <insert id="portfolioInsert">
@@ -169,4 +172,19 @@
         VALUES
         (#{upTitle}, #{upProdYear}, #{upRole}, #{upGenre}, #{upDirector}, #{upHistory}, #{userId})
     </insert>
+
+    <select id="findByLoginId"
+            resultType="com.example.bumerang.domain.user.User">
+        SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_status != 'deleted'
+    </select>
+
+    <select id="findByNickname"
+            resultType="com.example.bumerang.domain.user.User">
+        SELECT * FROM user WHERE user_nickname=#{userNickname} AND user_status != 'deleted'
+    </select>
+
+    <select id="findByEmail"
+            resultType="com.example.bumerang.domain.user.User">
+        SELECT * FROM user WHERE user_email=#{userEmail} AND user_status != 'deleted'
+    </select>
 </mapper>

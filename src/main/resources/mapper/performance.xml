@@ -6,13 +6,14 @@
 
     <select id="findById"
             resultType="com.example.bumerang.domain.performance.Performance">
-        SELECT * FROM performance WHERE pf_id=#{pfId}
+        SELECT * FROM performance WHERE pf_id=#{pfId} AND pf_status  != 'deleted'
     </select>
 
     <select id="findAll"
             resultType="com.example.bumerang.domain.performance.Performance">
         SELECT *
         FROM performance
+        WHERE pf_status  != 'deleted'
     </select>
 
     <insert id="insert">
@@ -39,6 +40,7 @@
         WHERE
         pf_id = #{pfId}
         AND user_id = #{userId}
+        AND pf_status  != 'deleted'
     </update>
 
     <delete id="delete">

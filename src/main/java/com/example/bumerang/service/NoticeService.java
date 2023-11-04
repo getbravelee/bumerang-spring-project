@@ -34,21 +34,4 @@ public class NoticeService {
 		return noticeDao.findByNotice(noticeId);
 	}
 
-    public Notice write(WriteDto writeDto) {
-		noticeDao.insert(writeDto.toEntity());
-		Notice noticePS = noticeDao.findByRecent();
-		return noticePS;
-    }
-
-	public Notice update(WriteDto updateDto) {
-		noticeDao.updatNotice(updateDto);
-		Notice noticePS = noticeDao.findById(updateDto.getNoticeId());
-		return noticePS;
-	}
-
-	public Notice delete(Integer noticeId) {
-		noticeDao.delete(noticeId);
-		Notice noticePS = noticeDao.findById(noticeId);
-		return noticePS;
-	}
 }

@@ -46,4 +46,10 @@ public interface UserDao {
     void portfolioDelete(Integer userId);
 
     void portfolioInsert(UserPortfolio userPortfolio);
+
+    User findByLoginId(String userLoginId);
+
+    User findByNickname(String userNickname);
+
+    User findByEmail(String userEmail);
 }

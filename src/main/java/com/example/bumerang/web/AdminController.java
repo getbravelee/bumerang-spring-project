@@ -1,41 +1,16 @@
 package com.example.bumerang.web;
 
-import com.example.bumerang.web.dto.response.admin.BoardCountOfWeekDto;
-import com.example.bumerang.web.dto.response.admin.JSGenreDto;
-import com.example.bumerang.web.dto.response.admin.PfGenreDto;
-import com.example.bumerang.web.dto.response.admin.SignupDto;
-import com.example.bumerang.web.dto.response.admin.ViewYAxisDto;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import com.example.bumerang.web.dto.response.admin.UserRespDto;
+import com.example.bumerang.service.AdminService;
+import com.example.bumerang.web.dto.request.notice.WriteDto;
+import com.example.bumerang.web.dto.response.CMRespDto;
+import com.example.bumerang.web.dto.response.admin.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.bumerang.service.AdminService;
-import com.example.bumerang.web.dto.response.CMRespDto;
-import com.example.bumerang.web.dto.response.admin.CommentDetailDto;
-import com.example.bumerang.web.dto.response.admin.CommentListDto;
-import com.example.bumerang.web.dto.response.admin.ExitListDto;
-import com.example.bumerang.web.dto.response.admin.JobDetailDto;
-import com.example.bumerang.web.dto.response.admin.JobListDto;
-import com.example.bumerang.web.dto.response.admin.NoticeDetailDto;
-import com.example.bumerang.web.dto.response.admin.NoticeListDto;
-import com.example.bumerang.web.dto.response.admin.PfDetailDto;
-import com.example.bumerang.web.dto.response.admin.PfListDto;
-import com.example.bumerang.web.dto.response.admin.PostListDto;
-import com.example.bumerang.web.dto.response.admin.UserDetailDto;
-import com.example.bumerang.web.dto.response.admin.UserListDto;
-import com.example.bumerang.web.dto.response.admin.ViewListDto;
-
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -202,6 +177,13 @@ public class AdminController {
         return "admin/manage/noticeUpdateForm";
     }
 
+    // 공지글 등록하기 기능
+    @PostMapping("/s/api/auth/manage/noticeWrite")
+    public @ResponseBody CMRespDto<?> write(@RequestBody WriteDto writeDto) {
+        NoticeDetailDto noticePS = adminService.writeNotice(writeDto);
+        return new CMRespDto<>(1, "공지사항 등록 성공.", noticePS);
+    }
+
     // 공지글 수정하기 기능
     @PutMapping("/s/api/auth/manage/noticeUpdate")
     public @ResponseBody CMRespDto<?> updateNotice(@RequestBody NoticeDetailDto noticeDetailDto) {
@@ -260,7 +242,7 @@ public class AdminController {
     }
 
     // 공연글 통계 화면
-    @GetMapping("/statistics/pfChartForm")
+    @GetMapping("/s/api/auth/statistics/pfChartForm")
     public String findPfChartForm(Model model) {
         List<PfGenreDto> pfStatistics = adminService.findByGenrePf();
         model.addAttribute("pfPS", pfStatistics);

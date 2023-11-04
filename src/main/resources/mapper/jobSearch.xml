@@ -8,12 +8,14 @@
             resultType="com.example.bumerang.domain.jobSearch.JobSearch">
         SELECT * FROM job_search
         WHERE job_id=#{jobId}
+        AND job_status != 'deleted'
     </select>
 
     <select id="findAll"
             resultType="com.example.bumerang.domain.jobSearch.JobSearch">
         SELECT *
         FROM job_search
+        AND job_status != 'deleted'
     </select>
 
     <insert id="insert">
@@ -37,6 +39,7 @@
         WHERE
         job_id = #{jobId}
         AND user_id = #{userId}
+        AND job_status != 'deleted'
     </update>
 
     <delete id="delete">
@@ -54,6 +57,7 @@
         LEFT JOIN user u
         ON j.user_id = u.user_id
         WHERE j.job_id = #{jobId}
+        AND j.job_status != 'deleted'
     </select>
 
     <select id="findAllJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
@@ -121,7 +125,7 @@
     <select id="findByUpdateResult"
             resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
         SELECT * FROM job_search
-        WHERE job_id=#{jobId}
+        WHERE job_id=#{jobId} AND job_status='deleted'
     </select>
 
     <select id="findByDelete"
@@ -137,6 +141,6 @@
         job_status = 'dead'
         WHERE
         job_id = #{jobId}
-        AND user_id = #{userId}
+        AND user_id = #{userId} AND job_status='deleted'
     </update>
 </mapper>

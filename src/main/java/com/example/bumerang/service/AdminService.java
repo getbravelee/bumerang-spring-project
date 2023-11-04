@@ -1,7 +1,9 @@
 package com.example.bumerang.service;
 
 import com.example.bumerang.domain.admin.AdminDao;
+import com.example.bumerang.domain.notice.Notice;
 import com.example.bumerang.domain.user.UserDao;
+import com.example.bumerang.web.dto.request.notice.WriteDto;
 import com.example.bumerang.web.dto.response.admin.*;
 import com.example.bumerang.web.dto.response.admin.UserRespDto;
 import lombok.RequiredArgsConstructor;
@@ -100,6 +102,12 @@ public class AdminService {
 
     public NoticeDetailDto findByNoticeId(Integer noticeId) {
         NoticeDetailDto noticePS = adminDao.findByNoticeId(noticeId);
+        return noticePS;
+    }
+
+    public NoticeDetailDto writeNotice(WriteDto writeDto) {
+        adminDao.writeNotice(writeDto);
+        NoticeDetailDto noticePS = adminDao.findByRecent();
         return noticePS;
     }
 

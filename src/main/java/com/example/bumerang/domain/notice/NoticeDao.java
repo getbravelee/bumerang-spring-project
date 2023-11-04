@@ -20,5 +20,4 @@ public interface NoticeDao {
 
     Notice findByRecent();
 
-    public void updatNotice(WriteDto updateDto);
 }

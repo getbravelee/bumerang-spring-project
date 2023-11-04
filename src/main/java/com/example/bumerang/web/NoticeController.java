@@ -36,36 +36,5 @@ public class NoticeController {
         DetailFormDto noticeDetail = noticeService.findByNotice(noticeId);
         return new CMRespDto<>(1, "공지사항 상세보기 화면 불러오기 성공.", noticeDetail);
     }
-    // 공지사항 등록
-    @PostMapping("/s/api/auth/notice/write")
-    public @ResponseBody CMRespDto<?> write(@RequestBody WriteDto writeDto) {
-        Notice noticePS = noticeService.write(writeDto);
-        return new CMRespDto<>(1, "공지사항 등록 성공.", noticePS);
-    }
 
-    // 공지사항 수정
-    @PutMapping("/s/api/auth/notice/update")
-    public @ResponseBody CMRespDto<?> update(@RequestBody WriteDto updateDto) {
-        SessionUserDto principal = (SessionUserDto)session.getAttribute("principal");
-        Integer userId = updateDto.getUserId();
-        Integer userPId = principal.getUserId();
-        if(userId.equals(userPId)){
-            Notice noticePS = noticeService.update(updateDto);
-            return new CMRespDto<>(1, "공지사항 수정 성공.", noticePS);
-        }
-        return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
-    }
-
-    // 공지사항 삭제
-    @DeleteMapping("/s/api/notice/delete")
-    public @ResponseBody CMRespDto<?> delete(@RequestBody WriteDto deleteDto) {
-        SessionUserDto principal = (SessionUserDto)session.getAttribute("principal");
-        Integer userId = deleteDto.getUserId();
-        Integer userPId = principal.getUserId();
-        if(userId.equals(userPId)){
-            Notice noticePS = noticeService.delete(deleteDto.getNoticeId());
-            return new CMRespDto<>(1, "공지사항 삭제 성공.", noticePS);
-        }
-        return new CMRespDto<>(-1, "올바르지 않은 요청입니다.", null);
-    }
 }
