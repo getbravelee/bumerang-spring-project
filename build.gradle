@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	/* annotation */
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -40,4 +43,5 @@ dependencies {
 //	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 //	implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.65'
 
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.7'
 }

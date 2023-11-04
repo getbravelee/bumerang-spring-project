@@ -31,6 +31,7 @@ public interface UserDao {
     SearchPwDto findToPw(SearchPwDto searchPwDto);
 
     SearchIdDto findToLoginId(SearchIdDto searchIdDto);
+
     List<UserJobSearchDto> myJSList(Integer userId);
 
     List<UserPerformanceDto> myPfList(Integer userId);

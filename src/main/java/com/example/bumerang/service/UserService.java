@@ -1,5 +1,6 @@
 package com.example.bumerang.service;
 
+import com.example.bumerang.config.EncrypterConfig;
 import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
@@ -18,10 +19,12 @@ import com.example.bumerang.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,11 +41,29 @@ public class UserService {
     private final LikeyDao likeyDao;
     private final JavaMailSender emailSender;
     private final String imageUploadPath = "C:/bumerang/img/profile/"; // 여기서 경로 수정
+    private final EncrypterConfig encrypterConfig;
+    private final BCryptPasswordEncoder encoder;
+
 
     //회원가입
+
     public SessionUserDto join(JoinDto joinDto) {
-        userDao.insert(joinDto.toEntity());
+        // 사용자가 입력한 비밀번호
+        String userPassword = joinDto.getUserPassword();
+
+        // encrypterConfig를 사용하여 비밀번호를 암호화하고 인코딩
+        String encryptedPassword = encrypterConfig.encodePwd().encode(userPassword);
+        joinDto.setUserPassword(encryptedPassword);
+//        System.err.println("디버그getUserPassword: "+joinDto.getUserPassword());
+
+        User user = joinDto.toEntity();
+
+        // 암호화된 비밀번호를 사용하여 데이터베이스에 저장
+         userDao.insert(user);
+
+        // 사용자 정보 검색
         SessionUserDto joinResult = userDao.findByUser(joinDto.toLoginDto());
+
         return joinResult;
     }
 
@@ -70,6 +91,9 @@ public class UserService {
 
     // 사용자 정보 수정
     public UserRespDto update(UpdateDto updateDto){
+        String userPassword = updateDto.getUserPassword();
+        String encryptedPassword = encrypterConfig.encodePwd().encode(userPassword);
+        updateDto.setUserPassword(encryptedPassword);
         // 사용자 정보 수정
         userDao.updateUser(updateDto);
         // 사용자 분야 수정
@@ -117,7 +141,6 @@ public class UserService {
         List<UserPerformanceDto> myPfList = userDao.myPfList(userId);
         return myPfList;
     }
-
 
     // loginId로 사용자 정보 찾기
     public SearchIdDto findByLoginId(SearchIdDto searchIdDto) {

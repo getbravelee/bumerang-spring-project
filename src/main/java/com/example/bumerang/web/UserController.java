@@ -105,8 +105,6 @@ public class UserController {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         Integer userId = updateDto.getUserId();
         Integer userPId = principal.getUserId();
-        System.err.println("디버그userId: "+userId);
-        System.err.println("디버그userPId: "+userPId);
         if (userId.equals(userPId)) {
             try {
                 // 이미지 업로드 및 업데이트
@@ -130,7 +128,7 @@ public class UserController {
         return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
     }
 
-    // 내가 작성한 구인글 화면
+    // 내가 작성한 글 화면
     @GetMapping("/s/api/user/writeListForm")
     public @ResponseBody CMRespDto<?> writeListForm() {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
