@@ -5,6 +5,7 @@ import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.domain.userPortfolio.UserPortfolio;
+import com.example.bumerang.util.SHA256;
 import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
@@ -41,34 +42,22 @@ public class UserService {
     private final LikeyDao likeyDao;
     private final JavaMailSender emailSender;
     private final String imageUploadPath = "C:/bumerang/img/profile/"; // 여기서 경로 수정
-    private final EncrypterConfig encrypterConfig;
-    private final BCryptPasswordEncoder encoder;
-
+    private final SHA256 sha256;
 
     //회원가입
-
     public SessionUserDto join(JoinDto joinDto) {
-        // 사용자가 입력한 비밀번호
-        String userPassword = joinDto.getUserPassword();
-
-        // encrypterConfig를 사용하여 비밀번호를 암호화하고 인코딩
-        String encryptedPassword = encrypterConfig.encodePwd().encode(userPassword);
-        joinDto.setUserPassword(encryptedPassword);
-//        System.err.println("디버그getUserPassword: "+joinDto.getUserPassword());
-
+        String enPassword = sha256.encrypt(joinDto.getUserPassword()); // 비밀번호 암호화
+        joinDto.setUserPassword(enPassword); // 암호화된 비밀번호로 회원가입
         User user = joinDto.toEntity();
-
-        // 암호화된 비밀번호를 사용하여 데이터베이스에 저장
          userDao.insert(user);
-
-        // 사용자 정보 검색
         SessionUserDto joinResult = userDao.findByUser(joinDto.toLoginDto());
-
         return joinResult;
     }
 
     //로그인 정보와 맞는 사용자 찾기
     public SessionUserDto findByUser(LoginDto loginDto) {
+        String enPassword = sha256.encrypt(loginDto.getUserPassword());
+        loginDto.setUserPassword(enPassword); // 암호화된 비밀번호로 회원가입
         SessionUserDto userPS = userDao.findByUser(loginDto);
         return userPS;
     }
@@ -91,10 +80,8 @@ public class UserService {
 
     // 사용자 정보 수정
     public UserRespDto update(UpdateDto updateDto){
-        String userPassword = updateDto.getUserPassword();
-        String encryptedPassword = encrypterConfig.encodePwd().encode(userPassword);
-        updateDto.setUserPassword(encryptedPassword);
-        // 사용자 정보 수정
+        String enPassword = sha256.encrypt(updateDto.getUserPassword());
+        updateDto.setUserPassword(enPassword);
         userDao.updateUser(updateDto);
         // 사용자 분야 수정
         List<String> uftitleList = updateDto.getUftitle();
@@ -155,14 +142,37 @@ public class UserService {
     }
 
     // 찾은 비밀번호 이메일로 보내주기
-    public SimpleMailMessage sendMessage(SearchPwDto userPassword, SearchPwDto searchPwDto) {
+    public SimpleMailMessage sendMessage(SearchPwDto searchPwDto) {
+        String str = randomPw();
+        updateNewPw(str, searchPwDto.getUserEmail());
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("pathfineder_@naver.com"); //관리자 이메일
+        message.setFrom("#"); //관리자 이메일
         message.setTo(searchPwDto.getUserEmail()); //사용자 이메일
         message.setSubject("비밀번호 찾기 성공 !");
-        message.setText("비밀번호는 " + userPassword.getUserPassword() + "입니다.");
+        message.setText("임시 비밀번호는 " + str + "입니다.");
         emailSender.send(message);
         return message;
+    }
+
+    public String randomPw() {
+        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+        String str = "";
+
+        // 문자 배열 길이의 값을 랜덤으로 10개를 뽑아 구문을 작성함
+        int idx = 0;
+        for (int i = 0; i < 10; i++) {
+            idx = (int) (charSet.length * Math.random());
+            str += charSet[idx];
+        }
+        return str;
+    }
+
+    public void updateNewPw(String str, String userEmail){
+        String encPassword = sha256.encrypt(str);
+        User userPS = userDao.findByEmail(userEmail);
+        userDao.updatePw(encPassword, userPS.getUserId());
     }
 
     public String uploadProfileImage(MultipartFile profileImage) {

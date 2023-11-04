@@ -52,7 +52,7 @@
 
     <select id="findByUser"
             resultType="com.example.bumerang.web.dto.SessionUserDto">
-        SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_status != 'deleted'
+        SELECT * FROM user WHERE user_login_id=#{userLoginId} AND user_password=#{userPassword} AND user_status != 'deleted'
     </select>
 
     <select id="findByDetail"
@@ -187,4 +187,12 @@
             resultType="com.example.bumerang.domain.user.User">
         SELECT * FROM user WHERE user_email=#{userEmail} AND user_status != 'deleted'
     </select>
+
+    <update id="updatePw">
+        UPDATE user
+        SET
+        user_password = #{userPassword}
+        WHERE
+        user_id = #{userId} AND user_status != 'deleted'
+    </update>
 </mapper>

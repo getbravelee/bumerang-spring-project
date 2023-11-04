@@ -1,0 +1,181 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.board_write_wrap {
+  width: 1350px;
+  margin-top: 100px;
+}
+
+/* 상단부 */
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+/* 게시판 제목 */
+.top .board_name {
+  display: flex;
+  align-items: center;
+}
+
+.top .board_name .fa-solid {
+  color: cornflowerblue;
+  font-size: 32px;
+  margin-right: 12px;
+}
+
+.bt_wrap {
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.bt_wrap a {
+  display: inline-block;
+  width: 70px;
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.bt_wrap a.save {
+  background:#c8e4fd;
+  color: rgb(52, 52, 253);
+}
+
+.bt_wrap a.save:hover {
+  background: #fff;
+  color: #000;
+}
+
+.bt_wrap a.cancel:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* 게시물 쓰기창 */
+.board_write {
+  width: 100%;
+  border-top: 2px solid black;
+}
+
+.board_write input {
+  width: 90%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.board_write .info {
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+}
+
+.board_write dl {
+  margin: 10px 0px;
+}
+
+.board_write .info dt,
+.board_write .info dd {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.board_write .info dt {
+  width: 100px;
+}
+
+.board_write .info dd {
+  width: calc(100% - 100px);
+  font-weight: 100;
+}
+
+.board_write .info {
+  border-top: 1px dashed #ddd;
+  border-bottom: 1px dashed #aaa;
+  font-size: 0;
+}
+
+.board_write .info .title {
+  display: inline-block;
+  width: 70%;
+  vertical-align: middle;
+}
+
+.board_write .info .type {
+  width: 30%;
+}
+
+.board_write .info select {
+  width: 90%;
+  height: 43px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.board_write .content {
+  border-bottom: 1px solid #000;
+}
+
+.board_write .content textarea {
+  display: block;
+  width: 100%;
+  height: 300px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 0;
+  resize: vertical;
+}
+
+.board_write .content p {
+  display: block;
+  width: 100%;
+  height: 300px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 0;
+  resize: vertical;
+}
+
+/* 내용 영역 */
+
+.content {
+  margin-top: 30px;
+}
+
+#editor-container {
+  height: 375px;
+  font-size: 18px;
+  font-family: inherit;
+}
+#editor-container h1 {
+  font-size: 36px;
+  font-family: inherit;
+}
+#editor-container h2 {
+  font-size: 32px;
+  font-family: inherit;
+}
+#editor-container h3 {
+  font-size: 28px;
+  font-family: inherit;
+}
+#editor-container h4 {
+  font-size: 24px;
+  font-family: inherit;
+}
+#editor-container h5 {
+  font-size: 20px;
+  font-family: inherit;
+}
+#editor-container h6 {
+  font-size: 16px;
+  font-family: inherit;
+}

@@ -53,4 +53,6 @@ public interface UserDao {
     User findByNickname(String userNickname);
 
     User findByEmail(String userEmail);
+
+    void updatePw(String userPassword, Integer userId);
 }

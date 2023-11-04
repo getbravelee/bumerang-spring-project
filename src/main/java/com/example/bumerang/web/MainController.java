@@ -89,4 +89,9 @@ public class MainController {
 	public String errorForm(){
 		return "404";
 	}
+
+	@GetMapping("/loginForm")
+	public String loginForm() {
+		return "loginForm";
+	}
 }

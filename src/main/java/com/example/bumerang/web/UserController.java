@@ -171,7 +171,7 @@ public class UserController {
         if(userPassword==null){
             return new CMRespDto<>(1, "존재하지 않는 계정입니다.", null);
         }
-        SimpleMailMessage message = userService.sendMessage(userPassword, searchPwDto);
+        SimpleMailMessage message = userService.sendMessage(searchPwDto);
         return new CMRespDto<>(1, "비밀번호 찾기 성공.", message);
     }
 

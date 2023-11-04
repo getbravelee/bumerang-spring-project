@@ -1,0 +1,487 @@
+
+
+/* body 기본 설정 */
+body {
+  /* background-color: rgba(250, 250, 250, 1); */
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.myPage {
+
+  /* 소라색 */
+  background: linear-gradient(
+    to bottom,
+    #d3dbf6 298px,
+    rgba(255, 255, 255, 0) 0
+  );
+
+  /* 연파랑 */
+  /* background: linear-gradient(
+    to bottom,
+    #d3e9f6 298px,
+    rgba(255, 255, 255, 0) 0
+  ); */
+
+  /* margin: 100px; */
+  width: 100%;
+}
+
+/*/////////////*/
+/* 프로필 랩 시작 */
+/*/////////////*/
+.profile_wrap {
+  /* background: linear-gradient(
+    to bottom,
+    #e8e8e8 214px,
+    rgba(255, 255, 255, 0) 0
+  ); */
+  width: 100%;
+  height: 700px;
+}
+
+.container {
+  padding-top: 30px;
+  width: 90%;
+  max-width: 1350px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+}
+
+/* 프로필 사진부 */
+.pro_left {
+  margin-right: 100px;
+  margin-bottom: 45px;
+  text-align: center;
+}
+
+.pro_left .pro_img {
+  width: 360px;
+  height: 360px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 180px;
+}
+
+.pro_left .pro_img img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* height: auto; */
+  min-height: 100%;
+  vertical-align: middle;
+}
+
+/* 우측 프로필 정보부 */
+
+.pro_right {
+  margin-top: 130px;
+  width: 60%;
+}
+
+.pro_right .name {
+  padding-top: 80px;
+  display: flex;
+}
+.pro_right .name p {
+  font-size: 32px;
+  margin-right: 20px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.pro_right .name .edit_btn {
+  border: none;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #fff;
+  background-color: #28c7ab;
+  border-radius: 100px;
+  padding: 0px 15px;
+  margin-left: 10px;
+}
+
+.pro_right .profile_con {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.pro_right .profile_con .profile_txt:first-child {
+  padding-right: 30px;
+}
+
+.pro_right .profile_con .profile_txt {
+  width: 50%;
+}
+
+.pro_right .profile_con .pro_txt {
+  margin-top: 50px;
+}
+
+.pro_right .profile_con .pro_info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.pro_right .profile_con li {
+  margin-bottom: 5px;
+}
+
+.pro_tit {
+  color: #459fee;
+  line-height: 1;
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-family: sans-serif;
+}
+
+.pro_right .profile_con .pro_info .pro_tit {
+  width: 100%;
+}
+
+.pro_right .profile_con .pro_info .pro_info1 {
+  width: 30%;
+}
+
+.pro_right .profile_con .pro_info .pro_info1 li,
+.pro_right .profile_con .pro_info .pro_info2 li {
+  height: 31px;
+  line-height: 1.2;
+  font-size: 16px;
+  padding-bottom: 30px;
+}
+
+.pro_right .profile_con .pro_info .pro_info1 li {
+  font-weight: 600;
+  color: #585858;
+}
+
+.pro_right .profile_con .pro_info .pro_info2 {
+  width: 70%;
+}
+
+.pro_right .profile_con .pro_info .pro_info2 li,
+.pro_right .profile_con .pro_txt .pro_data {
+  height: 25px;
+  line-height: 1.2;
+  font-weight: 600;
+  font-size: 16px;
+  color: #6c6c6c;
+}
+
+.pro_right .profile_con .pro_txt div {
+  display: flex;
+  flex-direction: column;
+}
+
+.pro_right .profile_con .pro_txt .pro_data {
+  display: flex;
+  width: 400px;
+
+}
+
+
+.pro_right .profile_con .pro_txt .email {
+  display: inline;
+  letter-spacing: 1.6px;
+  margin-top: 6px;
+}
+
+.pro_right .profile_con .pro_txt i {
+  font-size: 18px;
+  margin-left: 5px;
+  margin-right: 15px;
+  color: #459fee;
+}
+
+.pro_right .profile_con .pro_txt #copy_pop {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  width: 142px;
+  align-items: center;
+  color: #569aff;
+}
+
+/*/////////////*/
+/* 필모그래피 랩 시작 */
+/*/////////////*/
+
+.filmo_wrap {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  margin-bottom: 65px;
+}
+
+.filmo_wrap .profile_con {
+  width: 100%;
+}
+
+.filmo_wrap .filmo_table {
+  width: 100%;
+  table-layout: fixed;
+  border: gray;
+  border-collapse: separate;
+}
+
+.filmo_wrap .filmo_table thead th {
+  text-align: center;
+  background: #569aff;
+  font-weight: 500;
+  color: #fff;
+  padding: 13px 5px;
+}
+
+.filmo_wrap .filmo_table tbody td {
+  text-align: center;
+  color: #333;
+  padding: 10px 5px;
+}
+
+.filmo_wrap .filmo_table tbody tr:nth-child(2n) {
+  background: #f9f9f9;
+}
+
+/* ///////////// */
+/* edit 페이지 */
+/* ///////////// */
+
+/* 버튼 */
+.pro_left .edit_btn .edit_img {
+  border: none;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #fff;
+  background-color: deepskyblue;
+  border-radius: 100px;
+  padding: 0px 15px;
+  margin-top: 15px;
+}
+
+.pro_left .edit_btn .edit_passwd {
+  border: none;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #fff;
+  background-color: palevioletred;
+  border-radius: 100px;
+  padding: 0px 15px;
+  margin-top: 15px;
+}
+
+/* 에디터와 체인저 */
+.pro_left h2 {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.pro_left div div button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  vertical-align: middle;
+  font-size: 15px;
+  color: #000;
+  background-color: #fff;
+  border: solid 1px #000;
+  border-radius: 100px;
+  padding: 0px 15px;
+  margin-top: 8px;
+}
+
+.pro_left button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.pro_left button:nth-child(2) {
+  margin-left: 30px;
+}
+
+.pro_left .img_editor {
+  display: none;
+  align-items: center;
+  justify-content:space-around;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 180px;
+  background-color: #fff;
+  border: 2px solid #459fee;
+  border-radius: 10px;
+  z-index: 10;
+  padding: 10px;
+}
+.pro_left .img_editor input {
+  height: 30px;
+}
+
+.pro_left .img_editor #file-upload-button {
+  background-color: yellow;
+}
+
+.pro_left .passwordChanger {
+  display: none;
+  align-items: center;
+  justify-content:space-around;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 200px;
+  background-color: #fff;
+  border: 2px solid #459fee;
+  border-radius: 10px;
+  z-index: 10;
+  padding: 10px;
+  
+  
+}
+.pro_left .passwordChanger label{
+  width: 90%;
+}
+.pro_left .passwordChanger input {
+  margin-left: 10px;
+  width: 75%;
+}
+
+/* 우측 프로필 정보부 */
+.pro_right .name .save {
+  border: none;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #fff;
+  background-color: #28c7ab;
+  border-radius: 100px;
+  padding: 0px 15px;
+  margin-left: 15px;
+}
+
+/* 입력창 */
+textarea,
+select,
+input {
+  border: 1px solid #459fee;
+  border-radius: 10px;
+  height: 23px;
+  background-color: rgba(255, 255, 255, 0);
+  color: #6c6c6c;
+  font-size: 13px;
+  /* padding-left: 5px; */
+  text-align: center;
+}
+
+
+
+.dropdown {
+  -webkit-box-pack: justify;
+    justify-content: space-between;
+    /* padding-left: 18px;
+    padding-right: 10px; */
+    width: 100px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    /* border-radius: 36px;
+    margin: 24px 24px 24px 0px; */
+}
+
+textarea {
+  width: 300px;
+  height: 80px;
+  resize: none;
+  
+}
+
+
+
+.pro_right .name #user_nickname {
+  width: 140px;
+  height: 55px;
+  margin-right: 20px;
+  color: black;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.pro_right .name .save {
+  border: none;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #fff;
+  background-color: #28c7ab;
+  border-radius: 100px;
+  padding: 0px 15px;
+  margin-left: 15px;
+}
+
+.pro_right .pro_txt .pro_info2 .user_gender:nth-child(2) {
+  margin-right: 20px;
+}
+
+.pro_right .pro_txt .pro_info2 #user_height {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.pro_right .pro_txt .user_contact {
+  margin-left: 5px;
+  width: 250px;
+}
+
+/* 필모랩 편집 */
+.filmo_wrap input {
+  text-align: center;
+  width: 100%;
+}
+
+.filmo_wrap .filmo_add {
+  color: lightgoldenrodyellow;
+  font-weight: 400;
+}
+
+.filmo_wrap .filmo_del {
+  color: red;
+  font-weight: 400;
+}
+
+
+@media screen and (max-width:1278px) {
+  .pro_right {
+    margin-top: 0px;
+  }
+
+  .pro_right .name {
+    padding-top: 10px;
+  }
+  
+}
