@@ -22,13 +22,14 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class NoticeController {
 
-    private final HttpSession session;
     private final NoticeService noticeService;
 
     // 공지사항 목록 화면
     @GetMapping("/notice/listForm")
     public String listForm(Model model) {
         List<Notice> noticeList = noticeService.findAll();
+        System.err.println("디버그: "+noticeList.get(0).getCreatedAt());
+        model.addAttribute("noticeList", noticeList);
         return "noticeListForm";
     }
 
