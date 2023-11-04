@@ -35,9 +35,10 @@ public class NoticeController {
 
     // 공지사항 상세보기 화면
     @GetMapping("/notice/detailForm/{noticeId}")
-    public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer noticeId) {
+    public String detailForm(@PathVariable Integer noticeId,Model model) {
         DetailFormDto noticeDetail = noticeService.findByNotice(noticeId);
-        return new CMRespDto<>(1, "공지사항 상세보기 화면 불러오기 성공.", noticeDetail);
+        model.addAttribute("notice", noticeDetail);
+        return "noticeDetailForm";
     }
 
 }
