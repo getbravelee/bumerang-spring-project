@@ -31,9 +31,9 @@
                         <swiper-container class="banner_Swiper" pagination="true" pagination-clickable="true"
                             space-between="30" centered-slides="true" autoplay-delay="4000"
                             autoplay-disable-on-interaction="false" loop="true">
-                            <swiper-slide class="banner_slide1"><img src="image/banner1.png"></swiper-slide>
-                            <swiper-slide class="banner_slide2"><img src="image/banner2.png"></swiper-slide>
-                            <swiper-slide class="banner_slide3"><img src="image/banner3.png"></swiper-slide>
+                            <swiper-slide class="banner_slide1"><img src="/image/banner1.png"></swiper-slide>
+                            <swiper-slide class="banner_slide2"><img src="/image/banner2.png"></swiper-slide>
+                            <swiper-slide class="banner_slide3"><img src="/image/banner3.png"></swiper-slide>
                         </swiper-container>
                     </div>
 

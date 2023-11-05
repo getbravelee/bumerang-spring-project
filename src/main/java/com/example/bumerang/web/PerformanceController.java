@@ -26,8 +26,8 @@ public class PerformanceController {
 
     // 공연글 작성하기 화면
     @GetMapping("/s/api/performance/writeForm")
-    public @ResponseBody CMRespDto<?> writeForm() {
-        return new CMRespDto<>(1, "공연글 작성하기 화면 불러오기 성공.", null);
+    public String writeForm() {
+        return "pfWriteForm";
     }
 
     // 공연글 등록하기 기능

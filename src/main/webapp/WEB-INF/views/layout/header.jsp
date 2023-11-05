@@ -9,14 +9,14 @@
                     </div>
 
                     <ul class="menubar">
-                        <li><a href="index.html">
+                        <li><a href="/jobSearch/mainForm">
                                 <h3>구인정보</h3>
                             </a></li>
-                        <li><a href="performance.html">
+                        <li><a href="/performance/mainForm">
                                 <h3>전시·공연</h3>
                             </a></li>
                         <li>
-                            <a href="notice.html">
+                            <a href="/notice/listForm">
                                 <h3>공지사항</h3>
                             </a>
                         </li>
@@ -42,7 +42,7 @@
                                             <span class="material-symbols-outlined">
                                                 ink_highlighter_move
                                             </span>
-                                            <a href="https://www.naver.com">공연 글 쓰기</a>
+                                            <a href="/s/api/performance/writeForm">공연 글 쓰기</a>
                                         </li>
                                     </ul>
                                 </div>

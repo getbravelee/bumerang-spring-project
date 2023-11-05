@@ -31,7 +31,7 @@ public class MainController {
 	private final PerformanceService performanceService;
 
 	// 구인정보글 메인 화면
-	@GetMapping("/")
+	@GetMapping({"/","/jobSearch/mainForm"})
 	public String jobMainForm(Model model) {
 		JobMainDto jobMainResp = new JobMainDto();
 		List<JobListDto> jobList = jobSearchService.findAllJob();
@@ -73,13 +73,13 @@ public class MainController {
 
 	// 공연글 메인 화면
 	@GetMapping("/performance/mainForm")
-	public @ResponseBody CMRespDto<?> pfMainForm() {
+	public String pfMainForm() {
 		PfMainDto pfMainResp = new PfMainDto();
 		List<PfListDto> pfList = performanceService.findAllPf();
 		List<PfListDto> bestPfList = performanceService.findAllBeestPf();
 		pfMainResp.setPfList(pfList);
 		pfMainResp.setBestPfList(bestPfList);
-		return new CMRespDto<>(1, "공연글 메인 화면 불러오기 성공", pfMainResp);
+		return "pfMainForm";
 	}
 
 	@GetMapping("/404")

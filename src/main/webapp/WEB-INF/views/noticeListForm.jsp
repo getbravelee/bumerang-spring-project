@@ -23,122 +23,47 @@
       </head>
 
       <body>
-        <!-- 헤더 -->
-        <header>
-          <div class="navbar">
-            <div class="bot_menu">
-              <a href=""><img src="/image/mainlogo.png"></a>
-              <div class="title">
-                <h2>부산 <span class="accent">메이트</span><span class="accent2">랑</span></h2>
+        <%@ include file="layout/header.jsp" %>
+          <div class="container">
+            <div class="board_list_wrap">
+              <div class="top">
+                <div class="board_name">
+                  <i class="fa-solid fa-bullhorn"></i>
+                  <h2>공지사항</h2>
+                </div>
+                <!-- 검색창 -->
+                <div class="search_bar">
+                  <input id='filterText' type="text" placeholder="검색어를 입력하세요" />
+                  <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
               </div>
-
-              <ul class="menubar">
-                <li><a href="index.html">
-                    <h3>구인정보</h3>
-                  </a></li>
-                <li><a href="performance.html">
-                    <h3>전시·공연</h3>
-                  </a></li>
-                <li>
-                  <a href="notice.html">
-                    <h3>공지사항</h3>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <ul class="linkes">
-              <li class="action">
-                <div class="profile" onclick="menuToggle();">
-                  <i class="fa-solid fa-pen"></i>
-                </div>
-
-                <div class="menu">
-                  <ul>
-                    <li>
-                      <span class="material-icons icons-size">person</span>
-                      <a href="#">구인 글 쓰기</a>
-                    </li>
-                    <li>
-                      <span class="material-icons icons-size">mode</span>
-                      <a href="https://www.naver.com">공연 글 쓰기</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-
-              <li><a href=""><i class="fa-solid fa-bell"></i></a></li>
-
-              <li class="action">
-                <div class="profile" onclick="menu2Toggle();">
-                  <i class="fa-solid fa-circle-user"></i>
-                </div>
-
-                <div class="menu2">
-                  <ul>
-                    <li>
-                      <span class="material-icons icons-size">insert_comment</span>
-                      <a href="#">내 작성글</a>
-                    </li>
-                    <li>
-                      <span class="material-icons icons-size">insert_comment</span>
-                      <a href="https://www.naver.com">내 관심글</a>
-                    </li>
-                    <li>
-                      <span class="material-icons icons-size">person</span>
-                      <a href="viewMemberInfo.html">계정 관리</a>
-                    </li>
-                    <li>
-                      <span class="material-icons icons-size">account_balance_wallet</span>
-                      <a href="https://www.naver.com">로그 아웃</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
-
-        <div class="container">
-          <div class="board_list_wrap">
-            <div class="top">
-              <div class="board_name">
-                <i class="fa-solid fa-bullhorn"></i>
-                <h2>공지사항</h2>
+              <table class="board_list">
+                <!-- 게시판 목록 -->
+                <thead>
+                  <tr>
+                    <th class="type">공지 종류</th>
+                    <th>제목</th>
+                    <th class="created_at">작성일</th>
+                  </tr>
+                </thead>
+                <tbody class="contents_list">
+                  <c:forEach items="${noticeList}" var="notice">
+                    <td class="notice_type">컨텐츠 공지</td>
+                    <td class="notice_title"><a href="viewNotice.html">여기에 제목이 표시됩니다.</a></td>
+                    <td class="created_at">23.10.22.</td>
+                  </c:forEach>
+              </table>
+              <!-- 글목록 하단 -->
+              <div class="board_bot">
+                <!-- 페이지네이션 -->
+                <div class="paging"></div>
+                <!-- 글쓰기 버튼 -->
+                <a class="write active" href="writeNotice.html">공지 쓰기</a>
               </div>
-              <!-- 검색창 -->
-              <div class="search_bar">
-                <input id='filterText' type="text" placeholder="검색어를 입력하세요" />
-                <button><i class="fa-solid fa-magnifying-glass"></i></button>
-              </div>
-            </div>
-            <table class="board_list">
-              <!-- 게시판 목록 -->
-              <thead>
-                <tr>
-                  <th class="type">공지 종류</th>
-                  <th>제목</th>
-                  <th class="created_at">작성일</th>
-                </tr>
-              </thead>
-              <tbody class="contents_list">
-                <c:forEach items="${noticeList}" var="notice">
-                  <td class="notice_type">컨텐츠 공지</td>
-                  <td class="notice_title"><a href="viewNotice.html">여기에 제목이 표시됩니다.</a></td>
-                  <td class="created_at">23.10.22.</td>
-                </c:forEach>
-            </table>
-            <!-- 글목록 하단 -->
-            <div class="board_bot">
-              <!-- 페이지네이션 -->
-              <div class="paging"></div>
-              <!-- 글쓰기 버튼 -->
-              <a class="write active" href="writeNotice.html">공지 쓰기</a>
             </div>
           </div>
-        </div>
-        <script src="/js/notice.js"></script>
-        <script src="/js/default.js"></script>
+          <script src="/js/notice.js"></script>
+          <script src="/js/default.js"></script>
       </body>
 
       </html>
