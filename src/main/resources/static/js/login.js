@@ -53,8 +53,8 @@ function join() {
   let passwordCheck = $("#password_check").val();
 
   if (password != passwordCheck) {
-      alert("비밀번호를 동일하게 입력해주세요.");
-      return false;
+    alert("비밀번호를 동일하게 입력해주세요.");
+    return false;
   }
 
   let data = {
@@ -74,7 +74,7 @@ function join() {
   }).done((res) => {
     if (res.code == 1) {
       alert(res.msg);
-      window.location.href = "/";
+      location.reload();
     } else {
       alert(res.msg);
       return;

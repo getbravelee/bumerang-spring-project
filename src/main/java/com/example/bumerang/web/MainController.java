@@ -9,11 +9,11 @@ import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
 import com.example.bumerang.web.dto.response.jobSearch.JobListDto;
 import com.example.bumerang.web.dto.response.jobSearch.JobMainDto;
-import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
 import com.example.bumerang.web.dto.response.performance.PfListDto;
 import com.example.bumerang.web.dto.response.performance.PfMainDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,20 +30,17 @@ public class MainController {
 	private final JobSearchService jobSearchService;
 	private final PerformanceService performanceService;
 
-	@GetMapping("/")
-	public @ResponseBody CMRespDto<?> mainForm() {
-		return new CMRespDto<>(1, "사이트 메인페이지 불러오기 성공.",null );
-	}
-
 	// 구인정보글 메인 화면
-	@GetMapping("/jobSearch/mainForm")
-	public @ResponseBody CMRespDto<?> jobMainForm() {
+	@GetMapping("/")
+	public String jobMainForm(Model model) {
 		JobMainDto jobMainResp = new JobMainDto();
 		List<JobListDto> jobList = jobSearchService.findAllJob();
 		List<JobListDto> bestJobList = jobSearchService.findAllBeestJob();
 		jobMainResp.setJobList(jobList);
 		jobMainResp.setBestJobList(bestJobList);
-		return new CMRespDto<>(1, "구인글 메인 화면 불러오기 성공", jobMainResp);
+		model.addAttribute("jobList",jobList);
+		model.addAttribute("bestJobList",bestJobList);
+		return "jobMainForm";
 	}
 
 	// 마감하기 기능
@@ -88,10 +85,5 @@ public class MainController {
 	@GetMapping("/404")
 	public String errorForm(){
 		return "404";
-	}
-
-	@GetMapping("/loginForm")
-	public String loginForm() {
-		return "loginForm";
 	}
 }

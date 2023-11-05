@@ -6,7 +6,7 @@ const contents = document.querySelector(".contents_list"); //글목록 부모 �
 const paging = document.querySelector(".paging");
 const pageNums = document.querySelector(".paging"); //페이지 숫자 부모 요소 지정
 
-let numOfContents = 230; // 전체 글 개수 - 추후 백에서 받아오는 걸로
+let numOfContents = 110; // 전체 글 개수 - 추후 백에서 받아오는 걸로
 const maxContent = 15; // 한 페이지당 글 최대 개수
 const maxButton = 5; // 한 화면에 보여지는 페이지 버튼의 최대 개수
 let maxPage = Math.ceil(numOfContents / maxContent); // 총 페이지 개수
@@ -149,6 +149,7 @@ render(currentPage);
 // 공지 쓰기 버튼 // 설정 필요 없으면 삭제하세요
 ///////////////////////////
 let userId = admin;
-if (userId !== "adimin") { //관리자 로그인이 아닌 경우, 공지 쓰기 버튼 삭제
+if (userId !== "adimin") {
+  //관리자 로그인이 아닌 경우, 공지 쓰기 버튼 삭제
   document.querySelector(".write").classList.remove("active");
 }

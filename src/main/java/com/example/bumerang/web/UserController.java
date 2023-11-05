@@ -35,12 +35,6 @@ public class UserController {
     private final HttpSession session;
     private final UserService userService;
 
-    // 회원가입 화면
-    @GetMapping("/user/joinForm")
-    public @ResponseBody CMRespDto<?> joinForm() {
-        return new CMRespDto<>(1, "회원가입 화면 불러오기 성공.", null);
-    }
-
     // 회원가입 기능
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
@@ -62,10 +56,11 @@ public class UserController {
         SessionUserDto joinResult = userService.join(joinDto);
         return new CMRespDto<>(1, "회원가입 성공.", joinResult);
     }
+    
     // 로그인 화면
     @GetMapping("/user/loginForm")
-    public @ResponseBody CMRespDto<?> loginForm() {
-        return new CMRespDto<>(1, "로그인 화면 불러오기 성공.", null);
+    public String loginForm() {
+        return "loginForm";
     }
 
     // 로그인 기능
@@ -80,14 +75,10 @@ public class UserController {
     }
 
     // 로그아웃
-    @PostMapping("/s/api/user/logout")
-    public @ResponseBody CMRespDto<?> logout() {
-        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-        if(principal==null){
-            return new CMRespDto<>(-1, "로그인 상태가 아닙니다.", null);
-        }
+    @GetMapping("/s/api/user/logout")
+    public String logout() {
         session.invalidate();
-        return new CMRespDto<>(1, "로그아웃 성공.", principal);
+        return "redirect:/";
     }
 
     // 내 회원정보 수정 화면

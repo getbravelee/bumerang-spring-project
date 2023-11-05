@@ -33,8 +33,8 @@ public class JobSearchController {
 
     // 구인정보 작성하기 화면
     @GetMapping("/s/api/jobSearch/writeForm")
-    public @ResponseBody CMRespDto<?> writeForm() {
-        return new CMRespDto<>(1, "구인정보 작성하기 화면 불러오기 성공.", null);
+    public String writeForm() {
+        return "jobWriteForm";
     }
 
     // 구인정보 작성하기 기능

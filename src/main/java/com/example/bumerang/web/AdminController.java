@@ -21,7 +21,7 @@ public class AdminController {
     private final AdminService adminService;
 
     // 메인 화면
-    @GetMapping("/s/api/auth/indexForm")
+    @GetMapping("/admin/indexForm")
     public String indexForm(Model model) {
         List<PostListDto> postPS = adminService.findAllPost();
         ViewListDto viewPS = adminService.findByView();

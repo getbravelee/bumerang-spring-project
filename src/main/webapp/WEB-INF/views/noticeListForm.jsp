@@ -8,8 +8,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://kit.fontawesome.com/bfb14eb01e.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/notice.css">
+        <link rel="stylesheet" href="/css/default.css">
+        <link rel="stylesheet" href="/css/notice.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&display=swap"
           rel="stylesheet">
         <link
@@ -27,7 +27,7 @@
         <header>
           <div class="navbar">
             <div class="bot_menu">
-              <a href=""><img src="image/mainlogo.png"></a>
+              <a href=""><img src="/image/mainlogo.png"></a>
               <div class="title">
                 <h2>부산 <span class="accent">메이트</span><span class="accent2">랑</span></h2>
               </div>
@@ -122,18 +122,11 @@
                 </tr>
               </thead>
               <tbody class="contents_list">
-                <c:forEach var="notice" items="${noticeList}">
-                  <tr>
-                    <td>${notice.noticeType}</td>
-                    <td class="tit">
-                      <a href="#">${notice.noticeTitle}</a>
-                    </td>
-                    <td>
-                      <fmt:formatDate value="${notice.createdAt}" pattern="yyyy-MM-dd" type="date" />
-                    </td>
-                  </tr>
+                <c:forEach items="${noticeList}" var="notice">
+                  <td class="notice_type">컨텐츠 공지</td>
+                  <td class="notice_title"><a href="viewNotice.html">여기에 제목이 표시됩니다.</a></td>
+                  <td class="created_at">23.10.22.</td>
                 </c:forEach>
-              </tbody>
             </table>
             <!-- 글목록 하단 -->
             <div class="board_bot">
@@ -144,8 +137,8 @@
             </div>
           </div>
         </div>
-        <script src="js/notice.js"></script>
-        <script src="js/default.js"></script>
+        <script src="/js/notice.js"></script>
+        <script src="/js/default.js"></script>
       </body>
 
       </html>

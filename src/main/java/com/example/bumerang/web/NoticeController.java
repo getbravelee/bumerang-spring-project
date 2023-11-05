@@ -2,17 +2,13 @@ package com.example.bumerang.web;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.bumerang.domain.notice.Notice;
 import com.example.bumerang.service.NoticeService;
-import com.example.bumerang.web.dto.response.CMRespDto;
 import com.example.bumerang.web.dto.response.notice.DetailFormDto;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +24,6 @@ public class NoticeController {
     @GetMapping("/notice/listForm")
     public String listForm(Model model) {
         List<Notice> noticeList = noticeService.findAll();
-        System.err.println("디버그: "+noticeList.get(0).getCreatedAt());
         model.addAttribute("noticeList", noticeList);
         return "noticeListForm";
     }
@@ -37,8 +32,17 @@ public class NoticeController {
     @GetMapping("/notice/detailForm/{noticeId}")
     public String detailForm(@PathVariable Integer noticeId,Model model) {
         DetailFormDto noticeDetail = noticeService.findByNotice(noticeId);
+        if(noticeDetail==null){
+            return "redirect:/404";
+        }
         model.addAttribute("notice", noticeDetail);
         return "noticeDetailForm";
+    }
+
+    // 공지글 작성하기 화면
+    @GetMapping("/s/api/auth/notice/writeForm")
+    public String writeForm() {
+        return "noticeWriteForm";
     }
 
 }

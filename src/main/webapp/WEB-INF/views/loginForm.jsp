@@ -7,8 +7,8 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-            <link rel="stylesheet" href="css/default.css">
-            <link rel="stylesheet" href="css/login.css">
+            <link rel="stylesheet" href="/css/default.css">
+            <link rel="stylesheet" href="/css/login.css">
             <!-- JQuery -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <!-- AJax -->
@@ -28,11 +28,12 @@
                             <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                             <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                         </div>
-                        <input type="text" name="user_login_id" id="userLoginId" placeholder="아이디">
+                        <input type="text" name="user_login_id" id="userLoginId" placeholder="아이디" required>
                         <input type="password" name="user_password" id="password" placeholder="비밀번호">
-                        <input type="password" name="user_password_check" id="password_check" placeholder="비밀번호">
-                        <input type="email" name="user_email" id="userEmail" placeholder="email@xxxx">
-                        <input type="text" name="user_nickname" id="userNickname" placeholder="닉네임">
+                        <input type="password" name="user_password_check" id="password_check" placeholder="비밀번호"
+                            required>
+                        <input type="email" name="user_email" id="userEmail" placeholder="email@xxxx" required>
+                        <input type="text" name="user_nickname" id="userNickname" placeholder="닉네임" required>
                         <!-- <input type="number" name="user_age" placeholder="만 나이(숫자만)">
                 <label for="male">남성</label>
                 <input type="radio" name="user_gender" value="true">
@@ -80,7 +81,7 @@
                 </div>
             </div>
 
-            <script src="js/login.js"></script>
+            <script src="/js/login.js"></script>
         </body>
 
         </html>
