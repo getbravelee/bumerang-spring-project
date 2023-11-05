@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.bumerang.domain.user.User;
@@ -121,7 +122,7 @@ public class UserController {
 
     // 내가 작성한 글 화면
     @GetMapping("/s/api/user/writeListForm")
-    public @ResponseBody CMRespDto<?> writeListForm() {
+    public String writeListForm() {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         Integer userId = principal.getUserId();
         UserCreateRespoDto userWriteList = new UserCreateRespoDto();
@@ -129,7 +130,7 @@ public class UserController {
         List<UserPerformanceDto> myPfList = userService.myPfList(userId);
         userWriteList.setMyJSList(myJSList);
         userWriteList.setMyPfList(myPfList);
-        return new CMRespDto<>(1, "작성한 글 불러오기 성공.", userWriteList);
+        return "writeListForm";
     }
 
     // 아이디 찾기 화면
@@ -168,13 +169,15 @@ public class UserController {
 
     // 관심목록 화면
     @GetMapping("/s/api/user/likeyListForm")
-    public @ResponseBody CMRespDto<?> likeyListForm(){
+    public String likeyListForm(Model model){
         LikeyRespDto userLikeyList = new LikeyRespDto();
         List<LikeyJSListDto> LikeyJSDetail = userService.likeyfindAllJSList();
         List<LikeyPFListDto> LikeyPFDetail = userService.likeyfindAllPFList();
         userLikeyList.setLJSList(LikeyJSDetail);
         userLikeyList.setLPFList(LikeyPFDetail);
-        return new CMRespDto<>(1, "관심목록 불러오기 성공.", userLikeyList);
+        model.addAttribute("LikeyJSDetail", LikeyPFDetail);
+        model.addAttribute("LikeyPFDetail", LikeyPFDetail);
+        return "likeyListForm";
     }
 
 }

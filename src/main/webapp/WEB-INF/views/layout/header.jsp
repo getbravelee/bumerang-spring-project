@@ -24,7 +24,7 @@
                 </div>
                 <c:choose>
                     <c:when test="${principal != null}">
-                        <ul class="linkes">
+                        <!-- <ul class="linkes">
                             <li class="action">
                                 <div class="profile" onclick="menuToggle();">
                                     <i class="fa-solid fa-pen"></i>
@@ -68,7 +68,7 @@
                                             <span class="material-symbols-outlined">
                                                 favorite
                                             </span>
-                                            <a href="https://www.naver.com">내 관심글</a>
+                                            <a href="/s/api/user/likeyListForm">내 관심글</a>
                                         </li>
                                         <li>
                                             <span class="material-symbols-outlined">
@@ -87,6 +87,57 @@
                                                 logout
                                             </span>
                                             <a href="/s/api/user/logout">로그아웃</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul> -->
+                        <ul class="linkes">
+                            <li class="action">
+                                <div class="profile" onclick="menuToggle();">
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
+
+                                <div class="menu">
+                                    <ul>
+                                        <li>
+                                            <span class="material-icons icons-size">person</span>
+                                            <a href="/s/api/jobSearch/writeForm">구인 글 쓰기</a>
+                                        </li>
+                                        <li>
+                                            <span class="material-icons icons-size">mode</span>
+                                            <a href="/s/api/performance/writeForm">공연 글 쓰기</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href=""><i class="fa-solid fa-bell"></i></a>
+                            </li>
+
+                            <li class="action">
+                                <div class="profile" onclick="menu2Toggle();">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                </div>
+
+                                <div class="menu2">
+                                    <ul>
+                                        <li>
+                                            <span class="material-icons icons-size">insert_comment</span>
+                                            <a href="/s/api/user/writeListForm">내 작성글</a>
+                                        </li>
+                                        <li>
+                                            <span class="material-icons icons-size">insert_comment</span>
+                                            <a href="/s/api/user/likeyListForm">내 관심글</a>
+                                        </li>
+                                        <li>
+                                            <span class="material-icons icons-size">person</span>
+                                            <a href="viewMemberInfo.html">계정 관리</a>
+                                        </li>
+                                        <li>
+                                            <span class="material-icons icons-size">account_balance_wallet</span>
+                                            <a href="/s/api/user/logout">로그 아웃</a>
                                         </li>
                                     </ul>
                                 </div>
