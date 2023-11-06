@@ -39,7 +39,6 @@ function login() {
     }
   }).done((res) => {
     if (res.code == 1) {
-      alert(res.msg);
       location.href = "/jobSearch/mainForm";
     } else {
       alert(res.msg);

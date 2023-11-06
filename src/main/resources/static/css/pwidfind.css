@@ -1,0 +1,97 @@
+.findbox {
+    width: 50%;
+    height: 50%;
+    top: 30%;
+    left: 25%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    /* box-shadow: 0px 5px 10px 1px rgb(1 1 1 / 8%); */
+    border: 2px solid  rgb(1 1 1 / 8%);
+    border-radius: 50px;
+}
+.pwbox, .idbox{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    width: 100%;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+.pwbox h3, .idbox h3{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.pwbox input, .idbox input{
+    width: 100%;
+    display: flex;
+    border: 0.5px solid rgb(1 1 1 / 8%);
+}
+.id_button, .pw_button{
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(1 1 1 / 25%);
+    cursor: pointer;
+}
+.id_button:hover, .pw_button:hover{
+    color: #569aff;;
+    border-bottom: 2px solid #569aff;
+    font-weight: 800;
+}
+.box_button{
+    display: flex;
+    margin-top: 4%;
+}
+.button_box{
+    width: 50%;
+    height: 5%;
+    top: 74%;
+    left: 25%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.loginlink, .emaillink{
+    width: 50%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: rgb(1 1 1 / 0%);
+    cursor: pointer;
+}
+
+.loginlink:hover, .emaillink:hover{
+    font-weight: 800;
+    color: #569aff;
+}
+.pwbox{
+    display: none;
+}
+
+.loginlink{
+    display: flex;
+}
+.pwbox h3, .idbox h3{
+    color: #569aff;;
+    margin-bottom: 1%;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.pwbox input, .idbox input{
+    box-shadow: 0px 5px 10px 1px rgb(1 1 1 / 8%);
+    height: 50px;
+    border-radius: 15px;
+    width: 75%;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}

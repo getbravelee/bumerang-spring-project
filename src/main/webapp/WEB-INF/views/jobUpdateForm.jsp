@@ -39,7 +39,7 @@
                   <input type="hidden" id="userId" value="${principal.userId}">
                 </div>
                 <div class="bt_wrap">
-                  <a class="save" id="jobWriteBtn">등록</a>
+                  <a class="save" id="jobUpdateBtn">수정</a>
                   <a href="/jobSearch/mainForm" class="cancel">취소</a>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                   <dl>
                     <dt>제목</dt>
                     <dd>
-                      <input type="text" placeholder="글 제목을 입력하세요" id="jobContentTitle" />
+                      <input type="text" value="${job.jobContentTitle}" id="jobContentTitle" />
                     </dd>
                   </dl>
                 </div>
@@ -129,27 +129,27 @@
                   <dl class="art_title">
                     <dt>작품 제목</dt>
                     <dd>
-                      <input type="text" id="jobArtTitle" placeholder="작품 제목을 입력해주세요." />
+                      <input type="text" id="jobArtTitle" value="${job.jobArtTitle}" />
                     </dd>
                   </dl>
                   <dl>
                     <dt>시작 예정</dt>
-                    <dd><input type="date" id="jobStartDate" /></dd>
+                    <dd><input type="date" value="${job.jobStartDate}" id="jobStartDate" /></dd>
                   </dl>
                   <dl>
                     <dt>예상 기간</dt>
                     <dd>
-                      <input type="text" id="jobProductionDate" placeholder="0일, 0주, 0회차 등" value="" />
+                      <input type="text" value="${job.jobProductionDate}" id="jobProductionDate" />
                     </dd>
                   </dl>
                   <dl>
                     <dt>모집 마감</dt>
-                    <dd><input type="date" id="jobDeadline" /></dd>
+                    <dd><input type="date" value="${job.jobDeadline}" id="jobDeadline" /></dd>
                   </dl>
                   <dl>
                     <dt>모집 인원</dt>
                     <dd>
-                      <input type="number" id="jobTo" placeholder="숫자만 입력해주세요. 미정은 00" />
+                      <input type="number" value="${job.jobTo}" id="jobTo" />
                     </dd>
                   </dl>
                   <dl>
@@ -241,18 +241,18 @@
                   <dl>
                     <dt>연락 방법</dt>
                     <dd>
-                      <input type="text" id="jobContact" placeholder="연출: 010-****-****" />
+                      <input type="text" id="jobContact" value="${job.jobContact}" />
                     </dd>
                   </dl>
                   <dl>
                     <dt>출 연 료</dt>
                     <dd>
-                      <input type="text" id="jobPay" value="" placeholder="회차당 00만 원" />
+                      <input type="text" id="jobPay" value="${job.jobPay}" />
                     </dd>
                   </dl>
                 </div>
                 <div class="content">
-                  <div id="editor-container"></div>
+                  <div id="editor-container">"${job.jobContent}"</div>
                 </div>
               </div>
             </div>

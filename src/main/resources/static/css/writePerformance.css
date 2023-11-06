@@ -44,6 +44,7 @@
   border: 1px solid black;
   border-radius: 5px;
   font-size: 20px;
+  margin-right: 5px;
 }
 
 .board_write .title,
@@ -74,7 +75,7 @@
   width: calc(100% - 100px);
   height: 55px;
   font-weight: 100;
-  /* font-size: 20px; */
+  font-size: 20px;
 }
 
 /* 게시물 제목 */
@@ -90,20 +91,56 @@
 /* 게시물 정보부 */
 .board_write .info {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 5px;
-  max-height: 430px;
+  gap: 50px;
+  max-width: 1350px;
+  max-height: 600px;
   border-top: 1px dashed #ddd;
   border-bottom: 1px solid #000;
   font-size: 0;
+  
 }
+
+.board_write .info .left {
+  display: flex;
+  width: 380px;
+  margin-right: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board_write .info .left img {
+  width: 380px;
+  height: 500px; 
+  margin-bottom: 10px;
+  border-radius: 25px;
+}
+
+.board_write .info .left input {
+  margin-right: 0;
+}
+
+.board_write .info .right {
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+padding-top: 50px;
+gap: 50px;
+max-height: 100%;
+width: calc(100% - 380px);
+}
+
 
 .board_write .info dl {
   display: inline-block;
-  width: 50%;
-  vertical-align: middle;
-  
+  width: 48%;
+  vertical-align: middle; 
+}
+
+.board_write .info .date {
+  width: 77%;
+  height: 30px;
+  margin-bottom: 5px;
 }
 
 /* 드롭다운 */
@@ -148,11 +185,11 @@
   position: absolute;
   margin-top: 15px;
   border-radius: 8px;
-  padding: 12px;
+  padding: 16px;
   background-color: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   display: none;
-  z-index: 0px;
+  z-index: 10px;
 }
 .select_single.open ~ .list-items,
 .select-btn.open ~ .list-items {
@@ -164,7 +201,7 @@
   display: flex;
   align-items: center;
   list-style: none;
-  height: 45px;
+  height: 50px;
   cursor: pointer;
   transition: 0.3s;
   padding: 0 15px;
@@ -210,7 +247,7 @@
 
 /* 내용 영역 */
 .content {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 #editor-container {
@@ -252,22 +289,16 @@
 
 .bt_wrap a {
   display: inline-block;
+  width: 70px;
   margin-left: 10px;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 50px;
-  border-width: 0 0 4px;
-  width: 80px;
-  height: 50px;
-  outline: none;
-  margin: 5px;
-  background-color: palevioletred;
-  color: white;
+  border-radius: 10px;
 }
 
 .bt_wrap a.save {
-  background-color: #459fee;
-  
+  background:#c8e4fd;
+  color: rgb(52, 52, 253);
 }
 
 .bt_wrap a.save:hover {

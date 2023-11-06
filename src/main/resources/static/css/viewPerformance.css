@@ -79,6 +79,10 @@
   padding-bottom: 1px;
 }
 
+.pf_title_area .pf_status .report:hover {
+  cursor: pointer;
+}
+
 .border {
   width: 100%;
   border-bottom: 2px solid #eee;
@@ -160,6 +164,60 @@
   outline: none;
   resize: none;
   border: none;
+}
+
+/***************/
+/* 본문 하단 버튼 */
+/***************/
+.pf_container .button_wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.button_wrap button {
+  background-color: #459fee;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  width: 80px;
+  height: 50px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  /* touch-action: manipulation;
+  transition: filter 0.2s; */
+  margin: 5px;
+}
+
+.button_wrap .delete_btn {
+  background-color: palevioletred;
+}
+
+.button_wrap .delete_confirm {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 150px;
+  background-color: #fff;
+  border: 2px solid #459fee;
+  border-radius: 10px;
+  z-index: 10;
+  padding: 10px;
+  gap: 15px;
+}
+
+
+.delete_confirm #confirmDelete {
+  background-color: palevioletred;
 }
 
 /************/

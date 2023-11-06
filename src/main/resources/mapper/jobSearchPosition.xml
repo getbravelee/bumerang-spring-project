@@ -6,7 +6,7 @@
 
     <select id="findById"
             resultType="com.example.bumerang.domain.jobSearchPosition.JobSearchPosition">
-        SELECT * FROM job_search_position WHERE jobPosition_id=#{jobPositionId}
+        SELECT * FROM job_search_position WHERE job_id=#{jobId}
     </select>
 
     <select id="findAll"
@@ -34,8 +34,9 @@
 
     <select id="findPositionList"
             resultType="String">
-        SELECT job_position_title
-        FROM job_search_position jsp
-        WHERE jsp.job_id = #{jobId}
+        SELECT 
+        (SELECT GROUP_CONCAT(jp.job_position_title) FROM job_search_position jp WHERE jp.job_id = j.job_id) as jobPositionTitles
+        FROM job_search j
+        WHERE j.job_id = #{jobId}
     </select>
 </mapper>

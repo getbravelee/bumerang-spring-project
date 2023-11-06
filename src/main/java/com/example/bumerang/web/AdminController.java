@@ -177,27 +177,6 @@ public class AdminController {
         return "admin/manage/noticeUpdateForm";
     }
 
-    // 공지글 등록하기 기능
-    @PostMapping("/s/api/auth/manage/noticeWrite")
-    public @ResponseBody CMRespDto<?> write(@RequestBody WriteDto writeDto) {
-        NoticeDetailDto noticePS = adminService.writeNotice(writeDto);
-        return new CMRespDto<>(1, "공지사항 등록 성공.", noticePS);
-    }
-
-    // 공지글 수정하기 기능
-    @PutMapping("/s/api/auth/manage/noticeUpdate")
-    public @ResponseBody CMRespDto<?> updateNotice(@RequestBody NoticeDetailDto noticeDetailDto) {
-        NoticeDetailDto noticePS = adminService.updateNotice(noticeDetailDto);
-        return new CMRespDto<>(1, "공지글 정보 수정 성공.", noticePS);
-    }
-
-    // 공지글 삭제하기 기능
-    @DeleteMapping("/s/api/auth/manage/noticeDelete/{noticeId}")
-    public @ResponseBody CMRespDto<?> deleteNotice(@PathVariable Integer noticeId) {
-        NoticeDetailDto noticePS = adminService.deleteNotice(noticeId);
-        return new CMRespDto<>(1, "공지글 정보 삭제 성공.", noticePS);
-    }
-
     // 구인글 신고 목록 화면
     @GetMapping("/s/api/auth/report/jobListForm")
     public String findReportJobListForm(Model model) {

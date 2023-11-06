@@ -41,7 +41,7 @@ public class UserService {
     private final UserDao userDao;
     private final LikeyDao likeyDao;
     private final JavaMailSender emailSender;
-    private final String imageUploadPath = "C:/bumerang/img/profile/"; // 여기서 경로 수정
+    private final String imageUploadPath = "C:/bumerang/img/"; // 여기서 경로 수정
     private final SHA256 sha256;
 
     //회원가입

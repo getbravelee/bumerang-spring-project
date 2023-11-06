@@ -4,6 +4,7 @@ import com.example.bumerang.domain.comment.Comment;
 import com.example.bumerang.domain.notice.Notice;
 import com.example.bumerang.domain.notice.NoticeDao;
 import com.example.bumerang.web.dto.request.notice.WriteDto;
+import com.example.bumerang.web.dto.response.admin.NoticeDetailDto;
 import com.example.bumerang.web.dto.response.notice.DetailFormDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,23 @@ public class NoticeService {
 		return noticeDao.findByNotice(noticeId);
 	}
 
+	//공지 작성
+	public Notice writeNotice(WriteDto writeDto) {
+		noticeDao.writeNotice(writeDto);
+		Notice noticePS = noticeDao.findByRecent();
+		return noticePS;
+	}
+
+	//공지 수정
+	public Notice updateNotice(NoticeDetailDto noticeDetailDto) {
+		noticeDao.updateNotice(noticeDetailDto);
+		Notice noticePS = noticeDao.findById(noticeDetailDto.getNoticeId());
+		return noticePS;
+	}
+
+	//공지 삭제
+	public Notice deleteNotice(Integer noticeId) {
+		noticeDao.deleteNotice(noticeId);
+		return noticeDao.findById(noticeId);
+	}
 }

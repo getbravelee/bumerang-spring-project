@@ -77,7 +77,4 @@ public interface AdminDao {
 
     List<BoardCountOfWeekDto> boardCountOfWeek();
 
-    void writeNotice(WriteDto writeDto);
-
-    NoticeDetailDto findByRecent();
 }

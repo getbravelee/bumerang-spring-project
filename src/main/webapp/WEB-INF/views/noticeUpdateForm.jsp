@@ -12,21 +12,24 @@
         <link rel="stylesheet" href="/css/writeNotice.css" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&display=swap"
           rel="stylesheet">
+        <link
+          href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+          rel="stylesheet">
+        <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
         <!-- JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- AJax -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        <link
-          href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-          rel="stylesheet">
+        <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet" />
+        <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
         <title>공지사항</title>
       </head>
 
       <body>
-        <!-- 헤더 -->
         <%@ include file="layout/header.jsp" %>
-          <input type="hidden" value="${notice.noticeId}" id="noticeId">
+          <input type="hidden" id="noticeId" value="${notice.noticeId}">
+          <input type="hidden" id="userId" value="${principal.userId}">
 
           <div class="container">
             <div class="board_write_wrap">
@@ -35,45 +38,38 @@
                   <i class="fa-solid fa-bullhorn"></i>
                   <h2>공지사항</h2>
                 </div>
+                <div class="bt_wrap">
+                  <a class="save" id="noticeUpdateBtn">수정</a>
+                  <a href="notice.html" class="cancel">취소</a>
+                </div>
               </div>
               <div class="board_write">
-                <div class="title">
-                  <dl>
-                    <dt>제목</dt>
-                    <dd>${notice.noticeTitle}</dd>
-                  </dl>
-                </div>
                 <div class="info">
-                  <dl>
-                    <dt>공지 유형</dt>
+                  <dl class="title">
+                    <dt>제목</dt>
                     <dd>
-                      ${notice.noticeType}
+                      <input type="text" id="noticeTitle" value="${notice.noticeTitle}" />
                     </dd>
                   </dl>
-                  <dl>
-                    <dt>작성자</dt>
-                    <dd>${notice.userNickname}</dd>
-                  </dl>
-                  <dl>
-                    <dt>작성 시간</dt>
+                  <dl class="type">
+                    <dt>공지 유형</dt>
                     <dd>
-                      <fmt:formatDate value="${notice.createdAt}" pattern="yy.MM.dd kk:mm" type="date" />
+                      <select id="noticeType">
+                        <option>${notice.noticeType}</option>
+                        <option value="컨텐츠 공지">컨텐츠 공지</option>
+                        <option value="서비스 공지">서비스 공지</option>
+                      </select>
                     </dd>
                   </dl>
                 </div>
                 <div class="content">
-                  <p>${notice.noticeContent}</p>
+                  <div id="editor-container">${notice.noticeContent}</div>
                 </div>
               </div>
-              <div class="bt_wrap">
-                <c:if test="${notice.userId==principal.userId}">
-                  <a href="/s/api/auth/notice/updateForm/${notice.noticeId}" class="save">수정</a>
-                  <a class="cancel" id="noticeDeleteBtn">삭제</a>
-                </c:if>
-              </div>
+
             </div>
           </div>
-          <script src="/js/notice.js"></script>
+          <script src="/js/writeNotice.js"></script>
           <script src="/js/default.js"></script>
       </body>
 

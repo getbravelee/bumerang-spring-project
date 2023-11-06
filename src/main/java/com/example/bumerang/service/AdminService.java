@@ -105,24 +105,6 @@ public class AdminService {
         return noticePS;
     }
 
-    public NoticeDetailDto writeNotice(WriteDto writeDto) {
-        adminDao.writeNotice(writeDto);
-        NoticeDetailDto noticePS = adminDao.findByRecent();
-        return noticePS;
-    }
-
-    public NoticeDetailDto updateNotice(NoticeDetailDto noticeDetailDto) {
-        adminDao.updateNotice(noticeDetailDto);
-        NoticeDetailDto noticePS = adminDao.findByNoticeId(noticeDetailDto.getNoticeId());
-        return noticePS;
-    }
-
-    public NoticeDetailDto deleteNotice(Integer noticeId) {
-        adminDao.deleteNotice(noticeId);
-        NoticeDetailDto noticePS = adminDao.findByNoticeId(noticeId);
-        return noticePS;
-    }
-
     public List<JobListDto> findReportJobList() {
         List<JobListDto> jobList = adminDao.findReportJobList();
         return jobList;

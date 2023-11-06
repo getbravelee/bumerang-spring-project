@@ -18,12 +18,14 @@ public class DetailFormDto {
     private String jobStartDate;
     private String jobProductionDate;
     private String jobTo;
+    private String jobPay;
     private String jobGender;
     private String jobContact;
     private String jobDeadline;
     private Timestamp createdAt;
     // 구인글 포지션 목록
     private List<String> jobPositionTitle;
+    private String jobPositionTitles;
     // 구인글 작성자 정보
     private Integer userId;
     private String userNickname;
@@ -34,4 +36,7 @@ public class DetailFormDto {
     private Integer likeyCount;
     // 게시글 조회수
     private Integer viewCount;
+    // 내가 게시글 추천했는지 여부
+    private Boolean isLikey;
+    private Integer likeyId;
 }

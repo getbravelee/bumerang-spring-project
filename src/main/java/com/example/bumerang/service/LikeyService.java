@@ -73,4 +73,14 @@ public class LikeyService {
 		return deleteResult;
 	}
 
+	public Likey unLikey(Integer likeyId) {
+		Likey likeyPS = likeyDao.findById(likeyId);
+		likeyDao.delete(likeyId);
+        return likeyPS;
+    }
+
+    public Likey findById(Integer likeyId) {
+        return likeyDao.findById(likeyId);
+    }
+
 }

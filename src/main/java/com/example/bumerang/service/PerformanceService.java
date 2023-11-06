@@ -31,7 +31,7 @@ public class PerformanceService {
 	private final CommentDao commentDao;
 	private final ViewDao viewDao;
 	private final HttpSession session;
-	private final String imageUploadPath = "C:/bumerang/img/thumbnail/"; // 여기서 경로 수정
+	private final String imageUploadPath = "C:/bumerang/img/"; // 여기서 경로 수정
 
 	//공연글 목록
 	public List<Performance> findAll() {
@@ -52,7 +52,7 @@ public class PerformanceService {
 	}
 
 	// 공연글 베스트 목록
-	public List<PfListDto> findAllBeestPf() {
+	public List<PfListDto> findAllBestPf() {
 		List<PfListDto> bestPfList = performanceDao.findAllBestPf();
 		return bestPfList;
 	}

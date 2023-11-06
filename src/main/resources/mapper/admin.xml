@@ -161,38 +161,6 @@
         WHERE n.notice_id = #{noticeId}
     </select>
 
-    <insert id="writeNotice">
-        INSERT INTO notice
-        (notice_title, notice_content, notice_type, user_id)
-        VALUES
-        (#{noticeTitle}, #{noticeContent}, #{noticeType}, #{userId})
-    </insert>
-
-    <select id="findByRecent" resultType="com.example.bumerang.web.dto.response.admin.NoticeDetailDto">
-        SELECT *
-        FROM notice n
-        WHERE n.notice_id=LAST_INSERT_ID()
-    </select>
-
-    <update id="updateNotice">
-        UPDATE notice
-        SET
-            notice_title = #{noticeTitle},
-            notice_content = #{noticeContent},
-            notice_type = #{noticeType},
-            notice_status = #{noticeStatus}
-        WHERE
-            notice_id = #{noticeId}
-    </update>
-
-    <update id="deleteNotice">
-        UPDATE notice
-        SET
-            notice_status = 'deleted'
-        WHERE
-            notice_id = #{noticeId}
-    </update>
-
     <select id="findReportJobList" resultType="com.example.bumerang.web.dto.response.admin.JobListDto">
         SELECT j.*, r.*, r.created_at AS reportCreatedAt
         FROM (SELECT * FROM report r WHERE r.job_id IS NOT NULL) r

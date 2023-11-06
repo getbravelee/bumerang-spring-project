@@ -11,9 +11,10 @@
 
     <select id="findAll"
             resultType="com.example.bumerang.domain.notice.Notice">
-        SELECT n.notice_id, n.notice_title, n.notice_content, n.notice_type, n.user_id, n.notice_status, n.updated_at, DATE(created_at) AS created_at
+        SELECT n.notice_id, n.notice_title, n.notice_content, n.notice_type, n.user_id, n.notice_status, n.updated_at, n.created_at
         FROM notice n
         WHERE n.notice_status != 'deleted'
+        ORDER BY created_at DESC
     </select>
 
     <insert id="insert">
@@ -57,7 +58,14 @@
         WHERE n.notice_id=LAST_INSERT_ID()
     </select>
 
-    <update id="updatNotice">
+    <insert id="writeNotice">
+        INSERT INTO notice
+        (notice_title, notice_content, notice_type, user_id)
+        VALUES
+        (#{noticeTitle}, #{noticeContent}, #{noticeType}, #{userId})
+    </insert>
+
+    <update id="updateNotice">
         UPDATE notice
         SET
         notice_title = #{noticeTitle},
@@ -69,4 +77,11 @@
         AND notice_status != 'deleted'
     </update>
 
+    <update id="deleteNotice">
+        UPDATE notice
+        SET
+        notice_status = 'deleted'
+        WHERE
+        notice_id = #{noticeId}
+    </update>
 </mapper>

@@ -58,7 +58,7 @@ public class UserController {
         return new CMRespDto<>(1, "회원가입 성공.", joinResult);
     }
     
-    // 로그인 화면
+    // 로그인과 회원가입 화면
     @GetMapping("/user/loginForm")
     public String loginForm() {
         return "loginForm";
@@ -84,10 +84,11 @@ public class UserController {
 
     // 내 회원정보 수정 화면
     @GetMapping("/s/api/user/updateForm")
-    public @ResponseBody CMRespDto<?> updateForm() {
+    public String updateForm(Model model) {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         UserRespDto userDetail = userService.findByDetail(principal.getUserId());
-        return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
+        model.addAttribute("user", userDetail);
+        return "userUpdateForm";
     }
 
     // 회원수정기능
@@ -115,9 +116,10 @@ public class UserController {
 
     // 계정 상세 화면
     @GetMapping("/s/api/user/detailForm/{userId}")
-    public @ResponseBody CMRespDto<?> detailForm(@PathVariable Integer userId) {
+    public String detailForm(@PathVariable Integer userId, Model model) {
         UserRespDto userDetail = userService.findByDetail(userId);
-        return new CMRespDto<>(1, "계정정보 불러오기 성공.", userDetail);
+        model.addAttribute("user", userDetail);
+        return "userDetailForm";
     }
 
     // 내가 작성한 글 화면
@@ -133,17 +135,10 @@ public class UserController {
         return "writeListForm";
     }
 
-    // 아이디 찾기 화면
-    @GetMapping("/user/searchIdForm")
-    public @ResponseBody CMRespDto<?> searchIdForm() {
-        return new CMRespDto<>(1, "아이디 찾기 화면 불러오기 성공.", null);
-    }
-
-
-    // 비밀번호 찾기 화면
-    @GetMapping("/user/searchPwForm")
-    public @ResponseBody CMRespDto<?> searchPwForm() {
-        return new CMRespDto<>(1, "비밀번호 찾기 화면 불러오기 성공.", null);
+    // 아이디 비밀번호 찾기 화면
+    @GetMapping("/user/searchIdPwForm")
+    public String searchIdForm() {
+        return "searchIdPwForm";
     }
 
     // 아이디 찾기

@@ -9,17 +9,17 @@ Object.assign(swiperEl, {
   breakpoints: {
     640: {
       slidesPerView: 2,
-      spaceBetween: 30,
+      spaceBetween: 30
     },
     900: {
       slidesPerView: 3,
-      spaceBetween: 30,
+      spaceBetween: 30
     },
     1340: {
       slidesPerView: 4,
-      spaceBetween: 30,
-    },
-  },
+      spaceBetween: 30
+    }
+  }
 });
 swiperEl.initialize();
 
@@ -53,7 +53,7 @@ function filterPosts() {
 //////////////
 // 검색기능 //
 /////////////
- function filterSearch() {
+function filterSearch() {
   var filterText = document.getElementById("filterText").value.toLowerCase();
   var search = document.getElementsByClassName("search_job_slide");
 
@@ -71,7 +71,7 @@ function filterPosts() {
       search[i].style.display = "none";
     }
   }
-} 
+}
 
 ////////////////
 // pagination //
@@ -192,4 +192,3 @@ $(function () {
 ////////////////
 // deadline //
 ///////////////
-

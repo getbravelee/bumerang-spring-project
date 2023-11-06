@@ -18,7 +18,7 @@ public interface JobSearchDao {
 
     public void delete(Integer jobId);
 
-    public DetailFormDto findByJob(Integer jobId);
+    public DetailFormDto findByJob(Integer userId, Integer jobId);
 
     public List<JobListDto> findAllJob();
 

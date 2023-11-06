@@ -1,6 +1,7 @@
 package com.example.bumerang.domain.notice;
 
 import com.example.bumerang.web.dto.request.notice.WriteDto;
+import com.example.bumerang.web.dto.response.admin.NoticeDetailDto;
 import com.example.bumerang.web.dto.response.notice.DetailFormDto;
 
 import java.util.List;
@@ -19,5 +20,11 @@ public interface NoticeDao {
     public DetailFormDto findByNotice(Integer noticeId);
 
     Notice findByRecent();
+
+    void writeNotice(WriteDto writeDto);
+
+    void updateNotice(NoticeDetailDto noticeDetailDto);
+
+    void deleteNotice(Integer noticeId);
 
 }

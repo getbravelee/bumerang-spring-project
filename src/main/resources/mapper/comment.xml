@@ -41,6 +41,7 @@
         LEFT JOIN comment c
         ON u.user_id = c.user_id
         WHERE c.job_id = #{jobId}
+        ORDER BY c.created_at DESC
     </select>
 
     <select id="findByRecent" resultType="com.example.bumerang.domain.comment.Comment">

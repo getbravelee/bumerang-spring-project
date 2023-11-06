@@ -25,5 +25,6 @@ public class JobRespDto {
     private String jobStatus;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private String jobPositionTitles;
     private List<String> jobPositionTitle;
 }

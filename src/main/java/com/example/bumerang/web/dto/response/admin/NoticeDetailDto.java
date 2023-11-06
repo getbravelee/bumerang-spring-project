@@ -13,6 +13,7 @@ public class NoticeDetailDto {
     private String noticeContent;
     private String noticeType;
     private String noticeStatus;
+    private Integer userId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

@@ -21,11 +21,9 @@ import java.util.List;
 @Service
 public class JobSearchService {
 
-	private final HttpSession session;
 	private final JobSearchDao jobSearchDao;
 	private final JobSearchPositionDao jobSearchPositionDao;
 	private final CommentDao commentDao;
-	private final LikeyDao likeyDao;
 	private final ViewDao viewDao;
 
 
@@ -49,10 +47,10 @@ public class JobSearchService {
 
 	//구인글 상세보기
 	public DetailFormDto findByJob(Integer userId, Integer jobId) {
-		List<String> jobPositionList = jobSearchPositionDao.findPositionList(jobId);
+		String jobPositionLists = jobSearchPositionDao.findPositionList(jobId);
 		List<JobCommentDto> findByCommentList = commentDao.findByJobCommentList(jobId);
-		DetailFormDto findByJob = jobSearchDao.findByJob(jobId);
-		findByJob.setJobPositionTitle(jobPositionList);
+		DetailFormDto findByJob = jobSearchDao.findByJob(userId, jobId);
+		findByJob.setJobPositionTitles(jobPositionLists);
 		findByJob.setCommentList(findByCommentList);
 		viewDao.count(null,jobId, userId);
 		return findByJob;
@@ -76,18 +74,28 @@ public class JobSearchService {
 	public JobRespDto delete(Integer jobId) {
 		jobSearchDao.delete(jobId);
 		JobRespDto deleteResult = jobSearchDao.findByDelete(jobId);
-		List<String> jobPositionList = jobSearchPositionDao.findPositionList(jobId);
-		deleteResult.setJobPositionTitle(jobPositionList);
+		String jobPositionList = jobSearchPositionDao.findPositionList(jobId);
+		deleteResult.setJobPositionTitles(jobPositionList);
 		return deleteResult;
 	}
 
 
 	public List<JobListDto> findAllJob() {
-		return jobSearchDao.findAllJob();
+		List<JobListDto> findAllJob = jobSearchDao.findAllJob();
+		for (int i = 0; i < findAllJob.size(); i++) {
+			List<String> jobPositionTitle = jobSearchPositionDao.findById(findAllJob.get(i).getJobId());
+			findAllJob.get(i).setJobPositionTitle(jobPositionTitle);
+		}
+		return findAllJob;
 	}
 
-	public List<JobListDto> findAllBeestJob() {
-		return jobSearchDao.findAllBestJob();
+	public List<JobListDto> findAllBestJob() {
+		List<JobListDto> bestJobList = jobSearchDao.findAllBestJob();
+		for (int i = 0; i < bestJobList.size(); i++) {
+			List<String> jobPositionTitle = jobSearchPositionDao.findById(bestJobList.get(i).getJobId());
+			bestJobList.get(i).setJobPositionTitle(jobPositionTitle);
+		}
+		return bestJobList;
 	}
 
 	public JobSearch findById(Integer jobId) {

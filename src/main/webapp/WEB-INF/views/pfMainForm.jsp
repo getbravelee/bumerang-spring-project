@@ -77,9 +77,6 @@
                     <h3 class="title">소울메이트</h3>
                     <div class="like_plus">
                       <h4 class="location">영화의 전당</h4>
-                      <div class="like_btn">
-                        <span class="heart"></span>
-                      </div>
                     </div>
                     <h5 class="date">2023.11.14 ~ 2023.12.25</h5>
                   </div>

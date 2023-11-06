@@ -3,7 +3,7 @@ package com.example.bumerang.domain.jobSearchPosition;
 import java.util.List;
 
 public interface JobSearchPositionDao {
-    public JobSearchPosition findById(Integer jobPositionId);
+    public List<String> findById(Integer jobId);
 
     public List<JobSearchPosition> findAll();
 
@@ -15,6 +15,6 @@ public interface JobSearchPositionDao {
 
     public void insertPosition(String jobPositionTitle, Integer jobId);
 
-    public List<String> findPositionList(Integer jobId);
+    public String findPositionList(Integer jobId);
 
 }

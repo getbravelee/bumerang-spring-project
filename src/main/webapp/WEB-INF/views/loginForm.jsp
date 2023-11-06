@@ -61,7 +61,7 @@
 
                         <input id="userLoginId" type="id" name="userLoginId" placeholder="아이디">
                         <input id="userPassword" type="password" name="userPassword" placeholder="비밀번호">
-                        <a href="#">비밀번호를 잊으셨나요?</a>
+                        <a href="/user/searchIdPwForm">아이디 또는 비밀번호를 잊으셨나요?</a>
                         <button type="submit" id="loginBtn">로그인</button>
                     </form>
                 </div>

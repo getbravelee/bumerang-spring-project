@@ -107,11 +107,63 @@
 
 .board_list_wrap .board_bot {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 /* 페이지네이션 */
+.pagination {
+  text-align: center;
+  margin: 40px;
+  user-select: none;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 5px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+
+.pagination li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 45px;
+}
+
+.previous-page,
+.next-page {
+  background: #409ff1;
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.previous-page:hover {
+  transform: translateX(-5px);
+}
+
+.next-page:hover {
+  transform: translateX(5px);
+}
+
+.current-page,
+.dots {
+  background: #ccc;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.active {
+  background: #409ff1;
+}
+
+.disable {
+  background: #ccc;
+}
+/* 
 .board_list_wrap .paging {
   display: flex;
   margin-top: 30px;
@@ -127,7 +179,7 @@
 
 .board_list_wrap .paging a {
   display: inline-block;
-  /* margin-left: 10px; */
+  
   padding: 5px 10px;
   border-radius: 50px;
   font-size: 16px;
@@ -152,26 +204,23 @@
 .board_list_wrap .paging a.num:hover {
   background: black;
   color: #fff;
-}
+} */
 
 /* 공지사항 쓰기 버튼 */
-.board_list_wrap .board_bot .write {
-  border: 1px solid black;
-  border-radius: 50px;
-  font-weight: 800;
-  color: black;
-  padding: 5px 10px;
-  align-self: flex-end;
-  margin-right: 30px;
-  display: none;
+.board_list_wrap .top .write {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #c8e4fd;
+  color: rgb(52, 52, 253);
 }
 
-.board_list_wrap .board_bot .write.active {
+.board_list_wrap .top .write.active {
   display: block;
 }
 
-.board_list_wrap .board_bot .write.active:hover {
-  color: white;
-  background: black;
+.board_list_wrap .top .write.active:hover {
+  filter: brightness(1.1);
 }
-
