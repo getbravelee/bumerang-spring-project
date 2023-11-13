@@ -18,7 +18,7 @@ var myPieChart = new Chart(ctx, {
         datasets: [
             {
                 data: genreCount,
-                backgroundColor: ["#007bff", "#dc3545", "#ffc107", "#28a745"]
+                backgroundColor: ["#007bff", "#dc3545", "#ffc107", "#28a745", "#FF6D19", "#180DFF", "#F8F3F2"]
             }
         ]
     }

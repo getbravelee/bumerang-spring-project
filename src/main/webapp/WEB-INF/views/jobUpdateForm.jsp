@@ -30,12 +30,13 @@
 
       <body>
         <%@ include file="layout/header.jsp" %>
+          <input type="hidden" value="${job.jobId}" id="jobId">
           <div class="container">
             <div class="board_write_wrap">
               <div class="top">
                 <div class="board_name">
                   <i class="fa-solid fa-feather-pointed"></i>
-                  <h2>구인정보 쓰기</h2>
+                  <h2>구인정보 수정하기</h2>
                   <input type="hidden" id="userId" value="${principal.userId}">
                 </div>
                 <div class="bt_wrap">
@@ -53,11 +54,11 @@
                   </dl>
                 </div>
                 <div class="info">
-                  <dl>
+                  <dl class="select">
                     <dt>작품 장르</dt>
                     <dd>
                       <div class="select_single">
-                        <span class="btn-text">하나를 골라주세요</span>
+                        <span class="btn-text" id="jobGenre">${job.jobGenre}</span>
                         <span class="arrow-dwn">
                           <i class="fa-solid fa-chevron-down"></i>
                         </span>
@@ -67,64 +68,52 @@
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text jobGenre" data-value="단편영화">단편영화</span>
+                          <span class="item-text" value="단편영화">단편영화</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="장편영화" id="jobGenre">장편영화</span>
+                          <span class="item-text" value="장편영화">장편영화</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="연극" id="jobGenre">연극</span>
+                          <span class="item-text" value="연극">연극</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="OTT/TV 드라마" id="jobGenre">OTT/TV 드라마</span>
+                          <span class="item-text" value="드라마">드라마</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="웹 컨텐츠" id="jobGenre">웹 컨텐츠</span>
+                          <span class="item-text" value="웹 컨텐츠">웹 컨텐츠</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="광고" id="jobGenre">광고</span>
+                          <span class="item-text" value="광고">광고</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="전시" id="jobGenre">전시</span>
+                          <span class="item-text" value="전시">전시</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="기타" id="jobGenre">기타</span>
+                          <span class="item-text" value="기타">기타</span>
                         </li>
                       </ul>
                     </dd>
-                    <!-- <dd>
-                <select class="dropdown" name="genre" id="jobGenre">
-                  <option value="단편영화">단편영화</option>
-                  <option value="장편영화" selected>장편영화</option>
-                  <option value="연극">연극</option>
-                  <option value="OTT/TV 드라마">OTT/TV 드라마</option>
-                  <option value="웹 컨텐츠">웹 컨텐츠</option>
-                  <option value="광고">광고</option>
-                  <option value="전시">전시</option>
-                  <option value="기타">기타</option>
-                </select>
-              </dd> -->
                   </dl>
                   <dl class="art_title">
                     <dt>작품 제목</dt>
@@ -154,9 +143,12 @@
                   </dl>
                   <dl>
                     <dt>모집 분야</dt>
+                    <c:forEach items="${job.jobPositionTitle}" var="positionTitle">
+                      <input class="jobPositionTitleList" type="hidden" value="${positionTitle.jobPositionTitle}">
+                    </c:forEach>
                     <dd>
                       <div class="select-btn">
-                        <span class="btn-text">모두 골라주세요</span>
+                        <span class="btn-text" id="jobPositionTitleList">${job.jobPositionTitles}</span>
                         <span class="arrow-dwn">
                           <i class="fa-solid fa-chevron-down"></i>
                         </span>
@@ -207,11 +199,11 @@
                       </ul>
                     </dd>
                   </dl>
-                  <dl>
+                  <dl class="select">
                     <dt>모집 성별</dt>
                     <dd>
                       <div class="select_single">
-                        <span class="btn-text">성별을 골라주세요</span>
+                        <span class="btn-text" id="jobGender">${job.jobGender}</span>
                         <span class="arrow-dwn">
                           <i class="fa-solid fa-chevron-down"></i>
                         </span>
@@ -221,19 +213,19 @@
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="남성" id="jobGender">남성</span>
+                          <span class="item-text" value="남성">남성</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="여성" id="jobGender">여성</span>
+                          <span class="item-text" value="여성">여성</span>
                         </li>
                         <li class="single_item">
                           <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
                           </span>
-                          <span class="item-text" value="성별 무관" id="jobGender">성별 무관</span>
+                          <span class="item-text" value="성별무관" id="jobGender">성별무관</span>
                         </li>
                       </ul>
                     </dd>
@@ -252,7 +244,9 @@
                   </dl>
                 </div>
                 <div class="content">
-                  <div id="editor-container">"${job.jobContent}"</div>
+                  <div id="editor-container">
+                    ${job.jobContent}
+                  </div>
                 </div>
               </div>
             </div>
@@ -265,6 +259,7 @@
           <script src="https://kit.fontawesome.com/3f247b3389.js" crossorigin="anonymous"></script>
           <script src="/js/writeJobSearch.js"></script>
           <script src="/js/default.js"></script>
+          <%@ include file="layout/footer.jsp" %>
       </body>
 
       </html>

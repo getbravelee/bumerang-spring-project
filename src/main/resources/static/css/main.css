@@ -1,492 +1,556 @@
 /* URL */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap");
 
 /* 광고, 행사 배너 */
 .banner {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
+}
 
-  .banner .banner_Swiper {
-    width: 100%;
-    height: 100%;
-  }
+.banner .banner_Swiper {
+  width: 100%;
+  height: 100%;
+}
 
-  .banner .banner_Swiper .banner_slide1 {
-    text-align: center;
-    font-size: 18px;
-    background: #d8d2ee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.banner .banner_Swiper .banner_slide1 {
+  text-align: center;
+  font-size: 18px;
+  background: #d8d2ee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .banner .banner_Swiper .banner_slide2 {
-    text-align: center;
-    font-size: 18px;
-    background: #f2edc7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.banner .banner_Swiper .banner_slide2 {
+  text-align: center;
+  font-size: 18px;
+  background: #f2edc7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .banner .banner_Swiper .banner_slide3 {
-    text-align: center;
-    font-size: 18px;
-    background: #ffc1d6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.banner .banner_Swiper .banner_slide3 {
+  text-align: center;
+  font-size: 18px;
+  background: #ffc1d6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .banner .banner_Swiper swiper-slide img {
-    display: block;
-    width: 1350px;
-    height: 330px;
-    object-fit: cover;
-  }
-
+.banner .banner_Swiper swiper-slide img {
+  display: block;
+  max-width: 1360px;
+  width: 100%;
+  max-height: 330px;
+  min-height: 160px;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
 
 /* 인기글 타이틀 */
-  .hot_post {
-    max-width: 1340px;
-    margin: 0 auto;
-    margin-top: 50px;
+.hot_post {
+  max-width: 1340px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.hot_post .title_area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 40px;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.hot_post .title_area .hot_title {
+  display: flex;
+}
+
+.hot_post .title_area .hot_title .fa-fire {
+  color: rgba(255, 0, 0, 0.747);
+  font-size: 40px;
+  margin-right: 12px;
+}
+
+.hot_post .title_area .push {
+  font-family: inherit;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+/* 인기글 스와이퍼 */
+.hot_swiper {
+  width: 1230px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.hot_swiper swiper-slide {
+  display: flex;
+  padding: 15px 20px;
+  width: 280px;
+  height: 308px;
+  background: #fff;
+  border: 2px solid #d1d1d1;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.hot_swiper swiper-slide:hover {
+  border: 2px solid #999;
+}
+
+/********************/
+/* 구인정보 게시판  */
+/********************/
+.main_post {
+  min-height: 100vh;
+  max-width: 1310px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.main_post .main_title {
+  display: flex;
+  align-items: center;
+  padding: 15px 40px;
+  font-size: 17px;
+}
+
+.main_post .main_title .fa-rocket {
+  font-size: 32px;
+  margin-right: 12px;
+  color: #1084e9;
+}
+
+/* 필터링 */
+.main_post .filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+/* 검색창 */
+.main_post .filter {
+  max-width: 1230px;
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.main_post .filter .search_bar {
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #1084e9;
+  border-radius: 30px;
+  overflow: hidden; /* 버튼이 테두리를 벗어나지 않도록 */
+  margin: 0 auto;
+}
+
+.main_post .filter .search_bar input[type="text"] {
+  padding: 8px 25px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.main_post .filter .search_bar button {
+  border: none;
+  padding: 5px 18px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*******************/
+/* 구인정보 게시글 */
+/******************/
+.main_post .search_job_container {
+  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.main_post .search_job_container .search_job_slide {
+  display: flex;
+  margin: 15px;
+  padding: 15px 20px;
+  width: 285px;
+  height: 308px;
+  background: #fff;
+  border: 2px solid #d1d1d1;
+  border-radius: 30px;
+  position: relative;
+  transition: 0.2s ease-in;
+}
+
+.main_post .search_job_container .search_job_slide:hover {
+  border: 2px solid #999;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+}
+
+.project .badge_wrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+/*****************/
+/* 구인 글 뱃지 */
+/****************/
+
+/* 영화 뱃지 */
+.project .badge_wrapper .badge_movie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #efefef;
+  color: #656565;
+}
+
+/* 연극 뱃지 */
+.project .badge_wrapper .badge_theater {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(143, 3, 143);
+  background-color: rgb(253, 205, 253);
+}
+
+/* 드라마 뱃지 */
+.project .badge_wrapper .badge_drama {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(32, 32, 150);
+  background-color: rgb(182, 182, 253)
+}
+
+/* 웹 컨텐츠 뱃지 */
+.project .badge_wrapper .badge_web_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(11, 105, 11);
+  background-color: rgb(211, 255, 211);
+}
+
+/* 광고 뱃지 */
+.project .badge_wrapper .badge_advertising {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(184, 125, 17);
+  background-color: rgb(253, 230, 187);
+}
+
+/* 전시 뱃지 */
+.project .badge_wrapper .badge_exhibition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(150, 56, 43);
+  background-color: rgb(252, 204, 197);
+}
+
+/* 기타 뱃지 */
+.project .badge_wrapper .badge_etc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #efefef;
+  color: #656565;
+}
+
+/* 새로 올라온 글 뱃지 */
+.project .badge_wrapper .badge_new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #fff9d5;
+  color: #fdb900;
+}
+
+/* 마감일 */
+.project .schedule {
+  display: flex;
+  font-size: 14px;
+  grid-gap: 8px;
+  gap: 8px;
+  color: #999;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.deadline {
+  z-index: 99;
+  position: absolute;
+  left: 30px;
+  text-align: center;
+  display: block;
+  width: 90%;
+  opacity: 0.6;
+}
+
+/* 구인글 타이틀 */
+.project .project_title {
+  font-size: 17px;
+  min-height: 55px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  margin: 10px 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+/* 구인글 포지션 */
+.project .position_list {
+  height: 22px;
+  display: flex;
+  grid-gap: 3px;
+  gap: 3px;
+}
+
+.project .position_list .position {
+  padding: 3px 10px;
+  grid-gap: 5px;
+  gap: 5px;
+  height: 22px;
+  background: #e9eefa;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: #3e86f5;
+}
+
+.project .position_list .gender {
+  padding: 3px 10px;
+  grid-gap: 5px;
+  gap: 5px;
+  height: 22px;
+  background: rgb(250, 237, 250);
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgb(180, 110, 180);
+}
+
+/* 자세히보기 및 좋아요 버튼 구분 */
+.project .content {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+/* 구인글 자세히 보기 */
+.project .content .more_btn {
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  color: #5a5a5a;
+}
+
+.project .content .more_btn:hover {
+  color: black;
+}
+
+.project .content .more_btn .fa-arrow-up-right-from-square {
+  font-size: 12px;
+}
+
+
+/* 구분선 */
+.project .border {
+  border-top: 2px solid #f2f2f2;
+}
+
+/* 구인글 내정보 표시란 */
+.project .myinfo {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: space-between;
+  letter-spacing: -0.04em;
+  padding-top: 15px;
+}
+
+.project .myinfo .user_info {
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.project .myinfo .user_info .icon {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 45px;
+  height: 45px;
+  border: 1px solid gray;
+  margin-right: 6px;
+}
+
+.project .myinfo .user_info .nickname {
+  margin: 0;
+}
+
+.project .myinfo .user_info .nickname .accent {
+  color: purple;
+}
+
+.project .myinfo .viewAndInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.project .myinfo .viewAndInfo .fa-heart {
+  color: rgb(230, 30, 30);
+  font-size: 15px;
+  font-style: inherit;
+}
+
+.project .myinfo .viewAndInfo .fa-comment {
+  color: rgb(41, 87, 212);
+  font-size: 15px;
+}
+
+/* 페이지 이동 */
+.pagination {
+  text-align: center;
+  margin: 30px 30px 150px;
+  user-select: none;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 5px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+
+.pagination li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 45px;
+}
+
+.previous-page,
+.next-page {
+  background: #409ff1;
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.previous-page:hover {
+  transform: translateX(-5px);
+}
+
+.next-page:hover {
+  transform: translateX(5px);
+}
+
+.current-page,
+.dots {
+  background: #ccc;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.active {
+  background: #409ff1;
+}
+
+.disable {
+  background: #ccc;
+}
+
+@media screen and (max-width: 1269px) {
+  .hot_post .title_area .push {
+    display: none;
+  }
+}
+
+/* 반응형 화면 모바일 */
+@media screen and (max-width: 639px) {
+  .hot_swiper swiper-slide {
+    margin-left: 11vw;
   }
 
   .hot_post .title_area {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 28px;
-    font-size: 20px;
-    margin-left: 20px;
-  }
-
-  .hot_post .title_area .hot_title {
-    display: flex;
-  }
-
-  .hot_post .title_area .hot_title .fa-fire {
-    color: rgba(255, 0, 0, 0.747);
-    font-size: 40px;
-    margin-right: 12px;
-  }
-
-  .hot_post .title_area .push {
-    font-family: 'Single Day', cursive;
-    margin-right: 20px;
-  }
-
-
-/* 인기글 스와이퍼 */
-  .hot_swiper{
-    max-width: 1210px;
-    margin: 0 auto;
-    margin-top: 25px;
-  }
-
-  .hot_swiper swiper-slide {
-    display: flex;
-    padding: 15px 25px 0;
-    width: 280px;
-    height: 308px;
-    background: #fff;
-    border: 2px solid #d1d1d1;
-    border-radius: 30px;
-    position: relative;
-    cursor: pointer;
-    transition: .2s ease-in;
-  }
-
-  /********************/
-  /* 구인정보 게시판  */
-  /********************/
-  .main_post {
-    min-height: 100vh;
-    max-width: 1310px;
-    margin: 0 auto;
-    margin-top: 100px;
+    justify-content: center;
+    padding: 0;
+    padding-right: 10px;
+    margin: 0;
   }
 
   .main_post .main_title {
     display: flex;
-    align-items: center;
-    padding: 0 40px;
-    font-size: 17px;
-  }
-
-  .main_post .main_title .fa-rocket {
-    font-size: 32px;
-    margin-right: 12px;
-    color: #1084e9;
-  }
-  
-
-  /* 필터링 */
-  .main_post .filter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-  }
-
-  .main_post .filter .dropdown_list {
-    display: flex;
-  }
-
-  .main_post .filter .dropdown_list .dropdown {
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    padding-left: 18px;
+    justify-content: center;
+    padding: 0;
     padding-right: 10px;
-    width: 140px;
-    height: 38px;
-    border: 1px solid rgb(227, 227, 227);
-    color: rgb(100, 100, 100);
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 0.03em;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    border-radius: 36px;
-    margin: 20px 25px 25px 0px;
-  }
-
-
-  /* 검색창 */
-  .main_post .filter .search_bar{
-    display: flex;
-    align-items: center;
-    width: 280px;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-    overflow: hidden; /* 버튼이 테두리를 벗어나지 않도록 */
-}
-
-.main_post .filter .search_bar input[type="text"] {
-    padding: 8px 25px;
-    width: 100%;
-    border: none;
-    outline: none;
-}
-
-.main_post .filter .search_bar button {
-    border: none;
-    padding: 5px 18px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-  /*******************/
-  /* 구인정보 게시글 */
-  /******************/
-  .main_post .search_job_container {
-    display: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .main_post .search_job_container .search_job_slide  {
-    display: flex;
-    margin: 15px;
-    padding: 15px 25px 0;
-    width: 280px;
-    height: 308px;
-    background: #fff;
-    border: 2px solid #d1d1d1;
-    border-radius: 30px;
-    position: relative;
-    cursor: pointer;
-    transition: .2s ease-in;
-  }
-
-  .main_post .search_job_container .search_job_slide:hover {
-    border: 2px solid #a7a8a8e3;
-  }
-
-  .project {
-    display: flex;
-    flex-direction: column;
-    width: 230px;
-  }
-
-  .project .badge_wrapper {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
-  }
-
-  /*****************/
-  /* 구인 글 뱃지 */
-  /****************/
-
-    /* 영화 뱃지 */
-  .project .badge_wrapper .badge_movie {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    font-size: 14px;
-    border-radius: 20px;
-    padding: 4px 12px;
-    background: #efefef;
-    color: #656565;
-  }
-    /* 새로 올라온 글 뱃지 */
-  .project .badge_wrapper .badge_new {
-    font-size: 14px;
-    border-radius: 20px;
-    padding: 4px 12px;
-    background: #fff9d5;
-    color: #fdb900; 
-  }
-
-  /* 마감일 */
-  .project .schedule {
-    display: flex;
-    font-size: 14px;
-    grid-gap: 8px;
-    gap: 8px;
-    color: #999;
-    font-weight: 500;
-    margin-top: 10px;
-  }
-
-  .deadline{
-    z-index: 9999;
-    position: absolute;
-    text-align: center;
-    display: block;
-    width: 90%;
-    margin-top: 20px;
-    opacity: 0.7;
-
-  }
-
-
-  /* 구인글 타이틀 */
-  .project .project_title {
-    font-size: 17px;
-    min-height: 50px;
-    line-height: 28px;
-    font-weight: 500;
-    letter-spacing: -.05em;
-    margin: 10px 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    word-break: break-all;
-    overflow: hidden;
-  }
-
-  /* 구인글 포지션 */
-  .project .position_list {
-    height: 22px;
-    display: flex;
-    grid-gap: 3px;
-    gap: 3px;
-  }
-
-  .project .position_list .position {
-    padding: 3px 10px;
-    grid-gap: 5px;
-    gap: 5px;
-    height: 22px;
-    background: #e9eefa;
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    color: #3e86f5;
-  }
-
-  .project .position_list .gender {
-    padding: 3px 10px;
-    grid-gap: 5px;
-    gap: 5px;
-    height: 22px;
-    background: rgb(250, 237, 250);
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    color: rgb(180, 110, 180);
-  }
-
-  /* 자세히보기 및 좋아요 버튼 구분 */
-  .project .content{
-    margin: 15px 0;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  /* 구인글 자세히 보기 */
-  .project .content .more_btn{
-    margin-left: 5px;
-    display: flex;
-    align-items: center;
-    color: #5a5a5a;
-  }
-
-  .project .content .more_btn:hover{
-    color: black;
-  }
-
-  .project .content .more_btn .fa-arrow-up-right-from-square{
-    font-size: 12px;
-  }
-
-   /* 구인글 좋아요 버튼 */
-  .project .content .like_btn{
-    transform: translate(-50%,-50%);
-    margin-right: 20px;
-    margin-top: 10px;
-    
-  }
-
-  .project .content .like_btn .heart{
-    position: absolute;
-    background: url("/image/img.png") no-repeat;
-    background-position: left;
-    background-size: 2900%;
-    height: 90px;
-    width: 90px;
-    top: 50%;
-    left: 21%;
-    transform: translate(-50%,-50%);
-    z-index: 99;
-  }
-
-  .project .content .like_btn .heart.heart-active{
-    animation: animate .8s steps(28) 1;
-    background-position: right;
-  }
-
-  @keyframes animate {
-    0%{
-      background-position: left;
-    }
-    100%{
-      background-position: right;
-    }
-  }
-
-  /* 구분선 */
-  .project .border {
-    border-top: 2px solid #f2f2f2;
-  }
-
-  /* 구인글 내정보 표시란 */
-  .project .myinfo {
-    display: flex;
-    font-size: 14px;
-    font-weight: 500;
-    justify-content: space-between;
-    letter-spacing: -.04em;
-    margin-top: 15px;
-  }
-
-  .project .myinfo .user_info {
-    display: flex;
-    align-items: center;
-    grid-gap: 10px;
-    gap: 10px;
-  }
-
-  .project .myinfo .user_info .icon {
-    display: block;
-    border-radius: 50%;
-    object-fit: cover;
-    width: 45px;
-    border: 1px solid gray;
-  }
-
-  .project .myinfo .user_info .nickname {
     margin: 0;
   }
-
-  .project .myinfo .user_info .nickname .accent {
-    color:#eb2f8d;
-  }
-
-  .project .myinfo .viewAndInfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-gap: 10px;
-    gap: 10px;
-    margin-right: 8px;
-  }
-
-  /* 페이지 이동 */
-  .pagination{
-    text-align: center;
-    margin: 30px 30px 60px;
-    user-select: none;
-  }
-  
-  .pagination li{
-    display: inline-block;
-    margin: 5px;
-    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
-  }
-  
-  .pagination li a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    line-height: 45px;
-  }
-  
-  .previous-page, .next-page{
-    background: #409FF1;
-    width: 80px;
-    border-radius: 45px;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  .previous-page:hover{
-    transform: translateX(-5px);
-  }
-  
-  .next-page:hover{
-    transform: translateX(5px);
-  }
-  
-  .current-page, .dots{
-    background: #ccc;
-    width: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .active{
-    background: #409FF1;
-  }
-  
-  .disable{
-    background: #ccc;
-  }
- 
-
-
-
-
-  /* 반응형 화면 모바일 */
-  @media screen and (max-width: 611px) {
-
-      
-  }
-
-  /* 반응형 화면 타블렛 */
-  @media screen and (min-width: 612px) and (max-width: 1023px) {
-
-
-    
-  }
+}

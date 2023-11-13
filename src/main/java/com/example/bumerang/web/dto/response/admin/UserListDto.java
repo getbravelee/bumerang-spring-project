@@ -16,9 +16,13 @@ public class UserListDto {
     private String userNickname;
     private String userAge;
     private String userPosition;
+    private String userHeight;
+    private String userForm;
+    private String userTone;
     private String userGender;
     private String userCareer;
-    private String userIntro;
+    private String userSkill;
+    private String userEducation;
     private String userPortfolioLink;
     private String userContactLink;
     private String userProfileImg;

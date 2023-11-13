@@ -6,6 +6,7 @@
 .board_write_wrap {
   width: 1350px;
   margin-top: 100px;
+  margin-bottom: 250px;
 }
 
 /* 상단부 */
@@ -35,32 +36,46 @@
 
 .bt_wrap a {
   display: inline-block;
-  width: 70px;
+  width: 80px;
+  height: 50px;
   margin-left: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  border: solid 1px #ccc;
+  border-radius: 50px;
+  border-width: 0 0 4px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  transition: filter 0.2s;
+  transition: transform 0.3s ease-in-out;
+}
+
+.bt_wrap a:hover {
+  transform: translateY(3px);
 }
 
 .bt_wrap a.save {
-  background:#c8e4fd;
-  color: rgb(52, 52, 253);
+  background-color: #459fee;
 }
 
-.bt_wrap a.save:hover {
-  background: #fff;
-  color: #000;
-}
-
-.bt_wrap a.cancel:hover {
-  background: #000;
-  color: #fff;
+.bt_wrap a.cancel {
+  background-color: palevioletred;
 }
 
 /* 게시물 쓰기창 */
 .board_write {
-  width: 100%;
+  width: 1350px;
   border-top: 2px solid black;
+}
+
+.board_write .title dl {
+  display: flex;
+  font-size: 20px;
+  padding: 15px;
+  font-weight: 100;
+  gap: 15px;
 }
 
 .board_write input {
@@ -134,7 +149,7 @@
   resize: vertical;
 }
 
-.board_write .content p {
+/* .board_write .content p {
   display: block;
   width: 100%;
   height: 300px;
@@ -142,40 +157,60 @@
   box-sizing: border-box;
   border: 0;
   resize: vertical;
-}
+} */
 
 /* 내용 영역 */
 
 .content {
   margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.contentDetail {
+  padding: 20px 0px;
+  border-bottom: 2px solid black;
+  margin-bottom: 20px;
 }
 
 #editor-container {
   height: 375px;
   font-size: 18px;
   font-family: inherit;
+  font-weight: normal;
 }
+.contentDetail h1,
 #editor-container h1 {
   font-size: 36px;
   font-family: inherit;
+  font-weight: normal;
 }
+.contentDetail h2,
 #editor-container h2 {
   font-size: 32px;
   font-family: inherit;
+  font-weight: normal;
 }
+.contentDetail h3,
 #editor-container h3 {
   font-size: 28px;
   font-family: inherit;
+  font-weight: normal;
 }
+.contentDetail h4,
 #editor-container h4 {
   font-size: 24px;
   font-family: inherit;
+  font-weight: normal;
 }
+.contentDetail h5,
 #editor-container h5 {
   font-size: 20px;
   font-family: inherit;
+  font-weight: normal;
 }
+.contentDetail h6,
 #editor-container h6 {
   font-size: 16px;
   font-family: inherit;
+  font-weight: normal;
 }

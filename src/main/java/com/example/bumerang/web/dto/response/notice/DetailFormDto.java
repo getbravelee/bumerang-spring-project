@@ -14,7 +14,7 @@ public class DetailFormDto {
     private String noticeTitle;
     private String noticeContent;
     private String noticeType;
-    private Timestamp createdAt;
+    private Timestamp createdDate;
     // 구인글 작성자 정보
     private Integer userId;
     private String userNickname;

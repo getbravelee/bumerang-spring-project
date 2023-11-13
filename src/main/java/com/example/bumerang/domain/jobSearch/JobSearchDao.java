@@ -7,6 +7,8 @@ import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface JobSearchDao {
     public JobSearch findById(Integer jobId);
 
@@ -18,7 +20,7 @@ public interface JobSearchDao {
 
     public void delete(Integer jobId);
 
-    public DetailFormDto findByJob(Integer userId, Integer jobId);
+    public DetailFormDto findByJob(@Param("userId")Integer userId, @Param("jobId")Integer jobId);
 
     public List<JobListDto> findAllJob();
 
@@ -31,4 +33,7 @@ public interface JobSearchDao {
     public JobRespDto findByDelete(Integer jobId);
 
     public void dead(DeadlineDto deadlineDto);
+
+    public List<JobListDto> findMyJSList(Integer userId);
+
 }

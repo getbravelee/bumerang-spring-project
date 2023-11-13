@@ -4,9 +4,11 @@
             <header>
                 <div class="navbar">
                     <div class="bot_menu">
-                        <a href=""><img src="/image/mainlogo.png"></a>
+                        <img src="/image/mainlogo.png">
                         <div class="title">
-                            <h2>부산 <span class="accent">메이트</span><span class="accent2">랑</span></h2>
+                            <a href="/">
+                                <h2>부산 <span class="accent">메이트</span><span class="accent2">랑</span></h2>
+                            </a>
                         </div>
 
                         <ul class="menubar">
@@ -52,7 +54,7 @@
                                 </li>
 
                                 <li>
-                                    <a href=""><i class="fa-solid fa-bell"></i></a>
+                                    <a><i class="fa-solid fa-bell"></i></a>
                                 </li>
 
                                 <li class="action">
@@ -72,19 +74,90 @@
                                             </li>
                                             <li>
                                                 <span class="material-icons icons-size">person</span>
-                                                <a href="/s/api/user/updateForm">계정 관리</a>
+                                                <a href="/s/api/user/detailForm/${principal.userId}">계정 관리</a>
                                             </li>
+                                            <c:if test="${principal.userRole=='관리자'}">
+                                                <li>
+                                                    <span class="material-icons icons-size">person</span>
+                                                    <a href="/s/api/auth/admin/indexForm">관리자 페이지</a>
+                                                </li>
+                                        </c:if>
                                             <li>
                                                 <span class="material-icons icons-size">account_balance_wallet</span>
-                                                <a href="/s/api/user/logout">로그 아웃</a>
+                                                <a href="/s/api/user/logout">로그아웃</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
                             </ul>
+                            <a class="navbar__toogleBtn"  onclick="mediaToggle()">
+                                <i class="fa-solid fa-bars"></i>
+                            </a>
+                            <ul class="media_menu">
+                                <div class="board_menu">
+                                    <li>
+                                        <span class="material-icons icons-size">person</span>
+                                        <a href="/jobSearch/mainForm">
+                                        구인정보
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="material-icons icons-size">theater_comedy</span>
+                                        <a href="/performance/mainForm">
+                                            전시·공연
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="material-icons icons-size">campaign</span>
+                                        <a href="/notice/listForm">
+                                            공지사항
+                                        </a>
+                                    </li>
+                                </div>
+                                <div class="write_menu">
+                                    <li>
+                                        <span class="material-icons icons-size">person</span>
+                                        <a href="/s/api/jobSearch/writeForm">구인 글 쓰기</a>
+                                    </li>
+                                    <li>
+                                        <span class="material-icons icons-size">mode</span>
+                                        <a href="/s/api/performance/writeForm">공연 글 쓰기</a>
+                                    </li>
+                                    <c:if test="${principal.userRole=='관리자'}">
+                                        <li>
+                                            <span class="material-icons icons-size">mode</span>
+                                            <a href="/s/api/auth/notice/writeForm">공지 글 쓰기</a>
+                                        </li>
+                                    </c:if>
+                                </div>
+                                <div class="user_menu">
+                                    <li>
+                                        <span class="material-icons icons-size">insert_comment</span>
+                                        <a href="/s/api/user/writeListForm">내 작성글</a>
+                                    </li>
+                                    <li>
+                                        <span class="material-icons icons-size">insert_comment</span>
+                                        <a href="/s/api/user/likeyListForm">내 관심글</a>
+                                    </li>
+                                    <li>
+                                        <span class="material-icons icons-size">person</span>
+                                        <a href="/s/api/user/detailForm/${principal.userId}">계정 관리</a>
+                                    </li>
+                                    <c:if test="${principal.userRole=='관리자'}">
+                                        <li>
+                                            <span class="material-icons icons-size">person</span>
+                                            <a href="/s/api/auth/admin/indexForm">관리자 페이지</a>
+                                        </li>
+                                    </c:if>
+                                    <li>
+                                        <span class="material-icons icons-size">account_balance_wallet</span>
+                                        <a href="/s/api/user/logout">로그아웃</a>
+                                    </li>
+                                </div>
+                            </ul>
                         </c:when>
                         <c:otherwise>
-                            <a href="/user/loginForm" class="linkes">로그인</a>
+                            <a href="/user/loginForm" class="login">로그인</a>
                         </c:otherwise>
                     </c:choose>
 

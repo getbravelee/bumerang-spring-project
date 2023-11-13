@@ -22,7 +22,6 @@ body {
     #d3e9f6 298px,
     rgba(255, 255, 255, 0) 0
   ); */
-
   /* margin: 100px; */
   width: 100%;
 }
@@ -95,7 +94,7 @@ body {
   line-height: 1;
 }
 
-/* .pro_right .name .edit_btn {
+.pro_right .name .edit_btn {
   border: none;
   vertical-align: middle;
   font-size: 13px;
@@ -104,7 +103,7 @@ body {
   border-radius: 100px;
   padding: 0px 15px;
   margin-left: 10px;
-} */
+}
 
 .pro_right .profile_con {
   display: flex;
@@ -172,7 +171,7 @@ body {
 
 .pro_right .profile_con .pro_info .pro_info2 li,
 .pro_right .profile_con .pro_txt .pro_data {
-  height: 25px;
+  height: 31px;
   line-height: 1.2;
   font-weight: 600;
   font-size: 16px;
@@ -223,7 +222,7 @@ body {
   width: 100%;
   max-width: 1500px;
   margin: 0 auto;
-  margin-bottom: 65px;
+  margin-bottom: 300px;
 }
 
 .filmo_wrap .profile_con {
@@ -410,7 +409,7 @@ textarea {
   resize: none;
 }
 
-.pro_right .name #user_nickname {
+.pro_right .name #userNickname {
   width: 140px;
   height: 55px;
   margin-right: 20px;
@@ -496,11 +495,16 @@ textarea {
   border: 2px solid palevioletred;
   border-radius: 10px;
   z-index: 10;
-  padding: 10px;
+  padding: 35px 10px;
 }
 
 .withdrawal_wrap .withdrawal_comfirm .pro_tit{
   color: palevioletred;
+  text-align: center;
+}
+
+.confirm {
+  text-align: center;
 }
 
 .withdrawal_wrap .withdrawal_comfirm button {
@@ -515,6 +519,7 @@ textarea {
   border-radius: 100px;
   padding: 0px 15px;
   margin-top: 8px;
+
 }
 
 .withdrawal_wrap .withdrawal_comfirm button:hover {

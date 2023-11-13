@@ -16,4 +16,27 @@
         WHERE r.report_id=LAST_INSERT_ID()
     </select>
 
+    <select id="findByTargetIdPf" resultType="com.example.bumerang.web.dto.request.report.ReportDto">
+        SELECT p.pf_id AS pfId, p.pf_title AS pfTitle,
+               u.user_nickname AS userNickname
+        FROM performance p
+                 JOIN user u ON p.user_id = u.user_id
+        WHERE p.pf_id = #{targetId};
+    </select>
+
+    <select id="findByTargetIdJob" resultType="com.example.bumerang.web.dto.request.report.ReportDto">
+        SELECT js.job_id AS jobId, js.job_content_title AS jobContentTitle,
+               u.user_nickname AS userNickname
+        FROM job_search js
+                 JOIN user u ON js.user_id = u.user_id
+        WHERE js.job_id = #{targetId};
+    </select>
+
+    <select id="findByTargetIdComment" resultType="com.example.bumerang.web.dto.request.report.ReportDto">
+        SELECT c.comment_id AS commentId, c.comment_content AS commentContent, u.user_nickname AS userNickname
+        FROM comment c
+                 JOIN user u ON c.user_id = u.user_id
+        WHERE c.comment_id = #{targetId};
+    </select>
+
 </mapper>

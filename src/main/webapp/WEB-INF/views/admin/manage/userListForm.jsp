@@ -11,154 +11,97 @@
                     사용자의 정보를 관리합니다.
                 </div>
             </div>
-            <input id="userId" type="hidden" value="${userPS.userId}">
-            <div class="mb-3 mt-3">
-                아이디 : ${userPS.userLoginId}
+
+            <div class="card mb-4">
+            <div class="card-header">
+                 <i class="fas fa-table me-1"></i>
+                 사용자 정보
+             </div>
+                 <div class="card-body">
+                     <table id="datatablesSimple">
+                         <thead>
+                             <tr>
+                                <th>목 록</th>       
+                                <th>아이디</th>
+                                <th>이메일</th>
+                                <th>닉네임</th>
+                                <th>성별</th>
+                                <th>키</th>
+                                <th>체형</th>
+                                <th>목소리톤</th>
+                                <th>연령대</th>
+                                <th>경력</th>
+                                <th>학력</th>
+                                <th>계정상태</th>
+                                <th>수정</th>
+                                <th>삭제</th>
+                             </tr>
+                         </thead>
+                         <tfoot>
+                             <tr>
+                                <th>목 록</th>
+                                <th>아이디</th>
+                                <th>이메일</th>
+                                <th>닉네임</th>
+                                <th>성별</th>
+                                <th>키</th>
+                                <th>체형</th>
+                                <th>목소리톤</th>
+                                <th>연령대</th>
+                                <th>경력</th>
+                                <th>학력</th>
+                                <th>계정상태</th>
+                                <th>수정</th>
+                                <th>삭제</th>
+                             </tr>
+                         </tfoot>
+                         <tbody>
+                            <c:forEach var="userList" items="${userList}"  varStatus="loop">
+                            <input type="hidden" class="userId" value="${userList.userId}">
+                                 <tr>
+                                    <td>${loop.index + 1}</td>
+                                    <td>${userList.userLoginId}</td>
+                                    <td>${userList.userEmail}</td>
+                                    <td>${userList.userNickname}</td>
+                                    <td>${userList.userGender}</td>
+                                    <td>${userList.userHeight}</td>
+                                    <td>${userList.userForm}</td>
+                                    <td>${userList.userTone}</td>
+                                    <td>${userList.userAge}</td>
+                                    <td>${userList.userCareer}</td>
+                                    <td>${userList.userEducation}</td>
+                                    <td>${userList.userStatus}</td>
+                                    <td><button class="btn btn-warning"> <a href="/s/api/auth/manage/userUpdateForm/${userList.userId}" class="nav-link collapsed">수정</a> </button></td>
+                                    <td><button class="btn btn-danger" onclick="remove('${userList.userId}')"> 삭제 </button></td>
+                                 </tr>
+                            </c:forEach>
+                         </tbody>
+                     </table>
+                 </div>
             </div>
-            <div class="mb-3 mt-3">
-                이메일 :
-                <input id="userEmail" type="text" value="${userPS.userEmail}" />
-            </div>
-            <div class="mb-3 mt-3">
-                닉네임 :
-                <input id="userNickname" type="text" value="${userPS.userNickname}" />
-            </div>
-            <div class="mb-3 mt-3">
-                성별 :
-                <select id="userGender">
-                    <option>${userPS.userGender}</option>
-                    <option value="남성">남성</option>
-                    <option value="여성">여성</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                키 :
-                <input id="userHeight" type="text" value="${userPS.userHeight}" />
-            </div>
-            <div class="mb-3 mt-3">
-                체형 :
-                <select id="userForm">
-                    <option>${userPS.userForm}</option>
-                    <option value="표준">표준</option>
-                    <option value="마른">마른</option>
-                    <option value="통통">통통</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                목소리톤 :
-                <select id="userTone">
-                    <option>${userPS.userTone}</option>
-                    <option value="저음">저음</option>
-                    <option value="중음">중음</option>
-                    <option value="고음">고음</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                연령대 :
-                <select id="userAge">
-                    <option>${userPS.userAge}</option>
-                    <option value="10대">10대</option>
-                    <option value="20대">20대</option>
-                    <option value="30대">30대</option>
-                    <option value="40대">40대</option>
-                    <option value="50대">50대</option>
-                    <option value="60대">60대</option>
-                    <option value="70대">70대</option>
-                    <option value="80대">80대</option>
-                    <option value="90대 이상">90대 이상</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                경력 :
-                <select id="userCareer">
-                    <option>${userPS.userCareer}</option>
-                    <option value="1년차">1년차</option>
-                    <option value="2년차">2년차</option>
-                    <option value="3년차">3년차</option>
-                    <option value="4년차">4년차</option>
-                    <option value="5년차">5년차</option>
-                    <option value="6년차">6년차</option>
-                    <option value="7년차">7년차</option>
-                    <option value="8년차">8년차</option>
-                    <option value="9년차">9년차</option>
-                    <option value="10년차 이상">10년차 이상</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                기술 :
-                <input id="userSkill" type="text" value="${userPS.userSkill}" />
-            </div>
-            <div class="mb-3 mt-3">
-                학력 :
-                <input id="userEducation" type="text" value="${userPS.userEducation}" />
-            </div>
-            <div class="mb-3 mt-3">
-                연락방법 :
-                <input id="userContactLink" type="text" value="${userPS.userContactLink}" />
-            </div>
-            <div class="mb-3 mt-3">
-                상태 :
-                <select id="userStatus">
-                    <option>${userPS.userStatus}</option>
-                    <option value="active">active</option>
-                    <option value="deleted">deleted</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                권한 :
-                <select id="userRole">
-                    <option>${userPS.userRole}</option>
-                    <option value="사용자">사용자</option>
-                    <option value="관리자">관리자</option>
-                </select>
-            </div>
-            <div class="mb-3 mt-3">
-                회원가입일 : ${userPS.createdAt}
-            </div>
-            <div class="mb-3 mt-3">
-                회원정보 수정일 : ${userPS.updatedAt}
-            </div>
-            <button class="btn btn-warning" id="updateBtn" onclick="update()">수정하기</button>
         </div>
     </main>
 </div>
 </div>
 <script>
-    function update() {
-
-        let data = {
-            userEmail: $("#userEmail").val(),
-            userNickname: $("#userNickname").val(),
-            userGender: $("#userGender").val(),
-            userHeight: $("#userHeight").val(),
-            userForm: $("#userForm").val(),
-            userTone: $("#userTone").val(),
-            userAge: $("#userAge").val(),
-            userCareer: $("#userCareer").val(),
-            userSkill: $("#userSkill").val(),
-            userEducation: $("#userEducation").val(),
-            userContactLink: $("#userContactLink").val(),
-            userStatus: $("#userStatus").val(),
-            userRole: $("#userRole").val(),
-            userId: $("#userId").val()
-        };
-
-        $.ajax("/manage/userUpdate", {
-            type: "PUT",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                alert(res.msg);
-                location.href = "/s/api/auth/manage/userListForm";
-            } else {
-                alert(res.msg);
-                location.reload();
-            }
-        });
+    function remove(userIdValue) {
+        if (confirm("구인글을 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "/s/api/auth/manage/userDelete/" + userIdValue,
+                type: "DELETE",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+            }).done((res) => {
+                if (res.code == 1) {
+                    alert(res.msg);
+                    location.href = "/s/api/auth/manage/userListForm";
+                } else {
+                    alert(res.msg);
+                    location.reload();
+                }
+            });
+        }
     }
 </script>
 <%@ include file="../layout/footer.jsp" %>

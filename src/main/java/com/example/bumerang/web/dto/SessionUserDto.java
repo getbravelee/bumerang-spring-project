@@ -1,7 +1,9 @@
 package com.example.bumerang.web.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class SessionUserDto { // 세션에 들어갈 사용자 정보
     private Integer userId;

@@ -26,6 +26,12 @@ public class ReportController {
     // 신고 기능
     @PostMapping("/s/api/report")
     public @ResponseBody CMRespDto<?> report(@RequestBody ReportDto reportDto) {
+        System.err.println("디버그getJobId: "+reportDto.getJobId());
+        System.err.println("디버그getPfId: "+reportDto.getPfId());
+        System.err.println("디버그getCommentId: "+reportDto.getCommentId());
+        System.err.println("디버그getReportContent: "+reportDto.getReportContent());
+        System.err.println("디버그getReportType: "+reportDto.getReportType());
+        System.err.println("디버그getUserId: "+reportDto.getUserId());
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         Integer userId = reportDto.getUserId();
         Integer userPId = principal.getUserId();
@@ -55,12 +61,35 @@ public class ReportController {
         }
         return new CMRespDto<>(-1, "데이터 요청을 다시 해주세요.", null);
     }
-    
-    // 신고창 화면
-	@GetMapping("/s/api/reportForm/{targetId}/{userId}")
-	public String reportForm(@PathVariable Integer targetId, @PathVariable Integer userId, Model model) {
+
+    // 공연글 신고창 화면
+    @GetMapping("/s/api/reportFormPf/{targetId}/{userId}")
+    public String reportFormPf(@PathVariable Integer targetId, @PathVariable Integer userId, Model model) {
+        ReportDto pfInfo = reportService.findByTargetIdPf(targetId);
+        model.addAttribute("pfInfo", pfInfo);
         model.addAttribute("targetId", targetId);
         model.addAttribute("userId", userId);
-		return "reportForm";
+        return "reportFormPf";
+    }
+
+    // 구인글 신고창 화면
+	@GetMapping("/s/api/reportFormJob/{targetId}/{userId}")
+	public String reportFormJob(@PathVariable Integer targetId, @PathVariable Integer userId, Model model) {
+        ReportDto jobInfo = reportService.findByTargetIdJob(targetId);
+        model.addAttribute("jobInfo", jobInfo);
+        model.addAttribute("targetId", targetId);
+        model.addAttribute("userId", userId);
+		return "reportFormJob";
+	}
+
+    // 댓글 신고창 화면
+	@GetMapping("/s/api/reportFormComment/{targetId}/{userId}")
+	public String reportFormComment(@PathVariable Integer targetId, @PathVariable Integer userId, Model model) {
+        ReportDto commentInfo = reportService.findByTargetIdComment(targetId);
+        model.addAttribute("commentInfo", commentInfo);
+        model.addAttribute("targetId", targetId);
+        model.addAttribute("userId", userId);
+		return "reportFormComment";
+
 	}
 }

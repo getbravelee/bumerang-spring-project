@@ -1,34 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>404 Error - SB Admin</title>
-        <link href="admin/css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <title>404 Error</title>
+        <link rel="stylesheet" href="/css/404.css">
     </head>
     <body>
-        <div id="layoutError">
-            <div id="layoutError_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="text-center mt-4">
-                                    <img class="mb-4 img-error" src="admin/assets/img/error-404-monochrome.svg" />
-                                    <p class="lead">권한이 없거나 존재하지 않는 페이지입니다.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
+        <div class="error">
+            <div class="sky">
+                <h2><span>4</span><span>0</span><span>4</span></h2>
+                <div class="grass"></div>
+                <img src="/image/giphy2.gif" class="plane">
+            </div>
+            <div class="field">
+               <h2>권한이 없거나 존재하지 않는 페이지입니다</h2>
+               <a href="/">Go Home</a>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="admin/js/scripts.js"></script>
     </body>
 </html>

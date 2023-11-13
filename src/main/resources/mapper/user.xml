@@ -132,7 +132,6 @@
     <update id="updateUser">
         UPDATE user
         SET
-        user_password = #{userPassword},
         user_email = #{userEmail},
         user_nickname = #{userNickname},
         user_gender = #{userGender},
@@ -143,8 +142,7 @@
         user_career = #{userCareer},
         user_skill = #{userSkill},
         user_education = #{userEducation},
-        user_contact_link = #{userContactLink},
-        user_profile_img = #{userProfileImg}
+        user_contact_link = #{userContactLink}
         WHERE
         user_id = #{userId} AND user_status != 'deleted'
     </update>
@@ -194,5 +192,33 @@
         user_password = #{userPassword}
         WHERE
         user_id = #{userId} AND user_status != 'deleted'
+    </update>
+    <select id="findByPwUpdateResult"
+            resultType="com.example.bumerang.web.dto.request.user.PasswdDto">
+        SELECT * FROM user WHERE user_id=#{userId} AND user_status != 'deleted'
+    </select>
+
+    <update id="updatePassword">
+        update user
+        set
+        user_password = #{userPassword}
+        Where
+        user_id = #{userId} AND user_status != 'deleted'
+    </update>
+
+    <update id="updateUfTitle">
+        DELETE FROM user_field
+        WHERE user_id = #{userId};
+        INSERT
+        INTO user_field (uf_title, user_id)
+        VALUES (#{ufTitle}, #{userId})
+    </update>
+
+    <update id="updateProfileImage">
+        UPDATE user
+        SET
+        user_profile_img = #{imagePath}
+        WHERE
+        user_id = #{userId}
     </update>
 </mapper>

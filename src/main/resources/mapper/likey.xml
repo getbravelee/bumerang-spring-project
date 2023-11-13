@@ -47,71 +47,102 @@
         FROM likey l
         WHERE l.likey_id=LAST_INSERT_ID()
     </select>
-    <select id="likeyFindSJList" resultType="com.example.bumerang.web.dto.response.likey.LikeyJSListDto">
+    <select id="likeyFindSJList" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
         SELECT
-        u.user_id AS userId,
-        u.user_nickname AS userNickname,
-        u.user_profile_img AS userProfileImg,
-        u.user_career AS userCareer,
-        l.likey_id AS LikeyId,
         j.job_id AS jobId,
-        j.job_content_title AS jobTitle,
-        j.job_start_date AS jobStartDate,
+        j.created_at AS createdAt,
+        j.job_genre AS jobGenre,
         j.job_deadline AS jobDeadline,
-        COALESCE(c.comment_count, 0) AS commentCount,
-        COALESCE(v.view_count, 0) AS viewCount
-        FROM user u
-        INNER JOIN likey l ON u.user_id = l.user_id
-        INNER JOIN job_search j ON l.job_id = j.job_id
-        LEFT JOIN (
-        SELECT job_id, COUNT(comment_id) AS comment_count
-        FROM comment
-        GROUP BY job_id
-        ) c ON j.job_id = c.job_id
-        LEFT JOIN (
-        SELECT job_id, COUNT(view_id) AS view_count
-        FROM view
-        GROUP BY job_id
-        ) v ON j.job_id = v.job_id
-        WHERE u.user_id=1;
-    </select>
-    <select id="likeyFindPFList" resultType="com.example.bumerang.web.dto.response.likey.LikeyPFListDto">
-        SELECT
-        u.user_id AS userId,
-        u.user_nickname AS userNickname,
+        j.job_content_title AS jobContentTitle,
         u.user_profile_img AS userProfileImg,
-        p.pf_id AS pfId,
-        p.pf_title AS pfTitle,
-        p.pf_start_date AS StartDate,
-        p.pf_deadline AS Deadline,
-        p.pf_genre AS Genre,
-        p.pf_runningTime AS runningTime,
-        p.pf_location AS location,
-        p.pf_thumbnail AS thumbnail,
+        u.user_nickname AS userNickname,
+        u.user_career AS userCareer,
+        u.user_id AS userId,
+        (SELECT GROUP_CONCAT(jp.job_position_title) FROM job_search_position jp WHERE jp.job_id = j.job_id) as jobPositionTitles,
+        COALESCE(v.view_count, 0) AS viewCount,
         COALESCE(c.comment_count, 0) AS commentCount,
-        COALESCE(v.view_count, 0) AS viewCount
-
-        FROM performance p
-        INNER JOIN user u ON p.user_id = u.user_id
-
-
+        COALESCE(l.likey_count, 0) AS likeyCount,
+        IF(DATEDIFF(j.job_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
+        IF(DATE(j.created_at) = CURDATE(), TRUE, FALSE) AS isToday,
+        IF((l.likey_count <![CDATA[ > ]]> 10), TRUE, false) AS isFame
+    FROM
+        (SELECT * 
+         FROM job_search 
+         WHERE job_status != 'deleted' AND job_id IN (SELECT job_id FROM likey WHERE user_id = #{userId})
+        ) j
+    JOIN
+        (SELECT * 
+         FROM user 
+         WHERE user_status != 'deleted'
+        ) u ON j.user_id = u.user_id
+    LEFT JOIN (
+        SELECT job_id, COUNT(*) AS view_count 
+        FROM view 
+        GROUP BY job_id
+    ) v ON j.job_id = v.job_id
+    LEFT JOIN (
+        SELECT job_id, COUNT(*) AS comment_count 
+        FROM comment 
+        WHERE comment_status != 'deleted'
+        GROUP BY job_id
+    ) c ON j.job_id = c.job_id
+    LEFT JOIN (
+        SELECT job_id, COUNT(*) AS likey_count, user_id FROM likey WHERE job_id IS NOT NULL GROUP BY job_id
+    ) l ON j.job_id = l.job_id
+    ORDER BY
+        j.created_at DESC
+    </select>
+    <select id="likeyFindPFList" resultType="com.example.bumerang.web.dto.response.performance.PfListDto">
+        SELECT
+        p.pf_id AS pfId,
+        l.likey_id AS likeyId,
+        p.pf_genre AS pfGenre,
+        p.pf_deadline AS pfDeadline,
+        p.pf_location AS pfLocation,
+        p.pf_thumbnail AS pfThumbnail,
+        p.pf_agerating AS pfAgeRating,
+        p.pf_title AS pfTitle,
+        u.user_profile_img AS userProfileImg,
+        p.pf_start_date AS pfStartDate,
+        u.user_nickname AS userNickname,
+        u.user_career AS userCareer,
+        p.user_id AS userId,
+        CASE WHEN p.pf_price = 0 THEN FALSE ELSE TRUE END AS isPrice,
+        COALESCE(v.view_count, 0) AS viewCount,
+        COALESCE(c.comment_count, 0) AS commentCount,
+        COUNT(l.pf_id) AS likeyCount,
+        p.pf_status = 'dead' AS isDead,
+        DATE(p.created_at) = CURDATE() AS isToday,
+        COUNT(l.pf_id) >= 10 AS isFame
+    FROM
+        performance p
+        LEFT JOIN likey l ON p.pf_id = l.pf_id
         LEFT JOIN (
-        SELECT pf_id, COUNT(*) AS comment_count
-        FROM comment
-        GROUP BY pf_id
+            SELECT
+                pf_id,
+                COUNT(*) AS view_count
+            FROM
+                view
+            GROUP BY
+                pf_id
+        ) v ON p.pf_id = v.pf_id
+        LEFT JOIN (
+            SELECT
+                pf_id,
+                COUNT(*) AS comment_count
+            FROM
+                comment
+            WHERE
+                comment_status = 'active'
+            GROUP BY
+                pf_id
         ) c ON p.pf_id = c.pf_id
-
-        LEFT JOIN (
-        SELECT pf_id, COUNT(*) AS view_count
-        FROM view
-        GROUP BY pf_id
-        )
-
-        v ON p.pf_id = v.pf_id
-        INNER JOIN (
-        SELECT * FROM likey l WHERE l.user_id = 1
-        )
-
-        l ON p.pf_id = l.pf_id;
+        LEFT JOIN user u ON p.user_id = u.user_id
+    WHERE
+        l.user_id = #{userId}
+    GROUP BY
+        p.pf_id
+    ORDER BY
+        p.created_at DESC
     </select>
 </mapper>

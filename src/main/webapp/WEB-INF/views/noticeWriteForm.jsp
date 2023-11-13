@@ -47,7 +47,7 @@
                   <dl class="title">
                     <dt>제목</dt>
                     <dd>
-                      <input type="text" placeholder="글 제목을 입력하세요" id="noticeTitle" />
+                      <input type="text" placeholder="글 제목을 입력하세요" id="noticeTitle" maxlength="30" />
                     </dd>
                   </dl>
                   <dl class="type">
@@ -62,7 +62,7 @@
                   </dl>
                 </div>
                 <div class="content">
-                  <div id="editor-container" id="noticeContent"></div>
+                  <div id="editor-container" id="noticeContent" ></div>
                 </div>
               </div>
 
@@ -70,6 +70,7 @@
           </div>
           <script src="/js/writeNotice.js"></script>
           <script src="/js/default.js"></script>
+          <%@ include file="layout/footer.jsp" %>
       </body>
 
       </html>

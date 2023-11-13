@@ -28,6 +28,7 @@
                                             <th>작성일시</th>
                                             <th>신고일시</th>
                                             <th>삭제</th>
+                                            <th>삭제</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -41,6 +42,7 @@
                                             <th>작성일시</th>
                                             <th>신고일시</th>
                                             <th>삭제</th>
+                                            <th>삭제</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -48,18 +50,20 @@
                                             <tr>
                                                 <td>${loop.index + 1}</td>
                                                 <td>
-                                                    <a href="/s/api/auth/report/jobDetailForm/${job.jobId}">
+                                                    <a href="/s/api/auth/report/jobDetailForm/${job.jobId}"
+                                                        class="nav-link collapsed">
                                                         ${job.jobContentTitle}
                                                     </a>
                                                 </td>
                                                 <td>${job.reportType}</td>
                                                 <td>${job.reportContent}</td>
                                                 <td>${job.jobView}</td>
-                                                <td>${job.jobStatus}</td>
+                                                <td>${job.reportStatus}</td>
                                                 <td>${job.createdAt}</td>
                                                 <td>${job.reportCreatedAt}</td>
+                                                <td>${job.reportId}</td>
                                                 <td>
-                                                    <button onclick="remove(${job.jobId})" class="btn btn-danger">
+                                                    <button onclick="remove(${job.reportId})" class="btn btn-danger">
                                                         삭제
                                                     </button>
                                                 </td>
@@ -74,11 +78,13 @@
             </div>
             </div>
             <script>
-                function remove(jobId) {
-                    if (confirm("구인글을 삭제하시겠습니까?")) {
+                var reportId = document.QuerySelectAll("#reportId");
+                console.log(reportId);
+                function remove(reportId) {
+                    if (confirm("구인신고를 삭제하시겠습니까?")) {
                         $.ajax({
-                            url: "/manage/jobDelete/" + jobId,
-                            type: "DELETE",
+                            url: "/s/api/auth/report/jobListFormUpdate/" + reportId,
+                            type: "PUT",
                             headers: {
                                 "Content-Type": "application/json; charset=utf-8",
                             },

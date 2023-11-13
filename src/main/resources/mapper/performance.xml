@@ -61,55 +61,128 @@
 
     <select id="findAllPf"
             resultType="com.example.bumerang.web.dto.response.performance.PfListDto">
-        SELECT  p.pf_title, p.pf_location,
-        CASE WHEN p.pf_price = 0 THEN FALSE
-        ELSE TRUE END AS isPrice,
-        p.pf_start_date, p.pf_deadline, p.pf_thumbnail,
-        COALESCE(v.view_count, 0) AS view_count
+        SELECT
+            p.pf_id AS pfId,
+            p.pf_title AS pfTitle,
+            p.pf_location AS pfLocation,
+            p.pf_genre AS pfGenre,
+            CASE WHEN p.pf_price = 0 THEN FALSE ELSE TRUE END AS isPrice,
+            p.pf_start_date AS pfStartDate,
+            p.pf_deadline AS pfDeadline,
+            IF(DATEDIFF(p.pf_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
+            p.pf_thumbnail AS pfThumbnail,
+            p.pf_agerating AS pfAgeRating,
+            COALESCE(v.view_count, 0) AS viewCount
         FROM performance p
-        LEFT JOIN
-        (SELECT pf_id, COUNT(view_id) AS view_count
-        FROM VIEW
-        WHERE pf_id IS NOT NULL
-        GROUP BY pf_id) v
-        ON p.pf_id = v.pf_id
-        WHERE pf_status != 'deleted'
+                 LEFT JOIN (
+            SELECT pf_id, COUNT(view_id) AS view_count
+            FROM VIEW
+            WHERE pf_id IS NOT NULL
+            GROUP BY pf_id
+        ) v ON p.pf_id = v.pf_id
+        WHERE p.pf_status != 'deleted'
+        ORDER BY pfId DESC;
     </select>
 
     <select id="findAllBestPf"
             resultType="com.example.bumerang.web.dto.response.performance.PfListDto">
-        SELECT p.pf_title, p.pf_location,
-        CASE WHEN p.pf_price = 0 THEN FALSE
-        ELSE TRUE END AS isPrice,
-        p.pf_start_date, p.pf_deadline, p.pf_thumbnail,
-        COALESCE(v.view_count, 0) AS viewCount
+        SELECT
+            p.pf_id AS pfId,
+            p.pf_title AS pfTitle,
+            p.pf_location AS pfLocation,
+            p.pf_genre AS pfGenre,
+            CASE WHEN p.pf_price = 0 THEN FALSE ELSE TRUE END AS isPrice,
+            p.pf_start_date AS pfStartDate,
+            p.pf_deadline AS pfDeadline,
+            p.pf_thumbnail AS pfThumbnail,
+            p.pf_agerating AS pfAgeRating,
+            COALESCE(v.view_count, 0) AS viewCount,
+            CASE
+                WHEN ROW_NUMBER() OVER (ORDER BY COALESCE(viewCount, 0) DESC) = 1 THEN '/image/ranking1.png'
+                WHEN ROW_NUMBER() OVER (ORDER BY COALESCE(viewCount, 0) DESC) = 2 THEN '/image/ranking2.png'
+                WHEN ROW_NUMBER() OVER (ORDER BY COALESCE(viewCount, 0) DESC) = 3 THEN '/image/ranking3.png'
+                END AS imgPath
         FROM performance p
-        LEFT JOIN (
+                 LEFT JOIN (
             SELECT pf_id, COUNT(*) AS view_count
             FROM view
             GROUP BY pf_id
         ) v ON p.pf_id = v.pf_id
         WHERE p.pf_status != 'deleted'
         ORDER BY COALESCE(viewCount, 0) DESC
-        LIMIT 6
+            LIMIT 3;
+
     </select>
 
     <select id="findByRecent"
             resultType="com.example.bumerang.web.dto.response.performance.PfRespDto">
         SELECT *
         FROM performance p
-        WHERE p.pf_id=LAST_INSERT_ID()
+        WHERE p.pf_id = LAST_INSERT_ID()
     </select>
 
     <select id="findByPf" resultType="com.example.bumerang.web.dto.response.performance.DetailFormDto">
-        SELECT *,
+        SELECT p.pf_id, p.pf_title, p.pf_content, p.pf_agerating, p.pf_start_date, p.pf_deadline, p.pf_bookingmethod, p.pf_production, p.pf_location, p.pf_runningtime, p.pf_price, p.pf_genre, p.pf_thumbnail, p.pf_status, p.created_at, p.user_id, u.user_nickname, u.user_profile_img,
         (SELECT COUNT(*) FROM likey WHERE pf_id = #{pfId}) as likeyCount,
-        (SELECT COUNT(*) FROM view WHERE pf_id = #{pfId}) as viewCount
+        (SELECT COUNT(*) FROM view WHERE pf_id = #{pfId})  as viewCount,
+        if(l.likey_id IS NOT NULL, TRUE, FALSE) as isLikey,
+        l.likey_id
         FROM performance p
         LEFT JOIN user u
         ON p.user_id = u.user_id
+        LEFT JOIN (SELECT * FROM likey WHERE user_id = #{userId}) l
+        ON p.pf_id = l.pf_id
         WHERE p.pf_id = #{pfId}
         AND p.pf_status != 'deleted'
     </select>
 
+    <select id="findMyPfList"
+            resultType="com.example.bumerang.web.dto.response.performance.PfListDto">
+        SELECT
+            p.pf_id AS pfId,
+            p.pf_title AS pfTitle,
+            p.pf_location AS pfLocation,
+            p.pf_genre AS pfGenre,
+            CASE WHEN p.pf_price = 0 THEN FALSE ELSE TRUE END AS isPrice,
+            p.pf_start_date AS pfStartDate,
+            p.pf_deadline AS pfDeadline,
+            IF(DATEDIFF(p.pf_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
+            p.pf_thumbnail AS pfThumbnail,
+            p.pf_agerating AS pfAgeRating,
+            COALESCE(v.view_count, 0) AS viewCount
+        FROM performance p
+                 LEFT JOIN (
+            SELECT pf_id, COUNT(view_id) AS view_count
+            FROM VIEW
+            WHERE pf_id IS NOT NULL
+            GROUP BY pf_id
+        ) v ON p.pf_id = v.pf_id
+        WHERE
+        p.user_id = #{userId}
+        AND p.pf_status != 'deleted'
+        GROUP BY
+        p.pf_id
+        ORDER BY
+        p.created_at DESC;
+    </select>
+
+    <update id="updateNoTumbnail">
+        UPDATE performance
+        SET
+        pf_title = #{pfTitle},
+        pf_content = #{pfContent},
+        pf_agerating = #{pfAgerating},
+        pf_start_date = #{pfStartDate},
+        pf_deadline = #{pfDeadline},
+        pf_bookingmethod = #{pfBookingmethod},
+        pf_production = #{pfProduction},
+        pf_location = #{pfLocation},
+        pf_runningtime = #{pfRunningtime},
+        pf_price = #{pfPrice},
+        pf_genre = #{pfGenre}
+        WHERE
+        pf_id = #{pfId}
+        AND user_id = #{userId}
+        AND pf_status  != 'deleted'
+    </update>
 </mapper>

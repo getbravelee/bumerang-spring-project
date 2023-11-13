@@ -1,6 +1,5 @@
 /* URL */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap");
 
 /* 광고, 행사 배너 */
 .banner {
@@ -42,9 +41,13 @@
 
 .banner .banner_Swiper swiper-slide img {
   display: block;
-  width: 1350px;
-  height: 330px;
+  max-width: 1360px;
+  width: 100%;
+  max-height: 330px;
+  min-height: 160px;
+  height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 /********************/
@@ -55,7 +58,7 @@
 .ranking_post {
   max-width: 1310px;
   margin: 0 auto;
-  margin-top: 50px
+  margin-top: 50px;
 }
 
 .ranking_post .title_area {
@@ -90,61 +93,62 @@
   margin-top: 20px;
 }
 
+/********************/
+/* 전시 공연 정보   */
+/********************/
+.main_post {
+  min-height: 100vh;
+  max-width: 1310px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
 
-  /********************/
-  /* 전시 공연 정보   */
-  /********************/
-  .main_post {
-    min-height: 100vh;
-    max-width: 1310px;
-    margin: 0 auto;
-    margin-top: 100px;
-  }
+.main_post .main_title {
+  display: flex;
+  align-items: center;
+  padding: 15px 50px;
+  font-size: 17px;
+}
 
-  .main_post .main_title {
-    display: flex;
-    align-items: center;
-    padding: 0 25px;
-    font-size: 17px;
-  }
+.main_post .main_title .fa-compact-disc {
+  font-size: 32px;
+  margin-right: 12px;
+  color: #1084e9;
+}
 
-  .main_post .main_title .fa-compact-disc {
-    font-size: 32px;
-    margin-right: 12px;
-    color: #1084e9;
-  }
-  
+/* 검색창 */
+.main_post .filter {
+  max-width: 1230px;
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+}
 
-  /* 필터링 */
-  .main_post .filter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-  }
+.main_post .filter .search_bar {
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #1084e9;
+  border-radius: 30px;
+  overflow: hidden; /* 버튼이 테두리를 벗어나지 않도록 */
+  margin: 0 auto;
+}
 
-  .main_post .filter .dropdown_list {
-    display: flex;
-  }
+.main_post .filter .search_bar input[type="text"] {
+  padding: 8px 25px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
 
-  .main_post .filter .dropdown_list .dropdown {
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    padding-left: 18px;
-    padding-right: 10px;
-    width: 140px;
-    height: 38px;
-    border: 1px solid rgb(227, 227, 227);
-    color: rgb(100, 100, 100);
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 0.03em;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    border-radius: 36px;
-    margin: 20px 25px 20px 0px;
-  }
+.main_post .filter .search_bar button {
+  border: none;
+  padding: 5px 18px;
+  cursor: pointer;
+  font-size: 20px;
+}
 
 /******************/
 /*  포스터 카드  */
@@ -168,13 +172,10 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  border-left: 0.4px solid #eee ;
-  box-shadow: 
-    12px 13px 10px -7px #0000001A;
-  transition: all .4s
-    cubic-bezier(0.1, 0.8, 0, 1);
+  border-left: 0.4px solid #eee;
+  box-shadow: 12px 13px 10px -7px #0000001a;
+  transition: all 0.4s cubic-bezier(0.1, 0.8, 0, 1);
 }
-
 
 /* 포스터 이미지 및 호버 */
 .poster .img {
@@ -192,8 +193,7 @@
 }
 
 .poster:hover {
-  box-shadow: 
-    0 30px 18px -8px #0000001A;
+  box-shadow: 0 30px 18px -8px #0000001a;
   transform: scale(1.05);
 }
 
@@ -227,14 +227,34 @@
   color: #656565;
 }
 
-.forMusical {
+.forTheater {
   color: rgb(143, 3, 143);
   background-color: rgb(253, 205, 253);
 }
 
-.forTheater {
-  color:#097275;
-  background-color: #ebf9fa;
+.forDrama {
+  color: rgb(32, 32, 150);
+  background-color: rgb(182, 182, 253)
+}
+
+.forWebContent {
+  color: rgb(11, 105, 11);
+  background-color: rgb(211, 255, 211);
+}
+
+.forAdvertising {
+  color: rgb(184, 125, 17);
+  background-color: rgb(253, 230, 187);
+}
+
+.forExhibition {
+  color: rgb(150, 56, 43);
+  background-color: rgb(252, 204, 197);
+}
+
+.forEtc {
+  background: #efefef;
+  color: #656565;
 }
 
 /* 뱃지 연령대 표시 */
@@ -244,24 +264,167 @@
   padding: 4px 12px;
 }
 
-.forAll {
-  color: green;
-  background-color: rgb(216, 250, 216);
-  }
-.for12 {
-   color: rgb(52, 52, 253);
-   background-color: #c8e4fd;
-  }
-.for15 {
-  color: #f57309; 
-  background: #f7e6f6;
-  }
-.for19 {
-   color: red;
-   background-color: rgb(255, 212, 212);
-  }
+.forAge {
+  color: #3e86f5;
+  background: #e9eefa;
+}
 
-  .poster .info .badge .charge {
+.poster .info .badge .charge {
+  font-size: 12px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #fdf7a5;
+  color: #000000;
+}
+
+/*************************************/
+.poster .info .title {
+  font-size: 22px;
+  margin-top: 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.poster .info .location {
+  font-size: 15px;
+  margin-top: 3px;
+  color: #11528b;
+}
+
+.poster .info .date {
+  font-size: 12px;
+  margin-top: 12px;
+  color: #818181;
+}
+
+/* 구인글 좋아요 버튼 */
+.like_plus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}/******************/
+/*  포스터 카드  */
+/*****************/
+
+.poster_wrapper {
+  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1310px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.poster {
+  margin: 25px 25px;
+  background-color: #fff;
+  width: 267px;
+  height: 380px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border-left: 0.4px solid #eee;
+  box-shadow: 12px 13px 10px -7px #0000001a;
+  transition: all 0.4s cubic-bezier(0.1, 0.8, 0, 1);
+}
+
+/* 포스터 이미지 및 호버 */
+.poster .img {
+  height: 235px;
+}
+
+.poster .img-hover {
+  object-fit: cover;
+  width: 100%;
+  height: 235px;
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  transition: 0.2s all ease-out;
+}
+
+.poster:hover {
+  box-shadow: 0 30px 18px -8px #0000001a;
+  transform: scale(1.05);
+}
+
+.poster:hover .img-hover:hover {
+  height: 100%;
+  opacity: 1;
+}
+
+/* 포스터 정보 표시 */
+.poster .info {
+  z-index: 2;
+  padding: 12px 20px 20px 20px;
+}
+
+.poster .info .badge {
+  display: flex;
+  gap: 10px;
+}
+
+/* 뱃지 타이틀 */
+
+/* 뱃지 장르 표시 */
+.poster .info .badge .category {
+  font-size: 12px;
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+.forMovie {
+  background: #efefef;
+  color: #656565;
+}
+
+.forTheater {
+  color: rgb(143, 3, 143);
+  background-color: rgb(253, 205, 253);
+}
+
+.forDrama {
+  color: rgb(32, 32, 150);
+  background-color: rgb(182, 182, 253)
+}
+
+.forWebContent {
+  color: rgb(11, 105, 11);
+  background-color: rgb(211, 255, 211);
+}
+
+.forAdvertising {
+  color: rgb(184, 125, 17);
+  background-color: rgb(253, 230, 187);
+}
+
+.forExhibition {
+  color: rgb(150, 56, 43);
+  background-color: rgb(252, 204, 197);
+}
+
+.forEtc {
+  background: #efefef;
+  color: #656565;
+}
+
+/* 뱃지 연령대 표시 */
+.poster .info .badge .age {
+  font-size: 12px;
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+.forAge {
+  color: #3e86f5;
+  background: #e9eefa;
+}
+
+.poster .info .badge .charge {
   font-size: 12px;
   border-radius: 20px;
   padding: 4px 12px;
@@ -299,131 +462,73 @@
   justify-content: space-between;
 }
 
-.like_btn{
-    transform: translate(-50%,-50%);
+/* 페이지 이동 */
+.pagination {
+  text-align: center;
+  margin: 30px 30px 150px;
+  user-select: none;
 }
 
-.like_btn .heart{
-  position: absolute;
-  background: url("/image/img.png") no-repeat;
-  background-position: left;
-  background-size: 2900%;
-  height: 90px;
-  width: 90px;
-  left: -20px;
-  top: 10px;
-  transform: translate(-50%,-50%);
-  z-index: 2;
+.pagination li {
+  display: inline-block;
+  margin: 5px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
 }
 
-.like_btn .heart:hover {
+.pagination li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 45px;
+}
+
+.previous-page,
+.next-page {
+  background: #409ff1;
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.previous-page:hover {
+  transform: translateX(-5px);
+}
+
+.next-page:hover {
+  transform: translateX(5px);
+}
+
+.current-page,
+.dots {
+  background: #ccc;
+  width: 45px;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-.like_btn .heart.heart-active{
-  animation: animate .8s steps(28) 1;
-  background-position: right;
+.active {
+  background: #409ff1;
 }
 
-@keyframes animate {
-  0%{
-    background-position: left;
-  }
-  100%{
-    background-position: right;
-  }
+.disable {
+  background: #ccc;
 }
 
-
-  /* 검색창 */
-  .main_post .filter .search_bar{
-    display: flex;
-    align-items: center;
-    width: 280px;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-    overflow: hidden; /* 버튼이 테두리를 벗어나지 않도록 */
+/* 반응형 화면 모바일 */
+@media screen and (max-width: 611px) {
 }
 
-.main_post .filter .search_bar input[type="text"] {
-    padding: 8px 25px;
-    width: 100%;
-    border: none;
-    outline: none;
+/* 반응형 화면 타블렛 */
+@media screen and (min-width: 612px) and (max-width: 1023px) {
 }
-
-.main_post .filter .search_bar button {
-    border: none;
-    padding: 5px 18px;
-    cursor: pointer;
-    font-size: 20px;
+.deadline {
+  position: absolute;
+  bottom: -15px;
+  margin-left: 15px;
+  z-index: 99;
+  text-align: center;
+  display: block;
+  width: 90%;
+  opacity: 0.8;
 }
-
-
-
-  /* 페이지 이동 */
-  .pagination{
-    text-align: center;
-    margin: 30px 30px 60px;
-    user-select: none;
-  }
-  
-  .pagination li{
-    display: inline-block;
-    margin: 5px;
-    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
-  }
-  
-  .pagination li a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    line-height: 45px;
-  }
-  
-  .previous-page, .next-page{
-    background: #409FF1;
-    width: 80px;
-    border-radius: 45px;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  .previous-page:hover{
-    transform: translateX(-5px);
-  }
-  
-  .next-page:hover{
-    transform: translateX(5px);
-  }
-  
-  .current-page, .dots{
-    background: #ccc;
-    width: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .active{
-    background: #409FF1;
-  }
-  
-  .disable{
-    background: #ccc;
-  }
- 
-
-
-
-  /* 반응형 화면 모바일 */
-  @media screen and (max-width: 611px) {
-
-      
-  }
-
-  /* 반응형 화면 타블렛 */
-  @media screen and (min-width: 612px) and (max-width: 1023px) {
-
-
-    
-  }

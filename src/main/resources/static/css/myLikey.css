@@ -1,350 +1,413 @@
 /* URL */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap");
 
-  .write_title {
-    display: flex;
-    align-items: center;
-    justify-content:flex-start;
-    margin: 0 auto;
-    padding-left: 5px;
-    margin-top: 50px;
-    max-width: 1300px;
-    gap: 12px;
-    border-bottom: 2px solid #eee;
-  }
+.write_title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 auto;
+  padding-left: 5px;
+  margin-top: 50px;
+  max-width: 1300px;
+  gap: 12px;
+  border-bottom: 2px solid #eee;
+}
 
+.write_title h2 {
+  font-size: 22px;
+  padding-bottom: 12px;
+}
 
-  .write_title h2 {
-    font-size: 22px;
-    padding-bottom: 12px;
-  }
+/********************/
+/* 구인정보 게시판  */
+/********************/
+.main_post {
+  max-width: 1310px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
 
+.main_post .main_title {
+  display: flex;
+  align-items: center;
+  padding: 15px 40px;
+  font-size: 17px;
+}
 
-  /********************/
-  /* 구인정보 게시판  */
-  /********************/
-  .main_post {
-    max-width: 1310px;
-    margin: 0 auto;
-    margin-top: 50px;
-  }
+.main_post .main_title .fa-rocket {
+  font-size: 32px;
+  margin-right: 12px;
+  color: #1084e9;
+}
 
-  .main_post .main_title {
-    display: flex;
-    align-items: center;
-    padding: 0 50px;
-    font-size: 18px;
-  }
+/*******************/
+/* 구인정보 게시글 */
+/******************/
+.main_post .search_job_container {
+  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-  .main_post .main_title .fa-rocket {
-    font-size: 32px;
-    margin-right: 12px;
-    color: #1084e9;
-  }
+.main_post .search_job_container .search_job_slide {
+  display: flex;
+  margin: 15px;
+  padding: 15px 20px;
+  width: 285px;
+  height: 308px;
+  background: #fff;
+  border: 2px solid #d1d1d1;
+  border-radius: 30px;
+  position: relative;
+  transition: 0.2s ease-in;
+}
 
-  /*******************/
-  /* 구인정보 게시글 */
-  /******************/
-  .main_post .search_job_container {
-    display: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+.main_post .search_job_container .search_job_slide:hover {
+  border: 2px solid #999;
+}
 
-  .main_post .search_job_container .search_job_slide  {
-    display: flex;
-    margin: 15px;
-    padding: 15px 25px 0;
-    width: 280px;
-    height: 308px;
-    background: #fff;
-    border: 2px solid #d1d1d1;
-    border-radius: 30px;
-    position: relative;
-    cursor: pointer;
-    transition: .2s ease-in;
-  }
+.project {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+}
 
-  .main_post .search_job_container .search_job_slide:hover {
-    border: 2px solid #a7a8a8e3;
-  }
+.project .badge_wrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
 
-  .project {
-    display: flex;
-    flex-direction: column;
-    width: 230px;
-  }
+/*****************/
+/* 구인 글 뱃지 */
+/****************/
 
-  .project .badge_wrapper {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
-  }
+/* 영화 뱃지 */
+.project .badge_wrapper .badge_movie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #efefef;
+  color: #656565;
+}
 
-  /*****************/
-  /* 구인 글 뱃지 */
-  /****************/
+/* 연극 뱃지 */
+.project .badge_wrapper .badge_theater {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(143, 3, 143);
+  background-color: rgb(253, 205, 253);
+}
 
-    /* 영화 뱃지 */
-  .project .badge_wrapper .badge_movie {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    font-size: 14px;
-    border-radius: 20px;
-    padding: 4px 12px;
-    background: #efefef;
-    color: #656565;
-  }
-    /* 새로 올라온 글 뱃지 */
-  .project .badge_wrapper .badge_new {
-    font-size: 14px;
-    border-radius: 20px;
-    padding: 4px 12px;
-    background: #fff9d5;
-    color: #fdb900; 
-  }
+/* 드라마 뱃지 */
+.project .badge_wrapper .badge_drama {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(32, 32, 150);
+  background-color: rgb(182, 182, 253)
+}
 
-  /* 마감일 */
-  .project .schedule {
-    display: flex;
-    font-size: 14px;
-    grid-gap: 8px;
-    gap: 8px;
-    color: #999;
-    font-weight: 500;
-    margin-top: 10px;
-  }
+/* 웹 컨텐츠 뱃지 */
+.project .badge_wrapper .badge_web_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(11, 105, 11);
+  background-color: rgb(211, 255, 211);
+}
 
-  /* 구인글 타이틀 */
-  .project .project_title {
-    font-size: 17px;
-    min-height: 50px;
-    line-height: 28px;
-    font-weight: 500;
-    letter-spacing: -.05em;
-    margin: 10px 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    word-break: break-all;
-    overflow: hidden;
-  }
+/* 광고 뱃지 */
+.project .badge_wrapper .badge_advertising {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(184, 125, 17);
+  background-color: rgb(253, 230, 187);
+}
 
-  /* 구인글 포지션 */
-  .project .position_list {
-    height: 22px;
-    display: flex;
-    grid-gap: 3px;
-    gap: 3px;
-  }
+/* 전시 뱃지 */
+.project .badge_wrapper .badge_exhibition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  color: rgb(150, 56, 43);
+  background-color: rgb(252, 204, 197);
+}
 
-  .project .position_list .position {
-    padding: 3px 10px;
-    grid-gap: 5px;
-    gap: 5px;
-    height: 22px;
-    background: #e9eefa;
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    color: #3e86f5;
-  }
+/* 기타 뱃지 */
+.project .badge_wrapper .badge_etc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #efefef;
+  color: #656565;
+}
+/* 새로 올라온 글 뱃지 */
+.project .badge_wrapper .badge_new {
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: #fff9d5;
+  color: #fdb900;
+}
 
-  .project .position_list .gender {
-    padding: 3px 10px;
-    grid-gap: 5px;
-    gap: 5px;
-    height: 22px;
-    background: rgb(250, 237, 250);
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    color: rgb(180, 110, 180);
-  }
+/* 마감일 */
+.project .schedule {
+  display: flex;
+  font-size: 14px;
+  grid-gap: 8px;
+  gap: 8px;
+  color: #999;
+  font-weight: 500;
+  margin-top: 10px;
+}
 
-  /* 자세히보기 및 좋아요 버튼 구분 */
-  .project .content{
-    margin: 15px 0;
-    display: flex;
-    justify-content: space-between;
-  }
+.deadline {
+  z-index: 99;
+  position: absolute;
+  left: 30px;
+  text-align: center;
+  display: block;
+  width: 90%;
+  opacity: 0.6;
+}
 
-  /* 구인글 자세히 보기 */
-  .project .content .more_btn{
-    margin-left: 5px;
-    display: flex;
-    align-items: center;
-    color: #5a5a5a;
-  }
+/* 구인글 타이틀 */
+.project .project_title {
+  font-size: 17px;
+  min-height: 50px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  margin: 10px 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+  overflow: hidden;
+}
 
-  .project .content .more_btn:hover{
-    color: black;
-  }
+/* 구인글 포지션 */
+.project .position_list {
+  height: 22px;
+  display: flex;
+  grid-gap: 3px;
+  gap: 3px;
+}
 
-  .project .content .more_btn .fa-arrow-up-right-from-square{
-    font-size: 12px;
-  }
+.project .position_list .position {
+  padding: 3px 10px;
+  grid-gap: 5px;
+  gap: 5px;
+  height: 22px;
+  background: #e9eefa;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: #3e86f5;
+}
 
-   /* 구인글 좋아요 버튼 */
-  .project .content .like_btn{
-    transform: translate(-50%,-50%);
-    margin-right: 20px;
-    margin-top: 10px;
-    
-  }
+.project .position_list .gender {
+  padding: 3px 10px;
+  grid-gap: 5px;
+  gap: 5px;
+  height: 22px;
+  background: rgb(250, 237, 250);
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgb(180, 110, 180);
+}
 
-  .project .content .like_btn .heart{
-    position: absolute;
-    background: url("/image/img.png") no-repeat;
-    background-position: left;
-    background-size: 2900%;
-    height: 90px;
-    width: 90px;
-    top: 50%;
-    left: 21%;
-    transform: translate(-50%,-50%);
-    z-index: 99;
-  }
+/* 자세히보기 및 좋아요 버튼 구분 */
+.project .content {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+}
 
-  .project .content .like_btn .heart.heart-active{
-    animation: animate .8s steps(28) 1;
-    background-position: right;
-  }
+/* 구인글 자세히 보기 */
+.project .content .more_btn {
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  color: #5a5a5a;
+}
 
-  @keyframes animate {
-    0%{
-      background-position: left;
-    }
-    100%{
-      background-position: right;
-    }
-  }
+.project .content .more_btn:hover {
+  color: black;
+}
 
-  /* 구분선 */
-  .project .border {
-    border-top: 2px solid #f2f2f2;
-  }
+.project .content .more_btn .fa-arrow-up-right-from-square {
+  font-size: 12px;
+}
 
-  /* 구인글 내정보 표시란 */
-  .project .myinfo {
-    display: flex;
-    font-size: 14px;
-    font-weight: 500;
-    justify-content: space-between;
-    letter-spacing: -.04em;
-    margin-top: 12px;
-  }
+/* 구분선 */
+.project .border {
+  border-top: 2px solid #f2f2f2;
+}
 
-  .project .myinfo .user_info {
-    display: flex;
-    align-items: center;
-    grid-gap: 10px;
-    gap: 10px;
-  }
+/* 구인글 내정보 표시란 */
+.project .myinfo {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: space-between;
+  letter-spacing: -0.04em;
+  padding-top: 15px;
+}
 
-  .project .myinfo .user_info .icon {
-    display: block;
-    border-radius: 50%;
-    object-fit: cover;
-    width: 45px;
-    border: 1px solid gray;
-  }
+.project .myinfo .user_info {
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+}
 
-  .project .myinfo .user_info .nickname {
-    margin: 0;
-  }
+.project .myinfo .user_info .icon {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 45px;
+  height: 45px;
+  border: 1px solid gray;
+  margin-right: 6px;
+}
 
-  .project .myinfo .user_info .nickname .accent {
-    color:#eb2f8d;
-  }
+.project .myinfo .user_info .nickname {
+  margin: 0;
+}
 
-  .project .myinfo .viewAndInfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-gap: 10px;
-    gap: 10px;
-    margin-right: 8px;
-  }
+.project .myinfo .user_info .nickname .accent {
+  color: purple;
+}
 
-  /* 페이지 이동 */
-  .pagination{
-    text-align: center;
-    margin: 30px 30px 60px;
-    user-select: none;
-  }
-  
-  .pagination li{
-    display: inline-block;
-    margin: 5px;
-    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
-  }
-  
-  .pagination li a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    line-height: 45px;
-  }
-  
-  .previous-page, .next-page{
-    background: #409FF1;
-    width: 80px;
-    border-radius: 45px;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  .previous-page:hover{
-    transform: translateX(-5px);
-  }
-  
-  .next-page:hover{
-    transform: translateX(5px);
-  }
-  
-  .current-page, .dots{
-    background: #ccc;
-    width: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .active{
-    background: #409FF1;
-  }
-  
-  .disable{
-    background: #ccc;
-  }
- 
+.project .myinfo .viewAndInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.project .myinfo .viewAndInfo .fa-heart {
+  color: rgb(230, 30, 30);
+  font-size: 15px;
+  font-style: inherit;
+}
+
+.project .myinfo .viewAndInfo .fa-comment {
+  color: rgb(41, 87, 212);
+  font-size: 15px;
+}
+
+/* 페이지 이동 */
+.pagination {
+  text-align: center;
+  margin: 30px 30px 60px;
+  user-select: none;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 5px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+
+.pagination li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 45px;
+}
+
+.previous-page,
+.next-page {
+  background: #409ff1;
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.previous-page:hover {
+  transform: translateX(-5px);
+}
+
+.next-page:hover {
+  transform: translateX(5px);
+}
+
+.current-page,
+.dots {
+  background: #ccc;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.active {
+  background: #409ff1;
+}
+
+.disable {
+  background: #ccc;
+}
 
 /** 전시 공연 글 작성 목록 **/
-  .main_post2 {
-    max-width: 1310px;
-    margin: 0 auto;
-    margin-top: 50px;
-  }
+.main_post2 {
+  max-width: 1310px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
 
-  .main_post2 .main_title {
-    display: flex;
-    align-items: center;
-    padding: 0 50px;
-    font-size: 20px;
-  }
+.main_post2 .main_title {
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  font-size: 20px;
+}
 
-  .main_post2 .main_title .fa-rocket {
-    font-size: 32px;
-    margin-right: 12px;
-    color: #f875a3;
-  }
-  
+.main_post2 .main_title .fa-rocket {
+  font-size: 32px;
+  margin-right: 12px;
+  color: #f875a3;
+}
 
 /******************/
 /*  포스터 카드  */
@@ -368,13 +431,10 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  border-left: 0.4px solid #eee ;
-  box-shadow: 
-    12px 13px 10px -7px #0000001A;
-  transition: all .4s
-    cubic-bezier(0.1, 0.8, 0, 1);
+  border-left: 0.4px solid #eee;
+  box-shadow: 12px 13px 10px -7px #0000001a;
+  transition: all 0.4s cubic-bezier(0.1, 0.8, 0, 1);
 }
-
 
 /* 포스터 이미지 및 호버 */
 .poster .img {
@@ -387,12 +447,12 @@
   height: 235px;
   position: absolute;
   top: 0;
+  z-index: 3;
   transition: 0.2s all ease-out;
 }
 
 .poster:hover {
-  box-shadow: 
-    0 30px 18px -8px #0000001A;
+  box-shadow: 0 30px 18px -8px #0000001a;
   transform: scale(1.05);
 }
 
@@ -426,14 +486,34 @@
   color: #656565;
 }
 
-.forMusical {
+.forTheater {
   color: rgb(143, 3, 143);
   background-color: rgb(253, 205, 253);
 }
 
-.forTheater {
-  color:#097275;
-  background-color: #ebf9fa;
+.forDrama {
+  color: rgb(32, 32, 150);
+  background-color: rgb(182, 182, 253)
+}
+
+.forWebContent {
+  color: rgb(11, 105, 11);
+  background-color: rgb(211, 255, 211);
+}
+
+.forAdvertising {
+  color: rgb(184, 125, 17);
+  background-color: rgb(253, 230, 187);
+}
+
+.forExhibition {
+  color: rgb(150, 56, 43);
+  background-color: rgb(252, 204, 197);
+}
+
+.forEtc {
+  background: #efefef;
+  color: #656565;
 }
 
 /* 뱃지 연령대 표시 */
@@ -443,24 +523,12 @@
   padding: 4px 12px;
 }
 
-.forAll {
-  color: green;
-  background-color: rgb(216, 250, 216);
-  }
-.for12 {
-   color: rgb(52, 52, 253);
-   background-color: #c8e4fd;
-  }
-.for15 {
-  color: #f57309; 
-  background: #f7e6f6;
-  }
-.for19 {
-   color: red;
-   background-color: rgb(255, 212, 212);
-  }
+.forAge {
+  color: #3e86f5;
+  background: #e9eefa;
+}
 
-  .poster .info .badge .charge {
+.poster .info .badge .charge {
   font-size: 12px;
   border-radius: 20px;
   padding: 4px 12px;
@@ -491,58 +559,73 @@
   color: #818181;
 }
 
+/* 구인글 좋아요 버튼 */
+.like_plus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+/* 페이지 이동 */
+.pagination2 {
+  text-align: center;
+  margin: 30px 30px 200px;
+  user-select: none;
+}
 
+.pagination2 li {
+  display: inline-block;
+  margin: 5px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
 
+.pagination2 li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 45px;
+}
 
+.previous-page2,
+.next-page2 {
+  background: #409ff1;
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
 
-  /* 페이지 이동 */
-  .pagination2{
-    text-align: center;
-    margin: 30px 30px 60px;
-    user-select: none;
-  }
-  
-  .pagination2 li{
-    display: inline-block;
-    margin: 5px;
-    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
-  }
-  
-  .pagination2 li a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    line-height: 45px;
-  }
-  
-  .previous-page2, .next-page2{
-    background: #409FF1;
-    width: 80px;
-    border-radius: 45px;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  .previous-page2:hover{
-    transform: translateX(-5px);
-  }
-  
-  .next-page2:hover{
-    transform: translateX(5px);
-  }
-  
-  .current-page2, .dots2{
-    background: #ccc;
-    width: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .active2{
-    background: #409FF1;
-  }
-  
-  .disable2{
-    background: #ccc;
-  }
+.previous-page2:hover {
+  transform: translateX(-5px);
+}
+
+.next-page2:hover {
+  transform: translateX(5px);
+}
+
+.current-page2,
+.dots2 {
+  background: #ccc;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.active2 {
+  background: #409ff1;
+}
+
+.disable2 {
+  background: #ccc;
+}
+
+.deadline2 {
+  position: absolute;
+  bottom: -15px;
+  margin-left: 15px;
+  z-index: 99;
+  text-align: center;
+  display: block;
+  width: 90%;
+  opacity: 0.8;
+}

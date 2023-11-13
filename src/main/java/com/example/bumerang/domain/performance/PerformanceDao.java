@@ -7,6 +7,8 @@ import com.example.bumerang.web.dto.response.performance.PfRespDto;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface PerformanceDao {
     public Performance findById(Integer pfId);
 
@@ -26,6 +28,10 @@ public interface PerformanceDao {
 
     PfRespDto findByRecent();
 
-    DetailFormDto findByPf(Integer pfId);
+    DetailFormDto findByPf(@Param("userId")Integer userId, @Param("pfId")Integer pfId);
+
+    public List<PfListDto> findMyPfList(Integer userId);
+
+    public void updateNoTumbnail(Performance performance);
 
 }

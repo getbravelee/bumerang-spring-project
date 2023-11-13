@@ -25,7 +25,6 @@
         GROUP BY p.pf_id
     </select>
 
-
     <select id="findNoticeList" resultType="com.example.bumerang.web.dto.response.admin.NoticeListDto">
         SELECT *
         FROM notice
@@ -112,6 +111,12 @@
         DELETE FROM job_search_position
         WHERE job_id = #{jobId}
     </delete>
+
+
+    <update id="deleteNotice">
+        DELETE FROM notice
+        WHERE notice_id = ${noticeId};
+    </update>
 
     <update id="deleteJob">
         UPDATE job_search
@@ -460,4 +465,11 @@
         GROUP BY d.day
         ORDER BY d.day;
     </select>
+    <update id="findReportJobListUpdate">
+        UPDATE report
+        SET
+        report_status = 'deleted'
+        WHERE
+        report_id = #{reportId}
+    </update>
 </mapper>

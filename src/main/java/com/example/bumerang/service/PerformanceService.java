@@ -1,5 +1,16 @@
 package com.example.bumerang.service;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.domain.performance.Performance;
 import com.example.bumerang.domain.performance.PerformanceDao;
@@ -11,16 +22,8 @@ import com.example.bumerang.web.dto.response.performance.DetailFormDto;
 import com.example.bumerang.web.dto.response.performance.PfCommentDto;
 import com.example.bumerang.web.dto.response.performance.PfListDto;
 import com.example.bumerang.web.dto.response.performance.PfRespDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
@@ -62,16 +65,17 @@ public class PerformanceService {
 			try {
 				// 이미지 파일 이름을 랜덤으로 생성
 				String fileName = UUID.randomUUID() + "_" + thumbnail.getOriginalFilename();
+				System.out.println("fileName: " + fileName);
 				Path imagePath = Paths.get(imageUploadPath + fileName);
-
+				System.out.println("imagePath: " + imagePath);
 				// 이미지 저장
 				thumbnail.transferTo(imagePath.toFile());
-
+				System.out.println("저장");
 				// 이미지 파일 경로를 반환
-				return imageUploadPath + fileName;
+				return fileName;
 			} catch (IOException e) {
 				e.printStackTrace();
-				// 이미지 업로드 실패 처리
+				System.err.println("이미지 업로드 실패: " + e.getMessage());				// 이미지 업로드 실패 처리
 				return null;
 			}
 		}
@@ -86,7 +90,7 @@ public class PerformanceService {
 
 	public DetailFormDto findByPf(Integer userId, Integer pfId) {
 		List<PfCommentDto> findByCommentList = commentDao.findByPfCommentList(pfId);
-		DetailFormDto findByPf = performanceDao.findByPf(pfId);
+		DetailFormDto findByPf = performanceDao.findByPf(userId, pfId);
 		findByPf.setCommentList(findByCommentList);
 		viewDao.count(pfId,null,userId);
 		return findByPf;
@@ -110,5 +114,15 @@ public class PerformanceService {
 		performanceDao.delete(pfId);
 		Performance deleteResult = performanceDao.findById(pfId);
 		return deleteResult;
+	}
+
+    public List<PfListDto> findMyPfList(Integer userId) {
+		List<PfListDto> myPfList = performanceDao.findMyPfList(userId);
+		return myPfList;
+    }
+
+	public void updateNoTumbnail(UpdateDto updateDto) {
+		Performance performance = updateDto.toPerformance();
+		performanceDao.updateNoTumbnail(performance);
 	}
 }

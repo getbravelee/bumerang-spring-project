@@ -1,6 +1,5 @@
 /* URL */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@700&family=Shrikhand&family=Single+Day&family=Source+Code+Pro:wght@600&family=Source+Sans+3:wght@600;700&display=swap");
 
 .pf_container {
   max-width: 1100px;
@@ -13,6 +12,11 @@
   justify-content: space-between;
 }
 
+.pf_title_area .pf_display {
+  width: 100%;
+  max-width: 1095px;
+}
+
 .pf_title_area .myinfo {
   display: flex;
   justify-content: flex-start;
@@ -20,35 +24,49 @@
 }
 
 .pf_title_area .myinfo .pf_title {
+  display: --webkit-box;
+  --webkit-box-orient: vertical;
+  --webkit-line-clamp: 2;
   font-size: 36px;
   font-weight: 700;
   padding-bottom: 10px;
 }
 
 .pf_title_area .myinfo .pf_label {
+  max-width: 1100px;
   display: flex;
-  justify-content: flex-start;
-  align-items: end;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
-.pf_title_area .myinfo .pf_label .pf_img {
+.pf_title_area .myinfo .pf_label .user_info {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.pf_title_area .myinfo .pf_label .user_info a {
+  display: flex;
+  align-items: flex-end;
+}
+
+.pf_title_area .myinfo .pf_label .user_info .pf_img {
   border-radius: 50%;
   width: 33px;
   height: 33px;
   border: 0.5px solid #eee;
-  padding-left: 5px;
 }
 
-.pf_title_area .myinfo .pf_label .pf_nickname {
+.pf_title_area .myinfo .pf_label .user_info p {
   font-size: 16px;
   letter-spacing: -1px;
   padding-bottom: 4px;
 }
 
-.pf_title_area .myinfo .pf_label .pf_creation_date {
-  font-size: 13px;
+.pf_title_area .myinfo .pf_label .user_info .pf_nickname {
+  font-size: 16px;
   letter-spacing: -1px;
-  margin-left: 30px;
+  padding-bottom: 4px;
 }
 
 .pf_title_area .pf_status {
@@ -58,22 +76,22 @@
   font-size: 20px;
 }
 
-.pf_title_area .pf_status p{
+.pf_title_area .pf_status p {
   padding-right: 15px;
   padding-left: 5px;
   font-size: 15px;
   letter-spacing: -0.5px;
 }
 
-.pf_title_area .pf_status .fa-eye{
+.pf_title_area .pf_status .fa-eye {
   color: rgb(14, 13, 13);
 }
 
-.pf_title_area .pf_status .fa-heart{
+.pf_title_area .pf_status .fa-heart {
   color: rgb(231, 128, 231);
 }
 
-.pf_title_area .pf_status img{
+.pf_title_area .pf_status img {
   width: 22px;
   height: 20px;
   padding-bottom: 1px;
@@ -132,9 +150,13 @@
   padding-bottom: 5px;
 }
 
+.pf_info .column .detail_info .pf_during {
+  letter-spacing: -0.5px;
+}
+
 .pf_info .column .detail_info li .accent {
   font-size: 18px;
-  color: #459FEE;
+  color: #459fee;
   line-height: 1;
   font-family: sans-serif;
   font-weight: 900;
@@ -162,10 +184,43 @@
   overflow: auto;
   line-height: 1.8;
   outline: none;
-  resize: none;
   border: none;
 }
+/* 글내용 폰트 관련 */
+.pf_info .column .pf_intro .introduce p {
+  font-size: 18px;
+  margin: 10px 0px;
+}
 
+.pf_info .column .pf_intro .introduce h1 {
+  font-size: 36px;
+  margin: 15px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h2 {
+  font-size: 32px;
+  margin: 15px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h3 {
+  font-size: 28px;
+  margin: 15px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h4 {
+  font-size: 24px;
+  margin: 13px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h5 {
+  font-size: 20px;
+  margin: 10px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h6 {
+  font-size: 16px;
+  margin: 10px 0px;
+}
 /***************/
 /* 본문 하단 버튼 */
 /***************/
@@ -179,7 +234,7 @@
   background-color: #459fee;
   border: 1px solid #ccc;
   border-radius: 50px;
-  border-width: 0 0 4px;
+  border-width: 0 0 2px;
   box-sizing: border-box;
   width: 80px;
   height: 50px;
@@ -215,7 +270,6 @@
   gap: 15px;
 }
 
-
 .delete_confirm #confirmDelete {
   background-color: palevioletred;
 }
@@ -233,14 +287,13 @@
 
 .comment_container {
   margin: 0 auto;
-  margin: 80px 50px;
+  margin: 80px 50px 300px;
 }
 
 .comment_container .top {
   max-width: 1000px;
   width: 100%;
   height: 190px;
-
 }
 
 .comment_container .top form {
@@ -295,18 +348,18 @@ form .write_comment .form_info {
 
 .top button {
   background-color: #459fee;
-  border: solid transparent;
+  border: 1px solid #ccc;
   border-radius: 50px;
-  border-width: 0 0 4px;
+  border-width: 0 0 2px;
   box-sizing: border-box;
   width: 80px;
   height: 50px;
-  font-size: 16px;
+  font-size: 18px;
   color: white;
   cursor: pointer;
   outline: none;
-  touch-action: manipulation;
-  transition: filter 0.2s;
+  /* touch-action: manipulation;
+  transition: filter 0.2s; */
 }
 /* 
 .top button:hover:not(:disabled) {
@@ -357,6 +410,12 @@ form .write_comment .form_info {
   margin-right: 10px;
 }
 
+.comment_card .comment_top .pic img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
 .comment_info .nickname {
   font-size: 22px;
   margin: 0px;
@@ -365,7 +424,6 @@ form .write_comment .form_info {
 .comment_info .created_date {
   font-size: 18px;
   color: gray;
-  
 }
 
 .comment_card .comment_btns button {
@@ -389,6 +447,4 @@ form .write_comment .form_info {
   resize: none;
   outline: none;
   overflow: hidden;
-  
 }
-

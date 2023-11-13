@@ -36,11 +36,12 @@
     </delete>
 
     <select id="findByJobCommentList" resultType="com.example.bumerang.web.dto.response.jobSearch.JobCommentDto">
-        SELECT *
+        SELECT c.comment_id, c.comment_content, u.user_id, u.user_nickname, u.user_profile_img, c.created_at
         FROM user u
-        LEFT JOIN comment c
-        ON u.user_id = c.user_id
+                 LEFT JOIN comment c
+                           ON u.user_id = c.user_id
         WHERE c.job_id = #{jobId}
+          AND c.comment_status != 'deleted'
         ORDER BY c.created_at DESC
     </select>
 
@@ -51,11 +52,12 @@
     </select>
 
     <select id="findByPfCommentList" resultType="com.example.bumerang.web.dto.response.performance.PfCommentDto">
-        SELECT *
+        SELECT c.comment_id, c.comment_content, u.user_id, u.user_nickname, u.user_profile_img, c.created_at
         FROM user u
-        LEFT JOIN comment c
-        ON u.user_id = c.user_id
+                 LEFT JOIN comment c
+                           ON u.user_id = c.user_id
         WHERE c.pf_id = #{pfId}
-        AND c.comment_status != 'deleted'
+          AND c.comment_status != 'deleted'
+        ORDER BY c.created_at DESC
     </select>
 </mapper>

@@ -5,12 +5,18 @@
   max-width: 900px;
   margin: 0 auto;
   margin-top: 70px;
+  margin-bottom: 200px;
   padding: 12px;
 }
 
 .pf_title_area {
   display: flex;
   justify-content: space-between;
+}
+
+.pf_title_area .pf_display {
+  width: 100%;
+  max-width: 895px;
 }
 
 .pf_title_area .myinfo {
@@ -34,13 +40,18 @@
   max-width: 900px;
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .pf_title_area .myinfo .pf_label .user_info {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 10px;
+}
+
+.pf_title_area .myinfo .pf_label .user_info a {
+  display: flex;
+  align-items: flex-end;
 }
 
 .pf_title_area .myinfo .pf_label .user_info .pf_img {
@@ -48,7 +59,6 @@
   width: 33px;
   height: 33px;
   border: 0.5px solid #eee;
-  padding-left: 5px;
 }
 
 .pf_title_area .myinfo .pf_label .user_info p {
@@ -125,9 +135,9 @@
   width: 48%;
   text-align: center;
   gap: 12px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.5px;
   padding-bottom: 5px;
 }
@@ -152,18 +162,51 @@
 }
 
 .pf_info .column .pf_intro .introduce {
-  font-size: 18px;
-  padding: 0 5px;
+  padding: 0 5px 30px;
   margin-top: 30px;
   overflow: hidden;
   width: 100%;
   height: auto;
   outline: none;
-  resize: none;
   border: none;
   border-bottom: solid 2px #eee;
+  font-family: inherit;
+}
+/* 글내용 폰트 관련 */
+.pf_info .column .pf_intro .introduce p {
+  font-size: 18px;
+  margin: 10px 0px;
 }
 
+.pf_info .column .pf_intro .introduce h1 {
+  font-size: 36px;
+  margin: 15px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h2 {
+  font-size: 32px;
+  margin: 15px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h3 {
+  font-size: 28px;
+  margin: 15px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h4 {
+  font-size: 24px;
+  margin: 13px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h5 {
+  font-size: 20px;
+  margin: 10px 0px;
+}
+
+.pf_info .column .pf_intro .introduce h6 {
+  font-size: 16px;
+  margin: 10px 0px;
+}
 /***************/
 /* 본문 하단 버튼 */
 /***************/
@@ -177,7 +220,7 @@
   background-color: #459fee;
   border: 1px solid #ccc;
   border-radius: 50px;
-  border-width: 0 0 4px;
+  border-width: 0 0 2px;
   box-sizing: border-box;
   width: 80px;
   height: 50px;
@@ -212,7 +255,6 @@
   padding: 10px;
   gap: 15px;
 }
-
 
 .delete_confirm #confirmDelete {
   background-color: palevioletred;
@@ -292,18 +334,18 @@ form .write_comment .form_info {
 
 .top button {
   background-color: #459fee;
-  border: solid transparent;
+  border: 1px solid #ccc;
   border-radius: 50px;
-  border-width: 0 0 4px;
+  border-width: 0 0 2px;
   box-sizing: border-box;
   width: 80px;
   height: 50px;
-  font-size: 16px;
+  font-size: 18px;
   color: white;
   cursor: pointer;
   outline: none;
-  touch-action: manipulation;
-  transition: filter 0.2s;
+  /* touch-action: manipulation;
+  transition: filter 0.2s; */
 }
 /* 
 .top button:hover:not(:disabled) {
@@ -352,6 +394,12 @@ form .write_comment .form_info {
   width: 60px;
   height: 60px;
   margin-right: 10px;
+}
+
+.comment_card .comment_top .pic img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
 }
 
 .comment_info .nickname {

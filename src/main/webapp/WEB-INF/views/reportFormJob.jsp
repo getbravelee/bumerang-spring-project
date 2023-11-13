@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <!DOCTYPE html>
@@ -16,19 +16,17 @@
         <!-- AJax -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script src="js/report.js"></script>
-
       </head>
 
       <body>
         <div class="report_container">
           <h1>신고하기</h1>
           <input type="hidden" value="${targetId}" id="targetId">
-          <input type="hidden" value="${userId}" id="userId">
+          <input type="hidden" value="${principal.userId}" id="userId">
 
           <div class="target_info" id="targetInfo">
-            <div><span>작 성</span><span>김휴고</span></div>
-            <div><span>내 용</span><span>만병통치약, '휴고의 눈물' 팝니다</span></div>
+            <div><span>작 성 자</span><span>${jobInfo.userNickname}</span></div>
+            <div><span>제 목</span><span>${jobInfo.jobContentTitle}</span></div>
           </div>
           <div class="reason_info">
             <h3>사유선택</h3>
@@ -37,7 +35,7 @@
                 <input type="radio" name="reportType" value="같은 내용의 반복 게시(도배)" />스팸홍보/도배글입니다.
               </li>
               <li>
-                <input type="radio" name="reportType" value="음란성/선전성" /><label for="reason">음란물입니다.</label>
+                <input type="radio" name="reportType" value="음란성/선전성" /><label>음란물입니다.</label>
               </li>
               <li>
                 <input type="radio" name="reportType" value="불법정보" /><label>불법정보를 포함하고 있습니다.</label>
@@ -62,16 +60,12 @@
                 <input id="reportContent" type="text" class="guitar" wrap="hard" />
               </li>
             </ul>
-
-
-            </ul>
-
           </div>
           <div class="btn_wrap">
             <button class="jobReportBtn">제 출</button>
           </div>
         </div>
-        <script src="/js/report.js"></script>
+        <script src="/js/reportJob.js"></script>
       </body>
 
       </html>

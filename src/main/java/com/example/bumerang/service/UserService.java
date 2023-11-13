@@ -8,11 +8,15 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import com.example.bumerang.web.dto.request.user.PasswdDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobListDto;
+import com.example.bumerang.web.dto.response.performance.PfListDto;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao;
 import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.user.User;
 import com.example.bumerang.domain.user.UserDao;
@@ -22,8 +26,6 @@ import com.example.bumerang.web.dto.SessionUserDto;
 import com.example.bumerang.web.dto.request.user.JoinDto;
 import com.example.bumerang.web.dto.request.user.LoginDto;
 import com.example.bumerang.web.dto.request.user.UpdateDto;
-import com.example.bumerang.web.dto.response.likey.LikeyJSListDto;
-import com.example.bumerang.web.dto.response.likey.LikeyPFListDto;
 import com.example.bumerang.web.dto.response.user.SearchIdDto;
 import com.example.bumerang.web.dto.response.user.SearchPwDto;
 import com.example.bumerang.web.dto.response.user.UserJobSearchDto;
@@ -39,6 +41,7 @@ public class UserService {
 
     private final HttpSession session;
     private final UserDao userDao;
+	private final JobSearchPositionDao jobSearchPositionDao;
     private final LikeyDao likeyDao;
     private final JavaMailSender emailSender;
     private final String imageUploadPath = "C:/bumerang/img/"; // 여기서 경로 수정
@@ -58,7 +61,10 @@ public class UserService {
     public SessionUserDto findByUser(LoginDto loginDto) {
         String enPassword = sha256.encrypt(loginDto.getUserPassword());
         loginDto.setUserPassword(enPassword); // 암호화된 비밀번호로 회원가입
+        System.err.println("getUserLoginId"+loginDto.getUserLoginId());
+        System.err.println("getUserPassword"+loginDto.getUserPassword());
         SessionUserDto userPS = userDao.findByUser(loginDto);
+        System.err.println("userPSgetUserLoginId"+userPS.getUserLoginId());
         return userPS;
     }
 
@@ -80,15 +86,10 @@ public class UserService {
 
     // 사용자 정보 수정
     public UserRespDto update(UpdateDto updateDto){
-        String enPassword = sha256.encrypt(updateDto.getUserPassword());
-        updateDto.setUserPassword(enPassword);
         userDao.updateUser(updateDto);
-        // 사용자 분야 수정
-        List<String> uftitleList = updateDto.getUftitle();
-        userDao.fieldDelete(updateDto.getUserId());
-        for(String ufTitle : uftitleList){
-            userDao.fieldInsert(ufTitle, updateDto.getUserId());
-        }
+        userDao.updateUfTitle(updateDto.getUserId(), updateDto.getUftitle());
+        System.err.println("updateDto.getUserId()======="+updateDto.getUserId());
+        System.err.println("updateDto.getUftitle()======="+updateDto.getUftitle());
         // 사용자 포트폴리오 수정
         List<UserPortfolio> upList = updateDto.getUserPortfolio();
         userDao.portfolioDelete(updateDto.getUserId());
@@ -110,13 +111,19 @@ public class UserService {
     }
 
     //관심 구인글 록록
-    public List<LikeyJSListDto> likeyfindAllJSList() {
-        return likeyDao.likeyFindSJList ();
+    public List<JobListDto> likeyfindAllJSList(Integer userId) {
+
+        List<JobListDto> findAllJob = likeyDao.likeyFindSJList(userId);
+		for (int i = 0; i < findAllJob.size(); i++) {
+			List<String> jobPositionTitle = jobSearchPositionDao.findById(findAllJob.get(i).getJobId());
+			findAllJob.get(i).setJobPositionTitle(jobPositionTitle);
+		}
+        return findAllJob;
     }
 
     // 관심 공연글 목록
-    public List<LikeyPFListDto> likeyfindAllPFList() {
-        return likeyDao.likeyFindPFList();
+    public List<PfListDto> likeyfindAllPFList(Integer userId) {
+        return likeyDao.likeyFindPFList(userId);
 
     }
     public List<UserJobSearchDto> myJSList(Integer userId) {
@@ -186,7 +193,7 @@ public class UserService {
                 profileImage.transferTo(imagePath.toFile());
 
                 // 이미지 파일 경로를 반환
-                return imageUploadPath + fileName;
+                return fileName;
             } catch (IOException e) {
                 e.printStackTrace();
                 // 이미지 업로드 실패 처리
@@ -210,4 +217,24 @@ public class UserService {
         User userPS = userDao.findByEmail(userEmail);
         return userPS;
     }
+
+    public PasswdDto updatePasswd(String userPassword, Integer userId) {
+        String enPassword = sha256.encrypt(userPassword);
+        userPassword = enPassword;
+        System.err.println("userId: "+userId);
+        System.err.println("getUserPassword: "+userPassword);
+        userDao.updatePassword(userPassword, userId);
+        User userPS = userDao.findById(userId);
+        PasswdDto passUpdateResult = userDao.findByPwUpdateResult(userPassword, userId);
+        return passUpdateResult;
+    }
+
+    public void updateProfileImage(Integer userId,String imagePath) {
+        userDao.updateProfileImage(userId,imagePath);
+    }
+
+    public void delete(Integer userId) {
+        userDao.delete(userId);
+    }
+  
 }

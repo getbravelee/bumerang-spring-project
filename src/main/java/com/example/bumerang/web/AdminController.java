@@ -2,6 +2,7 @@ package com.example.bumerang.web;
 
 import com.example.bumerang.service.AdminService;
 import com.example.bumerang.web.dto.request.notice.WriteDto;
+import com.example.bumerang.web.dto.request.report.ReportDto;
 import com.example.bumerang.web.dto.response.CMRespDto;
 import com.example.bumerang.web.dto.response.admin.*;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class AdminController {
     private final AdminService adminService;
 
     // 메인 화면
-    @GetMapping("/admin/indexForm")
+    @GetMapping("/s/api/auth/admin/indexForm")
     public String indexForm(Model model) {
         List<PostListDto> postPS = adminService.findAllPost();
         ViewListDto viewPS = adminService.findByView();
@@ -41,6 +42,10 @@ public class AdminController {
     @GetMapping("/s/api/auth/manage/userListForm")
     public String findUserListForm(Model model) {
         List<UserListDto> userList = adminService.findUserList();
+        for(UserListDto item : userList ){
+            System.out.println(item.getUserId());
+            System.out.println(item.getUserNickname());
+        }
         model.addAttribute("userList",userList);
         return "admin/manage/userListForm";
     }
@@ -49,6 +54,7 @@ public class AdminController {
     @GetMapping("/s/api/auth/manage/userDetailForm/{userId}")
     public String findUserDetailForm(@PathVariable Integer userId, Model model) {
         UserRespDto userPS = adminService.findByUserId(userId);
+        System.err.println("userId: " +userPS.getUserId());
         model.addAttribute("userPS",userPS);
         return "admin/manage/userDetailForm";
     }
@@ -62,7 +68,7 @@ public class AdminController {
     }
 
     // 사용자 수정하기 기능
-    @PutMapping("/s/api/auth/manage/userUpdate")
+    @PutMapping("/s/api/auth/manage/userUpdate/{userId}")
     public @ResponseBody CMRespDto<?> updateUser(@RequestBody UserDetailDto userDetailDto ) {
         UserRespDto userPS = adminService.updateUser(userDetailDto);
         return new CMRespDto<>(1, "사용자 정보 수정 성공.", userPS);
@@ -115,6 +121,7 @@ public class AdminController {
         return new CMRespDto<>(1, "구인글 정보 삭제 성공.", jobPS);
     }
 
+
     // 공연글 관리 목록 화면
     @GetMapping("/s/api/auth/manage/pfListForm")
     public String findManagePfListForm(Model model) {
@@ -150,7 +157,15 @@ public class AdminController {
     @DeleteMapping("/s/api/auth/manage/pfDelete/{pfId}")
     public @ResponseBody CMRespDto<?> deletePf(@PathVariable Integer pfId) {
         PfDetailDto pfPS = adminService.deletePf(pfId);
+        System.out.println(pfPS.getPfId());
         return new CMRespDto<>(1, "공연글 정보 삭제 성공.", pfPS);
+    }
+
+    // 공지글 삭제 기능
+    @DeleteMapping("/s/api/auth/manage/noticeDelete/{noticeId}")
+    public @ResponseBody CMRespDto<?> deleteNotice(@PathVariable Integer noticeId) {
+        NoticeDetailDto noticePS = adminService.deleteNotive(noticeId);
+        return new CMRespDto<>(1, "공지글 정보 삭제 성공.", noticePS);
     }
 
     // 공지글 관리 목록 화면
@@ -185,12 +200,34 @@ public class AdminController {
         return "admin/report/jobListForm";
     }
 
+    // 구인글 신고 상세보기 화면
+    @GetMapping("/s/api/auth/report/jobDetailForm/{jobId}")
+    public String findReportJobDetailForm(@PathVariable Integer jobId, Model model) {
+        JobDetailDto jobPS = adminService.findByJobId(jobId);
+        model.addAttribute("jobPS",jobPS);
+        return "admin/report/jobDetailForm";
+    }
+//  구인글 신고화면 수정(삭제)기능
+    @PutMapping("/s/api/auth/report/jobListFormUpdate/{reportId}")
+    public @ResponseBody CMRespDto<?> findReportJobListForm(@PathVariable Integer reportId) {
+       adminService.findReportJobListUpdate(reportId);
+        return new CMRespDto<>(1, "댓글 정보 삭제 성공.", null);
+    }
+
     // 공연글 신고 목록 화면
     @GetMapping("/s/api/auth/report/pfListForm")
     public String findReportPfListForm(Model model) {
         List<PfListDto> reportPfList = adminService.findReportPfList();
         model.addAttribute("pfList", reportPfList);
         return "admin/report/pfListForm";
+    }
+
+    // 공연글 신고 상세보기 화면
+    @GetMapping("/s/api/auth/report/pfDetailForm/{pfId}")
+    public String findReportPfDetailForm(@PathVariable Integer pfId, Model model) {
+        PfDetailDto pfPS = adminService.findByPfId(pfId);
+        model.addAttribute("pfPS", pfPS);
+        return "admin/report/pfDetailForm";
     }
 
     // 댓글 신고 목록 화면

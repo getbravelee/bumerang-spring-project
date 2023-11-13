@@ -8,14 +8,14 @@
             resultType="com.example.bumerang.domain.jobSearch.JobSearch">
         SELECT * FROM job_search
         WHERE job_id=#{jobId}
-        AND job_status != 'deleted'
+          AND job_status != 'deleted'
     </select>
 
     <select id="findAll"
             resultType="com.example.bumerang.domain.jobSearch.JobSearch">
         SELECT *
         FROM job_search
-        AND job_status != 'deleted'
+            AND job_status != 'deleted'
     </select>
 
     <insert id="insert">
@@ -26,47 +26,48 @@
     <update id="update">
         UPDATE job_search
         SET
-        job_content_title = #{jobContentTitle},
-        job_content = #{jobContent},
-        job_genre = #{jobGenre},
-        job_art_title = #{jobArtTitle},
-        job_start_date = #{jobStartDate},
-        job_production_date = #{jobProductionDate},
-        job_to = #{jobTo},
-        job_gender = #{jobGender},
-        job_contact = #{jobContact},
-        job_deadline = #{jobDeadline}
+            job_content_title = #{jobContentTitle},
+            job_content = #{jobContent},
+            job_genre = #{jobGenre},
+            job_art_title = #{jobArtTitle},
+            job_start_date = #{jobStartDate},
+            job_production_date = #{jobProductionDate},
+            job_to = #{jobTo},
+            job_gender = #{jobGender},
+            job_contact = #{jobContact},
+            job_deadline = #{jobDeadline}
         WHERE
-        job_id = #{jobId}
-        AND user_id = #{userId}
-        AND job_status != 'deleted'
+            job_id = #{jobId}
+          AND user_id = #{userId}
+          AND job_status != 'deleted'
     </update>
 
     <delete id="delete">
         UPDATE job_search
         SET
-        job_status = 'deleted'
+            job_status = 'deleted'
         WHERE job_id = #{jobId}
     </delete>
 
     <select id="findByJob" resultType="com.example.bumerang.web.dto.response.jobSearch.DetailFormDto">
         SELECT *,
-        (SELECT COUNT(*) FROM likey WHERE job_id = #{jobId}) as likeyCount,
-        (SELECT COUNT(*) FROM view WHERE job_id = #{jobId}) as viewCount,
-        if(l.likey_id IS NOT NULL, TRUE, FALSE) as isLikey,
-        l.likey_id
+               (SELECT COUNT(*) FROM likey WHERE job_id = #{jobId}) as likeyCount,
+               (SELECT COUNT(*) FROM view WHERE job_id = #{jobId}) as viewCount,
+               if(l.likey_id IS NOT NULL, TRUE, FALSE) as isLikey,
+               l.likey_id
         FROM job_search j
-        LEFT JOIN user u
-        ON j.user_id = u.user_id
-        LEFT JOIN  (SELECT * FROM likey WHERE user_id = #{userId}) l
-        ON j.job_id = l.job_id
+                 LEFT JOIN user u
+                           ON j.user_id = u.user_id
+                 LEFT JOIN  (SELECT * FROM likey WHERE user_id = #{userId}) l
+                            ON j.job_id = l.job_id
         WHERE j.job_id = #{jobId}
-        AND j.job_status != 'deleted'
+          AND j.job_status != 'deleted'
     </select>
 
     <select id="findAllJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
         SELECT
-		  j.job_id AS jobId,
+        j.job_id AS jobId,
+        j.created_at AS createdAt,
         j.job_genre AS jobGenre,
         j.job_deadline AS jobDeadline,
         j.job_content_title AS jobContentTitle,
@@ -74,55 +75,69 @@
         u.user_nickname AS userNickname,
         u.user_career AS userCareer,
         u.user_id AS userId,
+        (SELECT GROUP_CONCAT(jp.job_position_title) FROM job_search_position jp WHERE jp.job_id = j.job_id) as jobPositionTitles,
         COALESCE(v.view_count, 0) AS viewCount,
         COALESCE(c.comment_count, 0) AS commentCount,
         COALESCE(l.likey_count, 0) AS likeyCount,
         IF(DATEDIFF(j.job_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
-        IF(DATE(j.created_at) = CURDATE(), TRUE, FALSE) AS isToday
-        FROM job_search j
-        JOIN user u ON j.user_id = u.user_id
+        IF(DATE(j.created_at) = CURDATE(), TRUE, FALSE) AS isToday,
+        IF((l.likey_count <![CDATA[ > ]]> 10), TRUE, false) AS isFame
+        FROM
+        (SELECT * 
+			FROM job_search 
+			WHERE job_status != 'deleted') j
+        JOIN
+        (SELECT * 
+		FROM user 
+		WHERE user_status != 'deleted') u ON j.user_id = u.user_id
         LEFT JOIN (
-        SELECT job_id, COUNT(*) AS view_count FROM view GROUP BY job_id
+        SELECT job_id, COUNT(*) AS view_count 
+		  FROM view 
+		  GROUP BY job_id
         ) v ON j.job_id = v.job_id
         LEFT JOIN (
-        SELECT job_id, COUNT(*) AS comment_count FROM comment WHERE comment_status = 'active' GROUP BY job_id
+        SELECT job_id, COUNT(*) AS comment_count 
+		  FROM comment 
+		  WHERE comment_status != 'deleted'
+		  GROUP BY job_id
         ) c ON j.job_id = c.job_id
         LEFT JOIN (
         SELECT job_id, COUNT(*) AS likey_count FROM likey GROUP BY job_id
         ) l ON j.job_id = l.job_id
-        WHERE j.job_status = 'active'
-        ORDER BY j.created_at DESC;
+        ORDER BY
+        j.created_at DESC
     </select>
 
     <select id="findAllBestJob" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
         SELECT
-        j.job_id AS jobId,
-        j.job_genre AS jobGenre,
-        j.job_deadline AS jobDeadline,
-        j.job_content_title AS jobContentTitle,
-        u.user_profile_img AS userProfileImg,
-        u.user_nickname AS userNickname,
-        u.user_career AS userCareer,
-        u.user_id AS userId,
-        COALESCE(v.view_count, 0) AS viewCount,
-        COALESCE(c.comment_count, 0) AS commentCount,
-        COALESCE(l.likey_count, 0) AS likeyCount,
-        IF(DATEDIFF(j.job_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
-        IF(DATE(j.created_at) = CURDATE(), TRUE, FALSE) AS isToday
+            j.job_id AS jobId,
+            j.job_genre AS jobGenre,
+            j.job_deadline AS jobDeadline,
+            j.job_content_title AS jobContentTitle,
+            u.user_profile_img AS userProfileImg,
+            u.user_nickname AS userNickname,
+            u.user_career AS userCareer,
+            u.user_id AS userId,
+            COALESCE(v.view_count, 0) AS viewCount,
+            COALESCE(c.comment_count, 0) AS commentCount,
+            COALESCE(l.likey_count, 0) AS likeyCount,
+            IF(DATEDIFF(j.job_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
+            IF(DATE(j.created_at) = CURDATE(), TRUE, FALSE) AS isToday,
+            IF((l.likey_count <![CDATA[ > ]]> 10), TRUE, false) AS isFame
         FROM job_search j
-        JOIN user u ON j.user_id = u.user_id
-        LEFT JOIN (
-        SELECT job_id, COUNT(*) AS view_count FROM view GROUP BY job_id
+                 JOIN user u ON j.user_id = u.user_id
+                 LEFT JOIN (
+            SELECT job_id, COUNT(*) AS view_count FROM view GROUP BY job_id
         ) v ON j.job_id = v.job_id
-        LEFT JOIN (
-        SELECT job_id, COUNT(*) AS comment_count FROM comment WHERE comment_status = 'active' GROUP BY job_id
+                 LEFT JOIN (
+            SELECT job_id, COUNT(*) AS comment_count FROM comment WHERE comment_status != 'deleted' GROUP BY job_id
         ) c ON j.job_id = c.job_id
-        LEFT JOIN (
-        SELECT job_id, COUNT(*) AS likey_count FROM likey GROUP BY job_id
+                 LEFT JOIN (
+            SELECT job_id, COUNT(*) AS likey_count FROM likey GROUP BY job_id
         ) l ON j.job_id = l.job_id
-        WHERE j.job_status = 'active'
+        WHERE j.job_status = 'active' AND u.user_status != 'deleted'
         ORDER BY likeyCount DESC
-        LIMIT 8
+            LIMIT 8
     </select>
 
     <select id="findByRecent" resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
@@ -134,22 +149,58 @@
     <select id="findByUpdateResult"
             resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
         SELECT * FROM job_search
-        WHERE job_id=#{jobId} AND job_status='deleted'
+        WHERE job_id=#{jobId} AND job_status !='deleted'
     </select>
 
     <select id="findByDelete"
             resultType="com.example.bumerang.web.dto.response.jobSearch.JobRespDto">
         SELECT *
         FROM job_search j
-        WHERE j.job_id=#{jobId} AND job_status='deleted'
+        WHERE j.job_id=#{jobId} AND job_status ='deleted'
     </select>
 
     <update id="dead">
         UPDATE job_search
         SET
-        job_status = 'dead'
+            job_status = 'dead'
         WHERE
-        job_id = #{jobId}
-        AND user_id = #{userId} AND job_status='deleted'
+            job_id = #{jobId}
+          AND user_id = #{userId} AND job_status !='deleted'
     </update>
+
+    <select id="findMyJSList" resultType="com.example.bumerang.web.dto.response.jobSearch.JobListDto">
+        SELECT
+        js.job_id,
+        js.job_genre,
+        js.job_deadline,
+        js.job_content_title,
+        u.user_profile_img,
+        u.user_nickname,
+        u.user_career,
+        js.user_id,
+        COUNT(DISTINCT v.view_id) AS viewCount,
+        COUNT(DISTINCT c.comment_id) AS commentCount,
+        COUNT(DISTINCT l.likey_id) AS likeyCount,
+        IF(DATEDIFF(js.job_deadline, CURDATE()) <![CDATA[ < ]]> 0, true, false) AS isDead,
+        DATE(js.created_at) = CURRENT_DATE() AS isToday,
+        COUNT(DISTINCT l.likey_id) <![CDATA[ >= ]]> 10 AS isFame
+        FROM
+        job_search js
+        JOIN
+        user u ON js.user_id = u.user_id
+        LEFT JOIN
+        view v ON js.job_id = v.job_id
+        LEFT JOIN
+        comment c ON js.job_id = c.job_id
+        LEFT JOIN
+        likey l ON js.job_id = l.job_id
+        WHERE
+        js.user_id = #{userId}
+        AND js.job_status != 'deleted' 
+        AND u.user_status != 'deleted' 
+        GROUP BY
+        js.job_id
+        ORDER BY
+        js.created_at DESC
+    </select>
 </mapper>

@@ -51,7 +51,7 @@ $(function () {
   var numberOfItems = $(".search_job_slide").length;
   var limitPerPage = 4; //How many search_job_slide items visible per a page
   var totalPages = Math.ceil(numberOfItems / limitPerPage);
-  var paginationSize = 7; //How many page elements visible in the pagination
+  var paginationSize = 5; //How many page elements visible in the pagination
   var currentPage;
 
   function showPage(whichPage) {
@@ -160,7 +160,7 @@ $(function(){
   var numberOfItems = $(".search").length;
   var limitPerPage = 4; //How many poster_wrapper items visible per a page
   var totalPages = Math.ceil(numberOfItems / limitPerPage);
-  var paginationSize = 7; //How many page elements visible in the pagination
+  var paginationSize = 5; //How many page elements visible in the pagination
   var currentPage;
 
   function showPage(whichPage){

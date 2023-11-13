@@ -119,8 +119,8 @@
                             pfStatus: $("#pfStatus").val(),
                             pfId: $("#pfId").val()
                         };
-
-                        $.ajax("/manage/pfUpdate", {
+                        console.log(data);
+                        $.ajax("/s/api/auth/manage/pfUpdate", {
                             type: "PUT",
                             dataType: "json",
                             data: JSON.stringify(data),

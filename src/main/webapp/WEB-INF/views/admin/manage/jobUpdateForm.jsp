@@ -131,10 +131,10 @@
                             jobDeadline: $("#jobDeadline").val(),
                             jobStatus: $("#jobStatus").val(),
                             jobPositionTitle: selectedPositions,
-                            jobId: $("#jobId").val()
+                            jobId: $("#jobId").val(),
                         };
 
-                        $.ajax("/manage/jobUpdate", {
+                        $.ajax("/s/api/auth/manage/jobUpdate", {
                             type: "PUT",
                             dataType: "json",
                             data: JSON.stringify(data),
@@ -158,7 +158,7 @@
                         var newSelect = document.createElement("select");
                         newSelect.id = "jobPositionTitle"
 
-                        var options = ["배우", "스텝", "감독", "성우"];
+                        var options = ["배우", "연출", "음향", "카메라", "조명", "작가", "기타"];
 
                         options.forEach(function (optionValue) {
                             var option = document.createElement("option");

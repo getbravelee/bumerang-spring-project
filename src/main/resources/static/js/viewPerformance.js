@@ -1,3 +1,43 @@
+/***************/
+/* 본문 하단 버튼 */
+/***************/
+
+if (
+  document.querySelector(".edit_btn") &&
+  document.querySelector(".delete_btn")
+) {
+  const editBtn = document.querySelector(".edit_btn");
+  const deleteBtn = document.querySelector(".delete_btn");
+  editBtn.addEventListener("click", editPost);
+  deleteBtn.addEventListener("click", openDeleteConfirm);
+  function editPost() {
+    window.location.href = "/s/api/performance/updateForm/" + pfId;
+  }
+
+  // 삭제확인창 열기
+  function openDeleteConfirm() {
+    let deleteConfirm = document.querySelector(".delete_confirm");
+    deleteConfirm.style.display = "flex";
+  }
+  // 삭제버튼들 연결
+  const confirmDelete = document.querySelector("#confirmDelete");
+  confirmDelete.addEventListener("click", () => {
+    deletePf();
+  });
+  const closeDelete = document.querySelector("#closeDelete");
+  closeDelete.addEventListener("click", () => {
+    let deleteConfirm = document.querySelector(".delete_confirm");
+    deleteConfirm.style.display = "none";
+  });
+}
+const pfReportBtn = document.querySelector(".pfReportBtn");
+pfReportBtn.addEventListener("click", reportPf);
+
+// const commentReportBtn = document.querySelector(".commentReport");
+// commentReportBtn.addEventListener("click", reportComment);
+
+let pfId = $("#pfId").val();
+
 /*******/
 /* 댓글 */
 /*******/
@@ -19,14 +59,14 @@ function submitFeedback(e) {
   // get feedback
   const commentForm = comment.value;
   const currentTime = new Date();
-  // if inputs are not empty
+  // if inputs are not empt삭
   if (userForm && commentForm !== "") {
     // create new feedback
     newFeedback = {
       id: 1,
       userName: userForm,
       userComment: commentForm,
-      createdDate: currentTime.toString(),
+      createdDate: currentTime.toString()
     };
     // add new feedback to array
     feedbackArr.push(newFeedback);
@@ -36,11 +76,6 @@ function submitFeedback(e) {
   }
 
   e.preventDefault();
-}
-
-// 댓글 창을 초기화 함수
-function resetForm() {
-  comment.value = "";
 }
 
 // 저장된 배열에서 댓글 정보를 불러와 html에 붙여넣는 함수
@@ -63,21 +98,26 @@ function addFeedback(item) {
                     <p class="nickname">
                         ${item.userName}
                     </p>
-                    <p class="created_date">${item.createdDate}</p>
+                    <p class="created_date"><fmt:formatDate value="${item.createdDate}" pattern="yy.MM.dd kk:mm" type="date" /></p>
                 </div>
             </div>
             <div class="comment_btns">
                 <button class='editBtn'>수정</button>
                 <button class='removeBtn'>삭제</button>
-                <button class='reportBtn'>신고하기</button>
+                <button class='commentReportBtn'>신고하기</button>
             </div>
         </div>
-        <textarea class="comment textarea" readonly>${item.userComment}</textarea>
-        
+        <textarea class="comment textarea" id="commentContent" readonly>${item.userComment}</textarea>
+
     `;
   // insert feedback into the list
   commentsCont.insertAdjacentElement("beforeend", div);
   activeCommentBtn();
+}
+
+// 댓글 창을 초기화 함수
+function resetForm() {
+  comment.value = "";
 }
 
 // 댓글 버튼 활성화
@@ -85,7 +125,7 @@ function activeCommentBtn() {
   // 각 버튼 요소 선택
   const editButtons = document.querySelectorAll(".editBtn");
   const removeButtons = document.querySelectorAll(".removeBtn");
-  const reportButtons = document.querySelectorAll(".reportBtn");
+  const reportButtons = document.querySelectorAll(".commentReportBtn");
 
   // 각 버튼과 함수 연결
   editButtons.forEach((editButton) => {
@@ -120,6 +160,25 @@ function saveComment() {
   textarea.readOnly = true;
   textarea.style.border = "none";
 
+  let data = {
+    pfId: $("#pfId").val(),
+    commentId: commentCard.querySelector(".commentId").value,
+    commentContent: textarea.value,
+    userId: $("#userId").val()
+  };
+
+  $.ajax("/s/api/comment/update", {
+    type: "PUT",
+    data: JSON.stringify(data),
+    dataType: "json",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  }).done((res) => {
+    if (res.code == 1) {
+      alert(res.msg);
+    }
+  });
   const editBtn = commentCard.querySelector(".editBtn");
   editBtn.innerText = "수정";
   editBtn.removeEventListener("click", saveComment);
@@ -129,19 +188,72 @@ function saveComment() {
 // 댓글 삭제
 function removeComment() {
   const commentCard = this.closest(".comment_card"); // 삭제 버튼의 부모 comment_card 요소 찾기
-  commentsCont.removeChild(commentCard);
+  if (confirm("정말 삭제하시겠습니까?")) {
+    const commentCard = this.closest(".comment_card"); // 저장 버튼의 부모 comment_card 요소 찾기
+
+    let data = {
+      commentId: commentCard.querySelector(".commentId").value,
+      pfId: $("#pfId").val(),
+      userId: $("#userId").val()
+    };
+
+    $.ajax("/s/api/comment/delete", {
+      type: "DELETE",
+      dataType: "json",
+      data: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).done((res) => {
+      if (res.code == 1) {
+        alert(res.msg);
+        location.reload();
+      } else {
+        alert(res.msg);
+        return false;
+      }
+    });
+  }
 }
 
-//  댓글 신고하기
-function reportComment() {
-  var nWidth = "500";
-  var nHeight = "600";
+//  공연글 신고하기
+function reportPf() {
+  let pfId = $("#pfId").val();
+  let userId = $("#pfUserId").val();
+
+  var nWidth = "700";
+  var nHeight = "900";
   var xPos = document.body.clientWidth / 2 - nWidth / 2;
   xPos += window.screenLeft; //듀얼 모니터
   var yPos = screen.availHeight / 2 - nHeight / 2;
 
   window.open(
-    "./report.html",
+    "/s/api/reportFormPf/" + pfId + "/" + userId,
+    "신고하기",
+    "width=" +
+      nWidth +
+      ",height=" +
+      nHeight +
+      ",left=" +
+      xPos +
+      ", top=" +
+      yPos +
+      ",toolbar=no"
+  );
+}
+
+//  댓글 신고하기
+function reportComment(commentId) {
+  let userId = $("#userId").val();
+
+  var nWidth = "700";
+  var nHeight = "900";
+  var xPos = document.body.clientWidth / 2 - nWidth / 2;
+  xPos += window.screenLeft; //듀얼 모니터
+  var yPos = screen.availHeight / 2 - nHeight / 2;
+
+  window.open(
+    "/s/api/reportFormComment/" + commentId + "/" + userId,
     "신고하기",
     "width=" +
       nWidth +
@@ -169,3 +281,130 @@ function resizeTextarea() {
 // 페이지가 처음 로드될 때 기존 댓글들의 height값을 지정
 window.addEventListener("load", resizeTextarea);
 activeCommentBtn();
+
+// 추천 아이콘 클릭
+$("#iconLove").click(() => {
+  let isLovedState = $("#iconLove").hasClass("fa-solid"); // hasClass => fa-solid 갖고 있으면 true 없으면 false
+  if (isLovedState) {
+    deleteLove();
+  } else {
+    insertLove();
+  }
+});
+
+// 공연글 추천하기
+function insertLove() {
+  let data = {
+    pfId: $("#pfId").val(),
+    userId: $("#userId").val()
+  };
+
+  $.ajax("/s/api/likey", {
+    type: "POST",
+    data: JSON.stringify(data),
+    dataType: "json",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  }).done((res) => {
+    if (res.code == 1) {
+      renderLoves();
+      let count = $("#countLikey").text();
+      $("#countLikey").text(Number(count) + 1);
+      $("#likeyId").val(res.data.likeyId);
+    } else {
+      alert(res.msg);
+      location.href = "/user/loginForm";
+    }
+  });
+}
+
+// 공연글 추천 취소하기
+function deleteLove() {
+  let likeyId = $("#likeyId").val();
+
+  $.ajax("/s/api/unlikey/" + likeyId, {
+    type: "DELETE",
+    dataType: "json"
+  }).done((res) => {
+    if (res.code == 1) {
+      renderCancelLoves();
+      let count = $("#countLikey").text();
+      $("#countLikey").text(Number(count) - 1);
+    } else {
+      alert(res.msg);
+    }
+  });
+}
+
+// 하트 그리기
+function renderLoves() {
+  $("#iconLove").removeClass("fa-regular");
+  $("#iconLove").addClass("fa-solid");
+}
+
+// 하트 지우기
+function renderCancelLoves() {
+  $("#iconLove").removeClass("fa-solid");
+  $("#iconLove").addClass("fa-regular");
+}
+
+// 공연글 삭제
+function deletePf() {
+  let data = {
+    pfId: $("#pfId").val(),
+    userId: $("#userId").val()
+  };
+
+  $.ajax("/s/api/performance/delete", {
+    type: "DELETE",
+    data: JSON.stringify(data),
+    dataType: "json",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  }).done((res) => {
+    if (res.code == 1) {
+      alert(res.msg);
+      location.href = "/performance/mainForm";
+    } else {
+      alert(res.msg);
+      return false;
+    }
+  });
+}
+
+// 댓글 작성
+$("#commentWriteBtn").click(() => {
+  write();
+});
+
+function write() {
+  let data = {
+    commentContent: $("#commentContent").val(),
+    pfId: $("#pfId").val(),
+    userId: $("#userId").val()
+  };
+  if (data.commentContent.length < 1) {
+    alert("댓글을 입력해주세요.");
+    return;
+  }
+
+  $.ajax("/s/api/comment/write", {
+    type: "POST",
+    dataType: "json",
+    data: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).done((res) => {
+    if (res.code == 1) {
+      alert(res.msg);
+      location.href = "/s/api/performance/detailForm/" + data.pfId;
+    } else {
+      alert(res.msg);
+      return false;
+    }
+  });
+}
+

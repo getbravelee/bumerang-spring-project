@@ -1,11 +1,11 @@
 package com.example.bumerang.web.dto.response.performance;
+
 import com.example.bumerang.web.dto.response.jobSearch.JobCommentDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
-
 
 @Setter
 @Getter
@@ -36,4 +36,7 @@ public class DetailFormDto {
     private Integer likeyCount;
     // 게시글 조회수
     private Integer viewCount;
+    // 내가 게시글 추천했는지 여부
+    private Boolean isLikey;
+    private Integer likeyId;
 }

@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&display=swap"
           rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link
           href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
           rel="stylesheet" />
@@ -26,17 +27,17 @@
 
       <body>
         <%@ include file="layout/header.jsp" %>
-
           <div class="container">
             <div class="board_write_wrap">
               <div class="top">
                 <div class="board_name">
                   <i class="fa-solid fa-feather-pointed"></i>
                   <h2>공연정보 쓰기</h2>
+                  <input type="hidden" id="userId" value="${principal.userId}">
                 </div>
                 <div class="bt_wrap">
-                  <a href="viewPerformance.html" class="save">등록</a>
-                  <a href="performance.html" class="cancel">취소</a>
+                  <a class="save" id="pfWriteBtn">등록</a>
+                  <a href="/performance/mainForm" class="cancel">취소</a>
                 </div>
               </div>
               <div class="board_write">
@@ -44,27 +45,29 @@
                   <dl>
                     <dt>작품 제목</dt>
                     <dd>
-                      <input type="text" placeholder="" value="" />
+                      <input type="text" id="pfTitle" placeholder="작품 제목을 입력해주세요." maxlength="30" />
                     </dd>
                   </dl>
                 </div>
                 <div class="info">
                   <div class="left">
-                    <input type="file" id="pf_img" />
+                    <div id="imagePreviewContainer">
+                    </div>
+                    <input type="file" name="thumbnail" id="pfThumbnail" onchange="previewImage(event)" value="/image/defaultThumb.png" />
                   </div>
                   <div class="right">
                     <dl>
                       <dt>공연 기간</dt>
                       <dd>
-                        <input class="date" type="date" id="pf_start_date" value="" />부터
-                        <input class="date" type="date" id="pf_deadline" value="" />까지
+                        <input class="date" type="date" id="pfStartDate" value="" />부터
+                        <input class="date" type="date" id="pfDeadline" value="" />까지
                       </dd>
                     </dl>
-                    <dl>
+                    <dl class="select">
                       <dt>관람 연령</dt>
                       <dd>
                         <div class="select_single">
-                          <span class="btn-text">하나를 골라주세요</span>
+                          <span class="btn-text" id="pfAgerating">하나를 골라주세요</span>
                           <span class="arrow-dwn">
                             <i class="fa-solid fa-chevron-down"></i>
                           </span>
@@ -74,7 +77,7 @@
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">전체관람가</span>
+                            <span class="item-text">모든연령</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
@@ -92,7 +95,7 @@
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">청소년 관람불가</span>
+                            <span class="item-text">19세 이상</span>
                           </li>
                         </ul>
                       </dd>
@@ -100,20 +103,20 @@
                     <dl>
                       <dt>공연 시간</dt>
                       <dd>
-                        <input type="number" id="pf_runningtime" value="" placeholder="00분" />
+                        <input type="text" pattern="\d*" id="pfRunningtime" placeholder="00분" maxlength="6" />
                       </dd>
                     </dl>
                     <dl>
                       <dt>예매 링크</dt>
                       <dd>
-                        <input type="text" id="pf_bookingmethod" value="" placeholder="예매링크, 예매처 번호 등" />
+                        <input type="text" id="pfBookingmethod" placeholder="예매링크, 예매처 번호 등" maxlength="200" />
                       </dd>
                     </dl>
-                    <dl>
+                    <dl class="select">
                       <dt>작품 장르</dt>
                       <dd>
                         <div class="select_single">
-                          <span class="btn-text">하나를 골라주세요</span>
+                          <span class="btn-text" id="pfGenre">하나를 골라주세요</span>
                           <span class="arrow-dwn">
                             <i class="fa-solid fa-chevron-down"></i>
                           </span>
@@ -123,49 +126,49 @@
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">단편영화</span>
+                            <span class="item-text" value="장편영화">단편영화</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">장편영화</span>
+                            <span class="item-text" value="연극">장편영화</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">연극</span>
+                            <span class="item-text" value="연극">연극</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">OTT/TV 드라마</span>
+                            <span class="item-text" value="드라마">드라마</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">웹 컨텐츠</span>
+                            <span class="item-text" value="웹 컨텐츠">웹 컨텐츠</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">광고</span>
+                            <span class="item-text" value="광고">광고</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">전시</span>
+                            <span class="item-text" value="전시">전시</span>
                           </li>
                           <li class="single_item">
                             <span class="checkbox">
                               <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">기타</span>
+                            <span class="item-text" value="기타">기타</span>
                           </li>
                         </ul>
                       </dd>
@@ -173,19 +176,19 @@
                     <dl>
                       <dt>제 작</dt>
                       <dd>
-                        <input type="text" id="pf_production" value="" placeholder="제작자 또는 제작사" />
+                        <input type="text" id="pfProduction" placeholder="제작자 또는 제작사" maxlength="30" />
                       </dd>
                     </dl>
                     <dl>
                       <dt>가 격</dt>
                       <dd>
-                        <input type="number" id="pf_price" value="" placeholder="00원" />
+                        <input type="text" pattern="\d*" id="pfPrice" placeholder="00원" maxlength="8" />
                       </dd>
                     </dl>
                     <dl>
                       <dt>위 치</dt>
                       <dd>
-                        <input type="text" id="pf_location" value="" placeholder="공연장소" />
+                        <input type="text" id="pfLocation" placeholder="공연장소" maxlength="33" />
                       </dd>
                     </dl>
                   </div>
@@ -204,6 +207,7 @@
           <script src="https://kit.fontawesome.com/3f247b3389.js" crossorigin="anonymous"></script>
           <script src="/js/writePerformance.js"></script>
           <script src="/js/default.js"></script>
+          <%@ include file="layout/footer.jsp" %>
       </body>
 
       </html>

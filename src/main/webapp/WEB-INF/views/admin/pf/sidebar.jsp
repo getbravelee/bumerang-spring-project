@@ -5,7 +5,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="/s/api/auth/indexForm">
+                    <a class="nav-link" href="/s/api/auth/admin/indexForm">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         <!-- 대쉬보드 -->
                     </a>

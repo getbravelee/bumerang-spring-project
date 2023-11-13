@@ -12,8 +12,6 @@
         <link rel="stylesheet" href="/css/writeNotice.css" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&display=swap"
           rel="stylesheet">
-        <!-- JQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- AJax -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -57,12 +55,12 @@
                   <dl>
                     <dt>작성 시간</dt>
                     <dd>
-                      <fmt:formatDate value="${notice.createdAt}" pattern="yy.MM.dd kk:mm" type="date" />
+                      <fmt:formatDate value="${notice.createdDate}" pattern="yy.MM.dd kk:mm" type="date" />
                     </dd>
                   </dl>
                 </div>
-                <div class="content">
-                  <p>${notice.noticeContent}</p>
+                <div class="contentDetail">
+                  ${notice.noticeContent}
                 </div>
               </div>
               <div class="bt_wrap">
@@ -75,6 +73,7 @@
           </div>
           <script src="/js/notice.js"></script>
           <script src="/js/default.js"></script>
+          <%@ include file="layout/footer.jsp" %>
       </body>
 
       </html>

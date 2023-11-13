@@ -73,7 +73,7 @@
                 function remove(commentId) {
                     if (confirm("댓글을 삭제하시겠습니까?")) {
                         $.ajax({
-                            url: "/manage/commentDelete/" + commentId,
+                            url: "/s/api/auth/manage/commentDelete/" + commentId,
                             type: "DELETE",
                             headers: {
                                 "Content-Type": "application/json; charset=utf-8",

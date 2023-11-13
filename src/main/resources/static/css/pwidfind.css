@@ -30,7 +30,7 @@
 }
 .id_button, .pw_button{
     display: flex;
-    width: 50%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;

@@ -33,4 +33,19 @@ public class ReportService {
 		Report commentReportResult = reportDao.findByRecent();
 		return commentReportResult;
 	}
+
+	public ReportDto findByTargetIdPf(Integer targetId) {
+		ReportDto pfInfo = reportDao.findByTargetIdPf(targetId);
+		return pfInfo;
+	}
+
+	public ReportDto findByTargetIdJob(Integer targetId) {
+		ReportDto jobInfo = reportDao.findByTargetIdJob(targetId);
+		return jobInfo;
+	}
+
+	public ReportDto findByTargetIdComment(Integer targetId) {
+		ReportDto commentInfo = reportDao.findByTargetIdComment(targetId);
+		return commentInfo;
+	}
 }

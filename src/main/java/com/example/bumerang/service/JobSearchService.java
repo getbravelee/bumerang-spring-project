@@ -4,16 +4,17 @@ import com.example.bumerang.domain.comment.CommentDao;
 import com.example.bumerang.domain.jobSearch.JobSearch;
 import com.example.bumerang.domain.jobSearch.JobSearchDao;
 import com.example.bumerang.domain.jobSearchPosition.JobSearchPositionDao;
-import com.example.bumerang.domain.likey.LikeyDao;
 import com.example.bumerang.domain.view.ViewDao;
 import com.example.bumerang.web.dto.request.jobSearch.DeadlineDto;
 import com.example.bumerang.web.dto.request.jobSearch.UpdateDto;
 import com.example.bumerang.web.dto.request.jobSearch.WriteDto;
-import com.example.bumerang.web.dto.response.jobSearch.*;
+import com.example.bumerang.web.dto.response.jobSearch.DetailFormDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobCommentDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobListDto;
+import com.example.bumerang.web.dto.response.jobSearch.JobRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -47,9 +48,15 @@ public class JobSearchService {
 
 	//구인글 상세보기
 	public DetailFormDto findByJob(Integer userId, Integer jobId) {
+        System.err.println("디버그3: "+userId);
+        System.err.println("디버그4: "+jobId);
 		String jobPositionLists = jobSearchPositionDao.findPositionList(jobId);
+        System.err.println("디버그5: "+jobPositionLists);
 		List<JobCommentDto> findByCommentList = commentDao.findByJobCommentList(jobId);
+		List<String> jobPositionTitle = jobSearchPositionDao.findById(jobId);
 		DetailFormDto findByJob = jobSearchDao.findByJob(userId, jobId);
+        System.err.println("디버그6: "+findByJob.getJobArtTitle());
+		findByJob.setJobPositionTitle(jobPositionTitle);
 		findByJob.setJobPositionTitles(jobPositionLists);
 		findByJob.setCommentList(findByCommentList);
 		viewDao.count(null,jobId, userId);
@@ -107,4 +114,13 @@ public class JobSearchService {
 		JobSearch deadlineResult = jobSearchDao.findById(deadlineDto.getJobId());
 		return deadlineResult;
 	}
+
+    public List<JobListDto> findMyJSList(Integer userId) {
+		List<JobListDto> findMyJSList = jobSearchDao.findMyJSList(userId);
+		for (int i = 0; i < findMyJSList.size(); i++) {
+			List<String> jobPositionTitle = jobSearchPositionDao.findById(findMyJSList.get(i).getJobId());
+			findMyJSList.get(i).setJobPositionTitle(jobPositionTitle);
+		}
+		return findMyJSList;
+    }
 }

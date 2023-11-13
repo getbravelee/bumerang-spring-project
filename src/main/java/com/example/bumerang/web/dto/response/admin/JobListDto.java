@@ -28,4 +28,6 @@ public class JobListDto {
     private String reportCreatedAt;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private Integer reportId;
+    private String reportStatus;
 }

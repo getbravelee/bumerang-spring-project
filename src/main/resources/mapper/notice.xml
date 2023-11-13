@@ -44,7 +44,7 @@
 
     <select id="findByNotice"
             resultType="com.example.bumerang.web.dto.response.notice.DetailFormDto">
-        SELECT *
+        SELECT *, n.created_at AS createdDate
         FROM user u
         LEFT JOIN notice n
         ON u.user_id = n.user_id

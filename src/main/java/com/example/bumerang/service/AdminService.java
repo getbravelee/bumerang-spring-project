@@ -4,6 +4,7 @@ import com.example.bumerang.domain.admin.AdminDao;
 import com.example.bumerang.domain.notice.Notice;
 import com.example.bumerang.domain.user.UserDao;
 import com.example.bumerang.web.dto.request.notice.WriteDto;
+import com.example.bumerang.web.dto.request.report.ReportDto;
 import com.example.bumerang.web.dto.response.admin.*;
 import com.example.bumerang.web.dto.response.admin.UserRespDto;
 import lombok.RequiredArgsConstructor;
@@ -93,7 +94,6 @@ public class AdminService {
         PfDetailDto pfPS = adminDao.findByPfId(pfDetailDto.getPfId());
         return pfPS;
     }
-
     public PfDetailDto deletePf(Integer pfId) {
         adminDao.deletePf(pfId);
         PfDetailDto pfPS = adminDao.findByPfId(pfId);
@@ -179,5 +179,20 @@ public class AdminService {
     public List<BoardCountOfWeekDto> boardCountOfWeek() {
         List<BoardCountOfWeekDto> boardCountOfWeek = adminDao.boardCountOfWeek();
         return boardCountOfWeek;
+    }
+
+    public NoticeDetailDto deleteNotive(Integer noticeId) {
+        adminDao.deleteNotice(noticeId);
+        NoticeDetailDto noticePS = adminDao.findByNoticeId(noticeId);
+        return noticePS;
+    }
+
+    public void findReportJobListUpdate(Integer reportId) {
+       adminDao.findReportJobListUpdate(reportId);
+//        for (JobListDto job : jobList) {
+//            System.err.println("Job ID: " + job.getJobId());
+//            System.err.println("Job Name: " + job.getReportId());
+//            System.err.println(" reportStatus" + job.getReportContent());
+//        }
     }
 }

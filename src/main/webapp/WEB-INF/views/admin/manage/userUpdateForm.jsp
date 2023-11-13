@@ -143,7 +143,7 @@
             userId: $("#userId").val()
         };
 
-        $.ajax("/s/api/auth/manage/userUpdate", {
+        $.ajax("/s/api/auth/manage/userUpdate/${userId}", {
             type: "PUT",
             dataType: "json",
             data: JSON.stringify(data),
